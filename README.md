@@ -59,7 +59,7 @@ Example Themes JSON:
     "vars": {
       "background": "#110000",
       "background_active": "#221919",
-      "b_rad": "0.1em",
+      "border_radius": "0.1em",
       "foreground": "#ddddcc",
       "muted": "#999988"
     }
