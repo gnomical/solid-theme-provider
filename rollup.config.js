@@ -21,7 +21,7 @@ export default {
   input: "src/ThemeProvider.tsx",
   output: [
     {
-      file: "dist/solid-theme-provider.js",
+      file: "dist/solid-theme-provider.jsx",
       format: "es",
     },
   ],
