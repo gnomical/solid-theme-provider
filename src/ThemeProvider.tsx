@@ -4,11 +4,13 @@ import fallbackThemes from "./fallbacks.themes.json";
 
 type ThemeProviderProps = {
   label: string;
+  prefix: string;
   styles: any;
   themes: any;
 };
 
 export function ThemeProvider(props: ThemeProviderProps) {
+  const prefix = props.prefix || "stp-";
   const themes = props.themes || fallbackThemes;
   const styles = props.styles || fallbackStyles;
 
@@ -31,7 +33,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
   createEffect(() => {
     Object.keys(themes[currentTheme()].colors).forEach(name => {
       document.documentElement.style.setProperty(
-        "--stp-" + name,
+        "--" + prefix + name,
         themes[currentTheme()].colors[name]
       );
     });
