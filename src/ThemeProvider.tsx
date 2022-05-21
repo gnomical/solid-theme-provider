@@ -2,19 +2,19 @@ import {
   createEffect,
   createSignal,
 } from 'solid-js';
-// import fallbackStyles from './fallbacks.module.scss';
+import fallbackStyles from './fallbacks.module.scss';
 import fallbackThemes from './fallbacks.themes.json';
 
-// type ThemeProviderProps = { 
-//   label: string;
-//   styles: any; 
-//   themes: any;
-// };
+type ThemeProviderProps = { 
+  label: string;
+  styles: any; 
+  themes: any;
+};
 
-export function ThemeProvider(props: any) {
+export function ThemeProvider(props: ThemeProviderProps) {
 
   const themes = props.themes || fallbackThemes;
-  // const styles = props.styles || fallbackStyles;
+  const styles = props.styles || fallbackStyles;
 
   const systemThemeIsDark = window.matchMedia("(prefers-color-scheme: dark)");
   const [currentTheme, setTheme] = createSignal(systemThemeIsDark ? themes.system_themes.dark : themes.system_themes.light);
@@ -41,11 +41,10 @@ export function ThemeProvider(props: any) {
     }
   }
 
-  return <div></div>
-  // return (
-  //   <div class={styles.button} onClick={() => toggleTheme(otherTheme())}>
-  //     <span class={styles.icon} innerHTML={atob(themes[otherTheme()].config.icon)} />
-  //     {props.label && <span class={styles.text}>{props.label}</span>}
-  //   </div>
-  // );
+  return (
+    <div class={styles.button} onClick={() => toggleTheme(otherTheme())}>
+      <span class={styles.icon} innerHTML={atob(themes[otherTheme()].config.icon)} />
+      {props.label && <span class={styles.text}>{props.label}</span>}
+    </div>
+  );
 }
