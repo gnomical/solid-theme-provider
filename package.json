@@ -10,8 +10,8 @@
     "url": "https://github.com/gnomical/solid-theme-provider"
   },
   "type": "module",
-  "main": "dist/solid-theme-provider.js",
-  "module": "dist/solid-theme-provider.js",
+  "main": "dist/solid-theme-provider.jsx",
+  "module": "dist/solid-theme-provider.jsx",
   "types": "types/ThemeProvider.d.ts",
   "files": [
     "dist",
