@@ -2,10 +2,12 @@
 
 Lightweight component that allows for theme switching by injecting css variables into the document's root element.
 
-This component also provides a simple UI for handling click to toggle interactions. It will default to the users system theme (light vs dark) and then allow the user to toggle with a button press.
+## Features
 
-The theme variables as well as the UI styles are able to be overridden.
-
+- Auto detect system theme (light vs dark)
+- click to toggle theme
+- dropdown list when more than 2 themes available
+- fully customizable
 ## Installation
 
 ```bash
@@ -42,7 +44,7 @@ import buttonStyles from './customThemesButton.css';
 >
 ```
 
-### Custom Themes
+## Custom Themes
 
 Example Themes JSON:
 
