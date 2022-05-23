@@ -1,7 +1,0 @@
-.DS_Store
-.vscode/
-coverage/
-dist/
-lib/
-node_modules/
-types/
