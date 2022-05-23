@@ -2,6 +2,8 @@
 
 Lightweight component that allows for theme switching by injecting css variables into the document's root element.
 
+![Example of UI with no configuration](blob/assets/minimum_ui.gif?raw=true)
+
 ## Features
 
 - Auto detect system theme (light vs dark)
