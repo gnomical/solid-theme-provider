@@ -2,7 +2,7 @@
 
 Lightweight component that allows for theme switching by injecting css variables into the document's root element.
 
-![Example of UI with no configuration](blob/assets/minimum_ui.gif?raw=true)
+![Example of UI with no configuration](https://github.com/gnomical/solid-theme-provider/blob/assets/minimum_ui.gif?raw=true)
 
 ## Features
 
