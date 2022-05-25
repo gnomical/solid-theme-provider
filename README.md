@@ -10,6 +10,7 @@ Lightweight component that allows for theme switching by injecting css variables
 - click to toggle theme
 - dropdown list when more than 2 themes available
 - fully customizable
+
 ## Installation
 
 ```bash

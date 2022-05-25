@@ -9,7 +9,14 @@
     "type": "git",
     "url": "https://github.com/gnomical/solid-theme-provider"
   },
-  "keywords": [ "solid", "solidjs", "ui", "themes", "color-scheme", "appearance" ],
+  "keywords": [
+    "solid",
+    "solidjs",
+    "ui",
+    "themes",
+    "color-scheme",
+    "appearance"
+  ],
   "type": "module",
   "main": "dist/solid-theme-provider.jsx",
   "module": "dist/solid-theme-provider.jsx",

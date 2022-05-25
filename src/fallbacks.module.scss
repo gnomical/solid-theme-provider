@@ -7,6 +7,7 @@
   background: var(--stp-background);
   color: var(--stp-muted);
   vertical-align: top;
+  position: relative;
 
   .icon,
   .text {
@@ -17,7 +18,10 @@
   }
 
   .icon {
-    padding-top: 0.2em;
+    width: 1.5em;
+    height: 1.5em;
+    position: relative;
+    margin: 0.2em 0;
   }
 
   .text:not(:empty) {
@@ -27,6 +31,54 @@
   .icon svg {
     width: 1.5em;
     fill: var(--stp-muted);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 0.25em);
+    left: 0;
+    font-size: 0.9em;
+    text-align: left;
+    border: 1px solid var(--stp-background_active);
+    border-radius: 0.5em;
+    padding: 0.25em;
+
+    > div {
+      white-space: nowrap;
+      padding: 0.15em 0.25em;
+      border-radius: 0.25em;
+      .icon {
+        font-size: 0.9em;
+        svg {
+          fill: var(--stp-muted);
+        }
+      }
+      .text {
+        padding-left: 0.5em;
+        color: var(--stp-muted);
+      }
+      &.active {
+        .text {
+          color: var(--stp-background_active);
+        }
+        .icon svg {
+          fill: var(--stp-background_active);
+        }
+      }
+      &:hover:not(.active) {
+        background: var(--stp-background_active);
+        .text {
+          color: var(--stp-foreground);
+        }
+        .icon svg {
+          fill: var(--stp-foreground);
+        }
+      }
+    }
   }
 
   &:hover {
