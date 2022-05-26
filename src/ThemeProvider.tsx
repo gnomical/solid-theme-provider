@@ -15,11 +15,14 @@ const SYSTEM_THEME_ICON = (
   </svg>
 );
 
+const SYSTEM_THEME_KEY = "stp_system_theme";
+
 export function ThemeProvider(props: ThemeProviderProps) {
   const prefix = props.prefix || "stp-";
   const themes = props.themes || fallbackThemes;
   const numThemes = Object.keys(themes).length - 1;
   const styles = props.styles || fallbackStyles;
+  const multiToggle = numThemes > 2;
 
   const systemThemeIsDark = window.matchMedia("(prefers-color-scheme: dark)");
   const [currentTheme, setTheme] = createSignal(
@@ -28,12 +31,23 @@ export function ThemeProvider(props: ThemeProviderProps) {
   const [otherTheme, setOtherTheme] = createSignal(
     systemThemeIsDark ? themes.system_themes.light : themes.system_themes.dark
   );
+  const [active, setActive] = createSignal(false);
+  const [useSystem, setUseSystem] = createSignal(true);
+  const [currentSystem, setCurrentSystem] = createSignal(currentTheme());
 
   systemThemeIsDark.addEventListener("change", e => {
+    if (useSystem()) {
+      let nextTheme = themes.system_themes.light;
+      if (e.matches) {
+        nextTheme = themes.system_themes.dark;
+      }
+      setOtherTheme(currentTheme());
+      setTheme(nextTheme);
+    }
     if (e.matches) {
-      toggleTheme(themes.system_themes.dark);
+      setCurrentSystem(themes.system_themes.dark);
     } else {
-      toggleTheme(themes.system_themes.light);
+      setCurrentSystem(themes.system_themes.light);
     }
   });
 
@@ -47,19 +61,39 @@ export function ThemeProvider(props: ThemeProviderProps) {
   });
 
   function toggleTheme(nextTheme: string) {
-    if (nextTheme != currentTheme()) {
+    if (nextTheme == SYSTEM_THEME_KEY) {
+      setUseSystem(true);
+      setTheme(currentSystem());
+    } else {
+      setUseSystem(false);
       setOtherTheme(currentTheme());
       setTheme(nextTheme);
     }
+    setActive(false);
+  }
+
+  function toggleDropdown() {
+    setActive(!active());
   }
 
   return (
-    <div class={styles.button} onClick={() => toggleTheme(otherTheme())}>
-      <span class={styles.icon} innerHTML={atob(themes[otherTheme()].config.icon)} />
-      {props.label && <span class={styles.text}>{props.label}</span>}
-      {numThemes && (
+    <div class={styles.component}>
+      <div
+        class={styles.button + (active() ? " " + styles.open : "")}
+        onClick={multiToggle ? () => toggleDropdown() : () => toggleTheme(otherTheme())}
+      >
+        <span
+          class={styles.icon}
+          innerHTML={atob(themes[multiToggle ? currentTheme() : otherTheme()].config.icon)}
+        />
+        {props.label && <span class={styles.text}>{props.label}</span>}
+      </div>
+      {active() && (
         <div class={styles.dropdown}>
-          <div>
+          <div
+            class={useSystem() ? styles.active : ""}
+            onClick={() => toggleTheme(SYSTEM_THEME_KEY)}
+          >
             <span class={styles.icon}>{SYSTEM_THEME_ICON}</span>
             <span class={styles.text}>System Theme</span>
           </div>
@@ -73,7 +107,10 @@ export function ThemeProvider(props: ThemeProviderProps) {
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(" ");
               return (
-                <div class={currentTheme() == themeName ? styles.active : ""}>
+                <div
+                  class={!useSystem() && currentTheme() == themeName ? styles.active : ""}
+                  onClick={() => toggleTheme(themeName)}
+                >
                   <span class={styles.icon} innerHTML={atob(themes[themeName].config.icon)} />
                   <span class={styles.text}>{themeLabel}</span>
                 </div>
