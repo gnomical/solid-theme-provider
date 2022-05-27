@@ -8,7 +8,7 @@ Lightweight component that allows for theme switching by injecting css variables
 
 - Auto detect system theme (light vs dark)
 - click to toggle theme
-- dropdown list when more than 2 themes available
+- dropdown list when more than 2 themes configured
 - fully customizable
 
 ## Installation
@@ -21,6 +21,8 @@ npm install solid-theme-provider
 
 #### Props:
 
+- **default** - string
+  the key of the theme that should be set upon first load. defaults to 'system'.
 - **label** - string  
   a text label that will display inside the theme toggle button.
 - **prefix** - string  
