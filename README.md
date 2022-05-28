@@ -25,8 +25,10 @@ npm install solid-theme-provider
   the key of the theme that should be set upon first load. defaults to 'system'.
 - **label** - string  
   a text label that will display inside the theme toggle button.
+  > defaults to an empty string
 - **prefix** - string  
-  override the css variable prefix. defaults to 'stp-'.
+  override the css variable prefix. 
+  > defaults to 'stp-'.
 - **styles** - style object  
   override the styles that get applied to the toggle button.
 - **themes** - json  
@@ -37,21 +39,30 @@ npm install solid-theme-provider
 `<ThemeProvider>` serves as both the UI handle and the receiver of the themes json which will control the themes available for switching
 
 ```jsx
-// Example with a modified label, custom themes, and custom button style
+// Example with a modified label
 import { ThemeProvider } from 'solid-theme-provider';
-import myThemes from './themes.json';
-import buttonStyles from './customThemesButton.css';
 
-<ThemeProvider
-  label="Toggle Theme"
-  themes={myThemes}
-  styles={buttonStyles}
->
+<ThemeProvider label="Toggle Theme">
 ```
+
+![Example of UI with custom label](https://github.com/gnomical/solid-theme-provider/blob/assets/label_ui.gif?raw=true)
 
 ## Custom Themes
 
-Example Themes JSON:
+```jsx
+// Example with more themes configured
+import { ThemeProvider } from 'solid-theme-provider';
+import myThemes from './themes.json';
+
+<ThemeProvider 
+  label="Toggle Theme"
+  themes={myThemes}
+>
+```
+
+![Example of UI with custom label](https://github.com/gnomical/solid-theme-provider/blob/assets/dropdown_ui.gif?raw=true)
+
+Example themes.json:
 
 ```json
 {
@@ -66,7 +77,7 @@ Example Themes JSON:
     "vars": {
       "background": "#110000",
       "background_active": "#221919",
-      "border_radius": "0.1em",
+      "border_radius": "0.25em",
       "foreground": "#ddddcc",
       "muted": "#999988"
     }
@@ -78,16 +89,28 @@ Example Themes JSON:
     "vars": {
       "background": "#ffffee",
       "background_active": "#f3eedd",
-      "border_radius": "0.5em",
+      "border_radius": "0.25em",
       "foreground": "#111100",
       "muted": "#777755"
+    }
+  },
+  "turtle": {
+    "config": {
+
+    },
+    "vars": {
+      "background": "#115522",
+      "background_active": "#226633",
+      "border_radius": "1em",
+      "foreground": "#eeffee",
+      "muted": "#ddcccc"
     }
   }
 }
 ```
 
 **system_themes**:  
-this object represents which of the themes listed in your root object should be used applied when accomodating system settings for theme preference
+this object represents which of the themes listed in your root object should be used applied when accommodating system settings for theme preference
 
 **all other root objects**:  
 Everything else is keyed by the theme name. If/when presented in the UI they will have their first first letters capitalized and underscores converted to spaces
@@ -96,7 +119,7 @@ Everything else is keyed by the theme name. If/when presented in the UI they wil
 > For now the only config per theme is an icon. This is presented within the toggle button to represent which theme will be applied if the button is clicked.
 
 > **vars**  
-> each property within this object becomes the variables that are injected into the document's root element styles. the keyname becomes the variable name after being combined with the prefix. For example, `background` would be combined with the default prefix to become the css variable `--stp-background`. You can store any value within these variables that would normally be accepted by the CSS standard.
+> each property within this object becomes the variables that are injected into the document's root element styles. the key name becomes the variable name after being combined with the prefix. For example, `background` would be combined with the default prefix to become the css variable `--stp-background`. You can store any value within these variables that would normally be accepted by the CSS standard.
 
 ## Custom Styles
 
