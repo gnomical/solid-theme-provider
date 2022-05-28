@@ -21,14 +21,15 @@ npm install solid-theme-provider
 
 #### Props:
 
-- **default** - string
-  the key of the theme that should be set upon first load. defaults to 'system'.
+- **default** - string  
+  the key of the theme that should be set upon first load.  
+  defaults to the system preference
 - **label** - string  
-  a text label that will display inside the theme toggle button.
-  > defaults to an empty string
+  a text label that will display inside the theme toggle button.  
+  defaults to an empty string
 - **prefix** - string  
-  override the css variable prefix. 
-  > defaults to 'stp-'.
+  override the css variable prefix.  
+  defaults to `'stp-'`
 - **styles** - style object  
   override the styles that get applied to the toggle button.
 - **themes** - json  
@@ -54,7 +55,7 @@ import { ThemeProvider } from 'solid-theme-provider';
 import { ThemeProvider } from 'solid-theme-provider';
 import myThemes from './themes.json';
 
-<ThemeProvider 
+<ThemeProvider
   label="Toggle Theme"
   themes={myThemes}
 >
@@ -96,7 +97,7 @@ Example themes.json:
   },
   "turtle": {
     "config": {
-
+      "icon": "base64 encoded svg or html"
     },
     "vars": {
       "background": "#115522",

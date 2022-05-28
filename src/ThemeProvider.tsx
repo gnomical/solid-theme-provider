@@ -3,6 +3,7 @@ import fallbackStyles from "./fallbacks.module.scss";
 import fallbackThemes from "./fallbacks.themes.json";
 
 type ThemeProviderProps = {
+  default: string;
   label: string;
   prefix: string;
   styles: any;
@@ -26,14 +27,23 @@ export function ThemeProvider(props: ThemeProviderProps) {
 
   const systemThemeIsDark = window.matchMedia("(prefers-color-scheme: dark)");
   const [currentTheme, setTheme] = createSignal(
-    systemThemeIsDark ? themes.system_themes.dark : themes.system_themes.light
+    props.default || (systemThemeIsDark ? themes.system_themes.dark : themes.system_themes.light)
   );
+  // otherTheme is used when the button is in toggle mode (only two themes configured)
   const [otherTheme, setOtherTheme] = createSignal(
-    systemThemeIsDark ? themes.system_themes.light : themes.system_themes.dark
+    props.default
+      ? props.default == themes.system_themes.dark
+        ? themes.system_themes.light
+        : themes.system_themes.dark
+      : systemThemeIsDark
+      ? themes.system_themes.light
+      : themes.system_themes.dark
   );
   const [active, setActive] = createSignal(false);
-  const [useSystem, setUseSystem] = createSignal(true);
-  const [currentSystem, setCurrentSystem] = createSignal(currentTheme());
+  const [useSystem, setUseSystem] = createSignal(props.default ? false : true);
+  const [currentSystem, setCurrentSystem] = createSignal(
+    systemThemeIsDark ? themes.system_themes.dark : themes.system_themes.light
+  );
 
   systemThemeIsDark.addEventListener("change", e => {
     if (useSystem()) {
@@ -52,10 +62,10 @@ export function ThemeProvider(props: ThemeProviderProps) {
   });
 
   createEffect(() => {
-    Object.keys(themes[currentTheme()].colors).forEach(name => {
+    Object.keys(themes[currentTheme()].vars).forEach(name => {
       document.documentElement.style.setProperty(
         "--" + prefix + name,
-        themes[currentTheme()].colors[name]
+        themes[currentTheme()].vars[name]
       );
     });
   });
