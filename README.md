@@ -1,3 +1,5 @@
+<!-- [![NPM](https://img.shields.io/npm/v/solid-theme-provider.svg)](https://www.npmjs.com/package/solid-theme-provider) -->
+
 # Solid Theme Provider
 
 Lightweight component that allows for theme switching by injecting css variables into the document's root element.
@@ -7,6 +9,7 @@ Lightweight component that allows for theme switching by injecting css variables
 ## Features
 
 - Auto detect system theme (light vs dark)
+- Browser theme-color control
 - click to toggle theme
 - dropdown list when more than 2 themes configured
 - fully customizable
@@ -51,12 +54,12 @@ import { ThemeProvider } from 'solid-theme-provider';
 ## Custom Themes
 
 ```jsx
-// Example with more themes configured
+// Example with custom themes configured
 import { ThemeProvider } from 'solid-theme-provider';
 import myThemes from './themes.json';
 
 <ThemeProvider
-  label="Toggle Theme"
+  label="Theme"
   themes={myThemes}
 >
 ```
@@ -73,38 +76,42 @@ Example themes.json:
   },
   "humid_night": {
     "config": {
-      "icon": "base64 encoded svg or html"
+      "icon": "base64 encoded svg or html",
+      "browser_theme_color": "#110000"
     },
     "vars": {
       "background": "#110000",
-      "background_active": "#221919",
-      "border_radius": "0.25em",
+      "background_active": "#2b1d1c",
       "foreground": "#ddddcc",
-      "muted": "#999988"
+      "foreground_muted": "#999988",
+      "button_radius": "0.5em"
     }
   },
   "warm_light": {
     "config": {
-      "icon": "base64 encoded svg or html"
+      "icon": "base64 encoded svg or html",
+      "browser_theme_color": "#f1efe5"
     },
     "vars": {
-      "background": "#ffffee",
-      "background_active": "#f3eedd",
-      "border_radius": "0.25em",
+      "background": "#fffff5",
+      "background_active": "#f1efe5",
       "foreground": "#111100",
-      "muted": "#777755"
+      "foreground_muted": "#777755",
+      "button_radius": "0.5em"
     }
   },
   "turtle": {
     "config": {
-      "icon": "base64 encoded svg or html"
+      "icon": "base64 encoded svg or html",
+      "browser_theme_color": "#f1efe5"
     },
     "vars": {
       "background": "#115522",
       "background_active": "#226633",
       "border_radius": "1em",
       "foreground": "#eeffee",
-      "muted": "#ddcccc"
+      "foreground_muted": "#ddcccc",
+      "button_radius": "1.2em"
     }
   }
 }
@@ -116,10 +123,14 @@ this object represents which of the themes listed in your root object should be 
 **all other root objects**:  
 Everything else is keyed by the theme name. If/when presented in the UI they will have their first first letters capitalized and underscores converted to spaces
 
-> **config:**  
-> For now the only config per theme is an icon. This is presented within the toggle button to represent which theme will be applied if the button is clicked.
+> **config:**
+>
+> - **icon** - base 64 encoded svg or html  
+>   This is presented within the toggle button to represent which theme will be applied if the button is clicked.
+> - **browser_theme_color** (optional) - Hex Color  
+>   Sets the theme-color meta tag value for applying the theme to the browser's surrounding user interface.
 
-> **vars**  
+> **vars:**  
 > each property within this object becomes the variables that are injected into the document's root element styles. the key name becomes the variable name after being combined with the prefix. For example, `background` would be combined with the default prefix to become the css variable `--stp-background`. You can store any value within these variables that would normally be accepted by the CSS standard.
 
 ## Custom Styles

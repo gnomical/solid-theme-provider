@@ -62,12 +62,27 @@ export function ThemeProvider(props: ThemeProviderProps) {
   });
 
   createEffect(() => {
+    // loop through the theme vars and inject them to the :root style element
     Object.keys(themes[currentTheme()].vars).forEach(name => {
       document.documentElement.style.setProperty(
         "--" + prefix + name,
         themes[currentTheme()].vars[name]
       );
     });
+    // find the theme-color meta tag and edit it, or, create a new one
+    // <meta name="theme-color" content="#FFFFFF"></meta>
+
+    let theme_meta = document.querySelector('meta[name="theme-color"]');
+    if (themes[currentTheme()].config.browser_theme_color) {
+      if (!theme_meta) {
+        theme_meta = document.createElement("meta");
+        theme_meta.setAttribute("name", "theme-color");
+        document.getElementsByTagName("head")[0].appendChild(theme_meta);
+      }
+      theme_meta.setAttribute("content", themes[currentTheme()].config.browser_theme_color);
+    } else {
+      if (theme_meta) theme_meta.remove();
+    }
   });
 
   function toggleTheme(nextTheme: string) {

@@ -4,9 +4,9 @@
     cursor: pointer;
     display: inline-block;
     padding: 0.25em 0.5em;
-    border-radius: 0.5em;
+    border-radius: var(--stp-button_radius);
     background: var(--stp-background);
-    color: var(--stp-muted);
+    color: var(--stp-foreground_muted);
     vertical-align: top;
 
     &:hover {
@@ -40,7 +40,7 @@
 
   .icon svg {
     width: 1.5em;
-    fill: var(--stp-muted);
+    fill: var(--stp-foreground_muted);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -55,27 +55,27 @@
     text-align: left;
     background: var(--stp-background_active);
     // border: 1px solid var(--stp-background_active);
-    border-radius: 0.5em;
+    border-radius: var(--stp-button_radius);
     padding: 0.25em;
 
     > div {
       cursor: pointer;
       white-space: nowrap;
-      padding: 0.15em 0.25em;
-      border-radius: 0.25em;
+      padding: 0.15em 0.5em;
+      border-radius: calc(var(--stp-button_radius) * 0.9);
       .icon {
         font-size: 0.9em;
         svg {
-          fill: var(--stp-muted);
+          fill: var(--stp-foreground_muted);
         }
       }
       .text {
         padding-left: 0.5em;
-        color: var(--stp-muted);
+        color: var(--stp-foreground_muted);
       }
       &.active {
         opacity: 0.3;
-        // border: 1px dotted var(--stp-muted);
+        // border: 1px dotted var(--stp-foreground_muted);
         background: var(--stp-background);
         .text {
           color: var(--stp-foreground);
