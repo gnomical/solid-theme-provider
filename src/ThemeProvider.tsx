@@ -16,6 +16,12 @@ const SYSTEM_THEME_ICON = (
   </svg>
 );
 
+const CHEVRON_UP_ICON = (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.45 14.33">
+    <path d="M11.73,.44c.27-.29,.61-.44,1-.44,.19,0,.36,.04,.54,.12,.17,.08,.32,.19,.45,.32l11.34,11.6c.26,.25,.4,.57,.4,.95,0,.25-.06,.48-.18,.68s-.28,.36-.48,.48c-.2,.12-.43,.18-.68,.18-.39,0-.71-.13-.95-.38L11.94,2.49h1.57L2.28,13.94c-.23,.25-.55,.38-.95,.38-.25,0-.48-.06-.68-.18s-.36-.28-.48-.48c-.12-.2-.18-.43-.18-.68,0-.19,.03-.36,.1-.53s.17-.31,.29-.42L11.73,.44Z" />
+  </svg>
+);
+
 const SYSTEM_THEME_KEY = "stp_system_theme";
 
 export function ThemeProvider(props: ThemeProviderProps) {
@@ -62,6 +68,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
   });
 
   createEffect(() => {
+    // TODO: loop through properties of last theme and remove any that don't exist in the next theme
     // loop through the theme vars and inject them to the :root style element
     Object.keys(themes[currentTheme()].vars).forEach(name => {
       document.documentElement.style.setProperty(
@@ -107,10 +114,14 @@ export function ThemeProvider(props: ThemeProviderProps) {
         class={styles.button + (active() ? " " + styles.open : "")}
         onClick={multiToggle ? () => toggleDropdown() : () => toggleTheme(otherTheme())}
       >
-        <span
-          class={styles.icon}
-          innerHTML={atob(themes[multiToggle ? currentTheme() : otherTheme()].config.icon)}
-        />
+        {active() ? (
+          <span class={styles.icon}>{CHEVRON_UP_ICON}</span>
+        ) : (
+          <span
+            class={styles.icon}
+            innerHTML={atob(themes[multiToggle ? currentTheme() : otherTheme()].config.icon)}
+          />
+        )}
         {props.label && <span class={styles.text}>{props.label}</span>}
       </div>
       {active() && (
@@ -120,7 +131,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
             onClick={() => toggleTheme(SYSTEM_THEME_KEY)}
           >
             <span class={styles.icon}>{SYSTEM_THEME_ICON}</span>
-            <span class={styles.text}>System Theme</span>
+            <span class={styles.text}>System Preference</span>
           </div>
           <For
             each={Object.keys(themes).filter(key => key != "system_themes")}
