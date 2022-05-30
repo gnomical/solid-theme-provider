@@ -141,9 +141,9 @@ Everything else is keyed by the theme name. If/when presented in the UI they wil
   cursor: pointer;
   display: inline-block;
   padding: 0.25em 0.5em;
-  border-radius: var(--stp-border_radius);
+  border-radius: var(--stp-button_radius);
   background: var(--stp-background);
-  color: var(--stp-muted);
+  color: var(--stp-foreground_muted);
   vertical-align: top;
 
   .icon,
@@ -164,7 +164,7 @@ Everything else is keyed by the theme name. If/when presented in the UI they wil
 
   .icon svg {
     width: 1.5em;
-    fill: var(--stp-muted);
+    fill: var(--stp-foreground_muted);
   }
 
   &:hover {
