@@ -53,28 +53,35 @@ const SYSTEM_THEMES_CONFIG_KEY = "system_themes";
 export function ThemeProvider(props: ThemeProviderProps) {
   const prefix = props.prefix || "stp-";
   const themes = props.themes || fallbackThemes;
+  const themeKeys = Object.keys(themes).filter(themeName => themeName != SYSTEM_THEMES_CONFIG_KEY);
   const hasSystemThemesObject = themes.hasOwnProperty(SYSTEM_THEMES_CONFIG_KEY);
+  const systemThemesCorrect =
+    hasSystemThemesObject &&
+    themes.system_themes.hasOwnProperty("dark") &&
+    themes.system_themes.hasOwnProperty("light") &&
+    themes.hasOwnProperty(themes.system_themes.dark) &&
+    themes.hasOwnProperty(themes.system_themes.light);
   const numThemes = Object.keys(themes).length - 1;
   const styles = props.styles || fallbackStyles;
   const multiToggle = numThemes > 2;
 
   const [active, setActive] = createSignal(false);
   const [useSystem, setUseSystem] = createSignal(
-    props.default ? false : hasSystemThemesObject ? true : false
+    props.default ? false : systemThemesCorrect ? true : false
   );
 
   const systemThemeIsDark = window.matchMedia("(prefers-color-scheme: dark)");
   const [currentTheme, setTheme] = createSignal(
     props.default ||
-      (hasSystemThemesObject
+      (systemThemesCorrect
         ? systemThemeIsDark
           ? themes.system_themes.dark
           : themes.system_themes.light
-        : themes[Object.keys(themes)[0]])
+        : themeKeys[0])
   );
   // otherTheme is used when the button is in toggle mode (only two themes configured)
   const [otherTheme, setOtherTheme] = createSignal(
-    hasSystemThemesObject
+    systemThemesCorrect
       ? props.default
         ? props.default == themes.system_themes.dark
           ? themes.system_themes.light
@@ -82,18 +89,18 @@ export function ThemeProvider(props: ThemeProviderProps) {
         : systemThemeIsDark
         ? themes.system_themes.light
         : themes.system_themes.dark
-      : themes[Object.keys(themes)[1]]
+      : themeKeys[1]
   );
   const [currentSystem, setCurrentSystem] = createSignal(
-    hasSystemThemesObject
+    systemThemesCorrect
       ? systemThemeIsDark
         ? themes.system_themes.dark
         : themes.system_themes.light
-      : themes[Object.keys(themes)[0]]
+      : themeKeys[0]
   );
 
   systemThemeIsDark.addEventListener("change", e => {
-    if (hasSystemThemesObject) {
+    if (systemThemesCorrect) {
       if (useSystem()) {
         let nextTheme = themes.system_themes.light;
         if (e.matches) {
@@ -112,16 +119,32 @@ export function ThemeProvider(props: ThemeProviderProps) {
 
   // check themes for proper config
   createEffect(() => {
-    if (!hasSystemThemesObject) {
+    if (!systemThemesCorrect) {
       console.warn(
-        "WARNING: solid-theme-provider",
-        `Your themes object is missing the '${SYSTEM_THEMES_CONFIG_KEY}' property. Automatic theme toggling may not work and the 'System Preference' dropdown option has been disabled`
+        `The '${SYSTEM_THEMES_CONFIG_KEY}' property of your themes object is misconfigured. Automatic theme toggling may not work and the 'System Preference' dropdown option has been disabled`
       );
-      if (!props.default) {
-        console.error(
-          "Warning: solid-theme-provider",
-          `Because you have omitted the '${SYSTEM_THEMES_CONFIG_KEY}' object and have not provided a default theme via props; Theme toggling will utilize the first two themes in your themes object.`
-        );
+      if (!hasSystemThemesObject) {
+        console.warn(`Your themes object is missing the '${SYSTEM_THEMES_CONFIG_KEY}' property.`);
+        if (!props.default) {
+          console.warn(
+            `Because you have omitted the '${SYSTEM_THEMES_CONFIG_KEY}' object and have not provided a default theme via props; Theme toggling will utilize the first two themes in your themes object.`
+          );
+        }
+      } else {
+        if (!themes.system_themes.hasOwnProperty("dark")) {
+          console.warn("The 'system_themes.dark' property of your themes object is undefined.");
+        } else if (!themes.hasOwnProperty(themes.system_themes.dark)) {
+          console.warn(
+            `The 'system_themes.dark' property of your themes object is misconfigured. The theme '${themes.system_themes.dark}' cannot be found.`
+          );
+        }
+        if (!themes.system_themes.hasOwnProperty("light")) {
+          console.warn("The 'system_themes.light' property of your themes object is undefined.");
+        } else if (!themes.hasOwnProperty(themes.system_themes.light)) {
+          console.warn(
+            `The 'system_themes.light' property of your themes object is misconfigured. The theme '${themes.system_themes.light}' cannot be found.`
+          );
+        }
       }
     }
     for (let [themeName, settings] of Object.entries(themes).filter(
@@ -129,17 +152,12 @@ export function ThemeProvider(props: ThemeProviderProps) {
     )) {
       if (!settings.hasOwnProperty("vars")) {
         console.warn(
-          "WARNING: solid-theme-provider",
           `The '${themeName}' object is missing its 'vars' property. It has been removed from the available themes`
         );
       } else if (!settings.hasOwnProperty("config")) {
-        console.error(
-          "ERROR: solid-theme-provider",
-          `The '${themeName}' theme object is missing its 'config' property.`
-        );
+        console.warn(`The '${themeName}' theme object is missing its 'config' property.`);
       } else if (!settings.config.hasOwnProperty("icon")) {
         console.warn(
-          "WARNING: solid-theme-provider",
           `The '${themeName}.config' object is missing its 'icon' property. A fallback placeholder is being used instead.`
         );
       }
@@ -160,7 +178,10 @@ export function ThemeProvider(props: ThemeProviderProps) {
     // <meta name="theme-color" content="#FFFFFF"></meta>
 
     let theme_meta = document.querySelector('meta[name="theme-color"]');
-    if (themes[currentTheme()].config.browser_theme_color) {
+    if (
+      themes[currentTheme()].hasOwnProperty("config") &&
+      themes[currentTheme()].config.hasOwnProperty("browser_theme_color")
+    ) {
       if (!theme_meta) {
         theme_meta = document.createElement("meta");
         theme_meta.setAttribute("name", "theme-color");
@@ -196,17 +217,20 @@ export function ThemeProvider(props: ThemeProviderProps) {
       >
         {active() ? (
           <span class={styles.icon}>{CHEVRON_UP_ICON}</span>
-        ) : (
+        ) : themes[multiToggle ? currentTheme() : otherTheme()].hasOwnProperty("config") &&
+          themes[multiToggle ? currentTheme() : otherTheme()].config.hasOwnProperty("icon") ? (
           <span
             class={styles.icon}
             innerHTML={atob(themes[multiToggle ? currentTheme() : otherTheme()].config.icon)}
           />
+        ) : (
+          <span class={styles.icon}>{UNKNOWN_ICON}</span>
         )}
         {props.label && <span class={styles.text}>{props.label}</span>}
       </div>
       {active() && (
         <div class={styles.dropdown}>
-          {hasSystemThemesObject && (
+          {systemThemesCorrect && (
             <div
               class={useSystem() ? styles.active : ""}
               onClick={() => toggleTheme(SYSTEM_THEME_KEY)}

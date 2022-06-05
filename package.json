@@ -3,7 +3,7 @@
   "description": "Lightweight and customizable theme handler for Solid JS",
   "author": "Jacob Kofron",
   "license": "MIT",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "homepage": "https://github.com/gnomical/solid-theme-provider#readme",
   "repository": {
     "type": "git",
