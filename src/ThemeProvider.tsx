@@ -16,17 +16,27 @@ type ThemeObject = {
   vars: ThemeVars;
 };
 
+type SystemThemesObject = {
+  dark: string;
+  light: string;
+}
+
 type ThemesObject = {
-  system_themes: any;
   [key: string]: ThemeObject;
 };
 
-type ThemeProviderProps = {
-  default: string;
-  label: string;
-  prefix: string;
-  styles: any;
+type ThemesConfigObject = {
+  system_theme_config: SystemThemesObject;
   themes: ThemesObject;
+};
+
+type ThemeProviderProps = {
+  default?: string;
+  id?: string;
+  label?: string;
+  prefix?: string;
+  styles?: any;
+  themes?: ThemesConfigObject;
 };
 
 const SYSTEM_THEME_ICON = (
@@ -42,19 +52,20 @@ const CHEVRON_UP_ICON = (
 );
 
 const SYSTEM_THEME_KEY = "stp_system_theme";
-const SYSTEM_THEMES_CONFIG_KEY = "system_themes";
+const SYSTEM_THEME_CONFIG_KEY = "system_theme_config";
 
 export function ThemeProvider(props: ThemeProviderProps) {
   const prefix = props.prefix || "stp-";
-  const themes = props.themes || fallbackThemes;
-  const themeKeys = Object.keys(themes).filter(themeName => themeName != SYSTEM_THEMES_CONFIG_KEY);
-  const hasSystemThemesObject = themes.hasOwnProperty(SYSTEM_THEMES_CONFIG_KEY);
+  const system_theme_config: SystemThemesObject = props.themes?.system_theme_config || fallbackThemes.system_theme_config;
+  const themes: ThemesObject = props.themes?.themes || fallbackThemes.themes;
+  const themeKeys = Object.keys(themes).filter(themeName => themeName != SYSTEM_THEME_CONFIG_KEY);
+  const hasSystemThemesObject = themes.hasOwnProperty(SYSTEM_THEME_CONFIG_KEY);
   const systemThemesCorrect =
     hasSystemThemesObject &&
-    themes.system_themes.hasOwnProperty("dark") &&
-    themes.system_themes.hasOwnProperty("light") &&
-    themes.hasOwnProperty(themes.system_themes.dark) &&
-    themes.hasOwnProperty(themes.system_themes.light);
+    system_theme_config.hasOwnProperty("dark") &&
+    system_theme_config.hasOwnProperty("light") &&
+    themes.hasOwnProperty(system_theme_config.dark) &&
+    themes.hasOwnProperty(system_theme_config.light);
   const numThemes = Object.keys(themes).length - 1;
   const styles = props.styles || fallbackStyles;
   const multiToggle = numThemes > 2;
@@ -69,44 +80,44 @@ export function ThemeProvider(props: ThemeProviderProps) {
     props.default ||
       (systemThemesCorrect
         ? systemThemeIsDark
-          ? themes.system_themes.dark
-          : themes.system_themes.light
+          ? system_theme_config.dark
+          : system_theme_config.light
         : themeKeys[0])
   );
   // otherTheme is used when the button is in toggle mode (only two themes configured)
   const [otherTheme, setOtherTheme] = createSignal(
     systemThemesCorrect
       ? props.default
-        ? props.default == themes.system_themes.dark
-          ? themes.system_themes.light
-          : themes.system_themes.dark
+        ? props.default == system_theme_config.dark
+          ? system_theme_config.light
+          : system_theme_config.dark
         : systemThemeIsDark
-        ? themes.system_themes.light
-        : themes.system_themes.dark
+        ? system_theme_config.light
+        : system_theme_config.dark
       : themeKeys[1]
   );
   const [currentSystem, setCurrentSystem] = createSignal(
     systemThemesCorrect
       ? systemThemeIsDark
-        ? themes.system_themes.dark
-        : themes.system_themes.light
+        ? system_theme_config.dark
+        : system_theme_config.light
       : themeKeys[0]
   );
 
   systemThemeIsDark.addEventListener("change", e => {
     if (systemThemesCorrect) {
       if (useSystem()) {
-        let nextTheme = themes.system_themes.light;
+        let nextTheme = system_theme_config.light;
         if (e.matches) {
-          nextTheme = themes.system_themes.dark;
+          nextTheme = system_theme_config.dark;
         }
         setOtherTheme(currentTheme());
         setTheme(nextTheme);
       }
       if (e.matches) {
-        setCurrentSystem(themes.system_themes.dark);
+        setCurrentSystem(system_theme_config.dark);
       } else {
-        setCurrentSystem(themes.system_themes.light);
+        setCurrentSystem(system_theme_config.light);
       }
     }
   });
@@ -115,35 +126,33 @@ export function ThemeProvider(props: ThemeProviderProps) {
   createEffect(() => {
     if (!systemThemesCorrect) {
       console.warn(
-        `The '${SYSTEM_THEMES_CONFIG_KEY}' property of your themes object is misconfigured. Automatic theme toggling may not work and the 'System Preference' dropdown option has been disabled`
+        `The '${SYSTEM_THEME_CONFIG_KEY}' property of your themes object is misconfigured. Automatic theme toggling may not work and the 'System Preference' dropdown option has been disabled`
       );
       if (!hasSystemThemesObject) {
-        console.warn(`Your themes object is missing the '${SYSTEM_THEMES_CONFIG_KEY}' property.`);
+        console.warn(`Your themes object is missing the '${SYSTEM_THEME_CONFIG_KEY}' property.`);
         if (!props.default) {
           console.warn(
-            `Because you have omitted the '${SYSTEM_THEMES_CONFIG_KEY}' object and have not provided a default theme via props; Theme toggling will utilize the first two themes in your themes object.`
+            `Because you have omitted the '${SYSTEM_THEME_CONFIG_KEY}' object and have not provided a default theme via props; Theme toggling will utilize the first two themes in your themes object.`
           );
         }
       } else {
-        if (!themes.system_themes.hasOwnProperty("dark")) {
+        if (!system_theme_config.hasOwnProperty("dark")) {
           console.warn("The 'system_themes.dark' property of your themes object is undefined.");
-        } else if (!themes.hasOwnProperty(themes.system_themes.dark)) {
+        } else if (!themes.hasOwnProperty(system_theme_config.dark)) {
           console.warn(
-            `The 'system_themes.dark' property of your themes object is misconfigured. The theme '${themes.system_themes.dark}' cannot be found.`
+            `The 'system_themes.dark' property of your themes object is misconfigured. The theme '${system_theme_config.dark}' cannot be found.`
           );
         }
-        if (!themes.system_themes.hasOwnProperty("light")) {
+        if (!system_theme_config.hasOwnProperty("light")) {
           console.warn("The 'system_themes.light' property of your themes object is undefined.");
-        } else if (!themes.hasOwnProperty(themes.system_themes.light)) {
+        } else if (!themes.hasOwnProperty(system_theme_config.light)) {
           console.warn(
-            `The 'system_themes.light' property of your themes object is misconfigured. The theme '${themes.system_themes.light}' cannot be found.`
+            `The 'system_themes.light' property of your themes object is misconfigured. The theme '${system_theme_config.light}' cannot be found.`
           );
         }
       }
     }
-    for (let [themeName, settings] of Object.entries(themes).filter(
-      a => a[0] != SYSTEM_THEMES_CONFIG_KEY
-    )) {
+    for (let [themeName, settings] of Object.entries(themes)) {
       if (!settings.hasOwnProperty("vars")) {
         console.warn(
           `The '${themeName}' object is missing its 'vars' property. It has been removed from the available themes`
@@ -222,7 +231,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
   }
 
   return (
-    <div class={styles.component}>
+    <div class={styles.component} id={props.id}>
       <div
         class={styles.button + (active() ? " " + styles.open : "")}
         onClick={multiToggle ? () => toggleDropdown() : () => toggleTheme(otherTheme())}
@@ -252,7 +261,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
           )}
           <For
             each={Object.keys(themes).filter(key => {
-              return key != SYSTEM_THEMES_CONFIG_KEY && themes[key].hasOwnProperty("vars");
+              return key != SYSTEM_THEME_CONFIG_KEY && themes[key].hasOwnProperty("vars");
             })}
             fallback={<div>Loading...</div>}
           >

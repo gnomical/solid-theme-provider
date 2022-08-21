@@ -96,47 +96,49 @@ Example themes.json:
 
 ```json
 {
-  "system_themes": {
+  "system_theme_config": {
     "dark": "humid_night",
     "light": "warm_light"
   },
-  "humid_night": {
-    "config": {
-      "icon": "base64 encoded svg or html",
-      "browser_theme_color": "#110000"
+  "themes": {
+    "humid_night": {
+      "config": {
+        "icon": "base64 encoded svg or html",
+        "browser_theme_color": "#110000"
+      },
+      "vars": {
+        "background": "#110000",
+        "background_active": "#2b1d1c",
+        "foreground": "#ddddcc",
+        "foreground_muted": "#999988",
+        "button_radius": "0.5em"
+      }
     },
-    "vars": {
-      "background": "#110000",
-      "background_active": "#2b1d1c",
-      "foreground": "#ddddcc",
-      "foreground_muted": "#999988",
-      "button_radius": "0.5em"
-    }
-  },
-  "warm_light": {
-    "config": {
-      "icon": "base64 encoded svg or html",
-      "browser_theme_color": "#f1efe5"
+    "warm_light": {
+      "config": {
+        "icon": "base64 encoded svg or html",
+        "browser_theme_color": "#f1efe5"
+      },
+      "vars": {
+        "background": "#fffff5",
+        "background_active": "#f1efe5",
+        "foreground": "#111100",
+        "foreground_muted": "#777755",
+        "button_radius": "0.5em"
+      }
     },
-    "vars": {
-      "background": "#fffff5",
-      "background_active": "#f1efe5",
-      "foreground": "#111100",
-      "foreground_muted": "#777755",
-      "button_radius": "0.5em"
-    }
-  },
-  "turtle": {
-    "config": {
-      "icon": "base64 encoded svg or html",
-      "browser_theme_color": "#f1efe5"
-    },
-    "vars": {
-      "background": "#115522",
-      "background_active": "#226633",
-      "foreground": "#eeffee",
-      "foreground_muted": "#ddcccc",
-      "button_radius": "1.2em"
+    "turtle": {
+      "config": {
+        "icon": "base64 encoded svg or html",
+        "browser_theme_color": "#f1efe5"
+      },
+      "vars": {
+        "background": "#115522",
+        "background_active": "#226633",
+        "foreground": "#eeffee",
+        "foreground_muted": "#ddcccc",
+        "button_radius": "1.2em"
+      }
     }
   }
 }
