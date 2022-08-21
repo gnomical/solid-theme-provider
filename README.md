@@ -22,7 +22,7 @@ npm install solid-theme-provider
 
 ## Usage
 
-#### Props:
+### Props:
 
 - **default** - string  
   the key of the theme that should be set upon first load.  
@@ -38,7 +38,7 @@ npm install solid-theme-provider
 - **themes** - json  
   override the default variables that will be injected to the document's root element styles upon theme switching
 
-#### Component:
+### Component:
 
 `<ThemeProvider>` serves as both the UI handle and the receiver of the themes json which will control the themes available for switching
 
@@ -50,6 +50,32 @@ import { ThemeProvider } from 'solid-theme-provider';
 ```
 
 ![Example of UI with custom label](https://github.com/gnomical/solid-theme-provider/blob/assets/label_ui.gif?raw=true)
+
+### CSS Variables
+This component provides a few variables by default. 
+
+```css
+/* 'Light' theme values as an example */
+--stp-background: #fffff5;
+--stp-background_active: #f1efe5;
+--stp-foreground: #111100;
+--stp-foreground_muted: #777755;
+--stp-button_radius: 0.5em;
+```
+
+These variables are used to render the button of the `<ThemeProvider>` component and should also be used within your application's style sheets to adopt the theme globally. 
+
+For Example: It may be common for the `--stp-background` and `--stp-foreground` variables to be used as follows.
+
+```css
+body, html {
+  background: var(--stp-background);
+  color: var(--stp-foreground);
+}
+```
+
+> **Note**  
+> If you implement custom themes for this component then you can add as many variables to the theme config as you want. The variables listed above are just the defaults.
 
 ## Custom Themes
 
@@ -108,7 +134,6 @@ Example themes.json:
     "vars": {
       "background": "#115522",
       "background_active": "#226633",
-      "border_radius": "1em",
       "foreground": "#eeffee",
       "foreground_muted": "#ddcccc",
       "button_radius": "1.2em"
@@ -123,15 +148,15 @@ this object represents which of the themes listed in your root object should be 
 **all other root objects**:  
 Everything else is keyed by the theme name. If/when presented in the UI they will have their first first letters capitalized and underscores converted to spaces
 
-> **config:**
->
-> - **icon** - base 64 encoded svg or html  
->   This is presented within the toggle button to represent which theme will be applied if the button is clicked.
-> - **browser_theme_color** (optional) - Hex Color  
->   Sets the theme-color meta tag value for applying the theme to the browser's surrounding user interface.
+- **config:**
+  - **icon**: base 64 encoded svg or html  
+    This is presented within the toggle button to represent which theme will be applied if the button is clicked.
+  - **browser_theme_color**: (optional) hex color code  
+    Sets the `<meta name="theme-color">` tag value in the documents `<head>` element so as to apply the theme to the browser's surrounding user interface or "chrome".
 
-> **vars:**  
-> each property within this object becomes the variables that are injected into the document's root element styles. the key name becomes the variable name after being combined with the prefix. For example, `background` would be combined with the default prefix to become the css variable `--stp-background`. You can store any value within these variables that would normally be accepted by the CSS standard.
+- **vars:**  
+  each property within this object becomes a css variable that is injected into the document's root element styles. the key name becomes the variable name and all variables will be prefixed. For example, `background` would be combined with the default prefix, `stp`, to become the css variable `--stp-background`.  
+  You can store any value within these variables that would normally be accepted by the CSS standard.
 
 ## Custom Styles
 
@@ -178,4 +203,5 @@ Everything else is keyed by the theme name. If/when presented in the UI they wil
 }
 ```
 
-Note that the styles used to override the toggle button can also leverage the theme variables. As can anything else in your project.
+> **Note**  
+> The styles used to override the toggle button should leverage the theme variables, just as everything else in your project.
