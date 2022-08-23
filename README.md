@@ -78,6 +78,22 @@ body, html {
 > **Note**  
 > If you implement custom themes for this component then you can add as many variables to the theme config as you want. The variables listed above are just the defaults.
 
+### Inverting Images
+This component injects styles that can be applied by your application. When a theme that is configured as one of your system themes is selected, it can cause select images to invert.
+
+To cause a primarily white element to invert when a dark theme is selected, apply the `.invert-safe--light` class.
+```html
+<img class=".invert-safe--light" src="...">
+```
+
+To cause a primarily black element to invert when a light theme is selected, apply the `.invert-safe--dark` class.
+```html
+<img class=".invert-safe--dark" src="...">
+```
+
+> **Note**  
+> This feature works best on black and white line art style images.
+
 ## Custom Themes
 
 ```jsx
