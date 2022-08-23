@@ -11,6 +11,7 @@ Lightweight component that allows for theme switching by injecting css variables
 - Auto detect system theme (light vs dark)
 - Browser theme-color control
 - click to toggle theme
+- handle invert of select images for light/dark modes
 - dropdown list when more than 2 themes configured
 - fully customizable
 

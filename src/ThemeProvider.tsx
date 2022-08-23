@@ -54,19 +54,20 @@ const CHEVRON_UP_ICON = (
 const SYSTEM_THEME_KEY = "stp_system_theme";
 const SYSTEM_THEME_CONFIG_KEY = "system_theme_config";
 
+
 export function ThemeProvider(props: ThemeProviderProps) {
   const prefix = props.prefix || "stp-";
   const system_theme_config: SystemThemesObject = props.themes?.system_theme_config || fallbackThemes.system_theme_config;
   const themes: ThemesObject = props.themes?.themes || fallbackThemes.themes;
-  const themeKeys = Object.keys(themes).filter(themeName => themeName != SYSTEM_THEME_CONFIG_KEY);
-  const hasSystemThemesObject = themes.hasOwnProperty(SYSTEM_THEME_CONFIG_KEY);
+  const themeKeys = Object.keys(themes);
+  const hasSystemThemesObject = props.themes && props.themes.hasOwnProperty(SYSTEM_THEME_CONFIG_KEY);
   const systemThemesCorrect =
     hasSystemThemesObject &&
     system_theme_config.hasOwnProperty("dark") &&
     system_theme_config.hasOwnProperty("light") &&
     themes.hasOwnProperty(system_theme_config.dark) &&
     themes.hasOwnProperty(system_theme_config.light);
-  const numThemes = Object.keys(themes).length - 1;
+  const numThemes = themeKeys.length - 1;
   const styles = props.styles || fallbackStyles;
   const multiToggle = numThemes > 2;
 
@@ -121,6 +122,14 @@ export function ThemeProvider(props: ThemeProviderProps) {
       }
     }
   });
+
+  // inject the invert stylesheet
+  createEffect(() => {
+    let stylesheet = document.createElement("style");
+    stylesheet.type = 'text/css';
+    stylesheet.id = 'stp-inverter';
+    document.head.appendChild(stylesheet);
+  })
 
   // check themes for proper config
   createEffect(() => {
@@ -193,6 +202,24 @@ export function ThemeProvider(props: ThemeProviderProps) {
       theme_meta.setAttribute("content", themes[currentTheme()].config.browser_theme_color);
     } else {
       if (theme_meta) theme_meta.remove();
+    }
+
+    // find the stp-inverter stylesheet and edit it
+    if(systemThemesCorrect) {
+      let invertStylesheet = document.querySelector('#stp-inverter') as HTMLElement;
+      if(invertStylesheet) {
+        console.log('found sheet');
+        let currentlyDark = currentTheme() == system_theme_config.dark;
+        let currentlyLight = currentTheme() == system_theme_config.light;
+
+        if (currentlyDark) {
+          console.log('isdark');
+          invertStylesheet.innerText = '.invert-safe--light{filter:invert()}';
+        } else if (currentlyLight) {
+          console.log('islight');
+          invertStylesheet.innerText = '.invert-safe--dark{filter:invert()}';
+        }
+      }
     }
   });
 
