@@ -208,15 +208,12 @@ export function ThemeProvider(props: ThemeProviderProps) {
     if(systemThemesCorrect) {
       let invertStylesheet = document.querySelector('#stp-inverter') as HTMLElement;
       if(invertStylesheet) {
-        console.log('found sheet');
         let currentlyDark = currentTheme() == system_theme_config.dark;
         let currentlyLight = currentTheme() == system_theme_config.light;
 
         if (currentlyDark) {
-          console.log('isdark');
           invertStylesheet.innerText = '.invert-safe--light{filter:invert()}';
         } else if (currentlyLight) {
-          console.log('islight');
           invertStylesheet.innerText = '.invert-safe--dark{filter:invert()}';
         }
       }
