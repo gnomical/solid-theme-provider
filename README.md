@@ -1,6 +1,7 @@
-<!-- [![NPM](https://img.shields.io/npm/v/solid-theme-provider.svg)](https://www.npmjs.com/package/solid-theme-provider) -->
 
-# Solid Theme Provider
+# Solid Theme Provider 
+<!-- [![npm version](https://img.shields.io/npm/v/solid-theme-provider)](https://www.npmjs.org/package/solid-theme-provider)
+[![npm](https://img.shields.io/npm/dt/solid-theme-provider)](https://www.npmjs.org/package/solid-theme-provider) -->
 
 Lightweight component that allows for theme switching by injecting css variables into the document's root element.
 
@@ -81,14 +82,14 @@ body, html {
 ### Inverting Images
 This component injects styles that can be applied by your application. When a theme that is configured as one of your system themes is selected, it can cause select images to invert.
 
-To cause a primarily white element to invert when a dark theme is selected, apply the `.invert-safe--light` class.
+To cause a primarily white element to invert when the dark theme is selected, apply the `.invert-safe--light` class.
 ```html
-<img class=".invert-safe--light" src="...">
+<img class="invert-safe--light" src="...">
 ```
 
-To cause a primarily black element to invert when a light theme is selected, apply the `.invert-safe--dark` class.
+To cause a primarily black element to invert when the light theme is selected, apply the `.invert-safe--dark` class.
 ```html
-<img class=".invert-safe--dark" src="...">
+<img class="invert-safe--dark" src="...">
 ```
 
 > **Note**  
