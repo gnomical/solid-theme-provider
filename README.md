@@ -25,10 +25,13 @@ npm install solid-theme-provider
 ## Usage
 
 ### Props:
+All of these properties are optional
 
 - **default** - string  
   the key of the theme that should be set upon first load.  
   defaults to the system preference
+- **id** - string  
+  an id that will be applied to the root `<ThemeProvider>` element for easily selecting it from external stylesheets
 - **label** - string  
   a text label that will display inside the theme toggle button.  
   defaults to an empty string
