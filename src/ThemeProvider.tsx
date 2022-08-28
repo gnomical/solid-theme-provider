@@ -185,10 +185,31 @@ export function ThemeProvider(props: ThemeProviderProps) {
         "--" + prefix + name,
         themes[currentTheme()].vars[name]
       );
+
+      //if the current value is a hex color - add complementary transparencies
+      let pattern = /^#[0-9A-F]{6}$/i;
+      if(themes[currentTheme()].vars[name].match(pattern)) {
+        document.documentElement.style.setProperty(
+          "--" + prefix + name + '-alpha_primary',
+          themes[currentTheme()].vars[name] + 'f2' // 95%
+        );
+        document.documentElement.style.setProperty(
+          "--" + prefix + name + '-alpha_secondary',
+          themes[currentTheme()].vars[name] + '99' // 60%
+        );
+        document.documentElement.style.setProperty(
+          "--" + prefix + name + '-alpha_tertiary',
+          themes[currentTheme()].vars[name] + '4d' // 30%
+        );
+        document.documentElement.style.setProperty(
+          "--" + prefix + name + '-alpha_quarternary',
+          themes[currentTheme()].vars[name] + '17' // 9%
+        );
+      }
     });
+
     // find the theme-color meta tag and edit it, or, create a new one
     // <meta name="theme-color" content="#FFFFFF"></meta>
-
     let theme_meta = document.querySelector('meta[name="theme-color"]');
     if (
       themes[currentTheme()].hasOwnProperty("config") &&

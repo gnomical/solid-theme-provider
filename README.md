@@ -15,6 +15,7 @@ Lightweight component that allows for theme switching by injecting css variables
 - handle invert of select images for light/dark modes
 - dropdown list when more than 2 themes configured
 - fully customizable
+- auto generates 
 
 ## Installation
 
@@ -62,15 +63,14 @@ This component provides a few variables by default.
 ```css
 /* 'Light' theme values as an example */
 --stp-background: #fffff5;
---stp-background_active: #f1efe5;
 --stp-foreground: #111100;
---stp-foreground_muted: #777755;
 --stp-button_radius: 0.5em;
 ```
 
 These variables are used to render the button of the `<ThemeProvider>` component and should also be used within your application's style sheets to adopt the theme globally. 
 
-For Example: It may be common for the `--stp-background` and `--stp-foreground` variables to be used as follows.
+**For Example**:  
+It may be common for the `--stp-background` and `--stp-foreground` variables to be used as follows.
 
 ```css
 body, html {
@@ -82,7 +82,26 @@ body, html {
 > **Note**  
 > If you implement custom themes for this component then you can add as many variables to the theme config as you want. The variables listed above are just the defaults.
 
-### Inverting Images
+### Special Considerations - Color
+In addition to the default variables this package also detects hex colors (e.g. #FFFFFF) and auto calculates complementary transparent versions for use throughout your project. They are accessed by appending a suffix to the variable name.
+
+| suffix               | transparency |
+| -------------------- | :----------: |
+| `-alpha_primary`     | 95%          |
+| `-alpha_secondary`   | 60%          |
+| `-alpha_tertiary`    | 30%          |
+| `-alpha_quarternary` | 18%          |
+
+**For Example**:  
+You might use the quarternary of the foreground as a hover state on a button.
+```css
+.btn {
+  background: var(--stp-foreground-alpha_quarternary);
+}
+```
+
+
+## Inverting Images
 This component injects styles that can be applied by your application. When a theme that is configured as one of your system themes is selected, it can cause select images to invert.
 
 To cause a primarily white element to invert when the dark theme is selected, apply the `.invert-safe--light` class.

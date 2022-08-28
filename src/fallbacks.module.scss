@@ -6,11 +6,11 @@
     padding: 0.25em calc(0.25em + (var(--stp-button_radius) / 2));
     border-radius: var(--stp-button_radius);
     background: var(--stp-background);
-    color: var(--stp-foreground_muted);
+    color: var(--stp-foreground-alpha_secondary);
     vertical-align: top;
 
     &:hover {
-      background: var(--stp-background_active);
+      background: var(--stp-foreground-alpha_quarternary);
 
       .text {
         color: var(--stp-foreground);
@@ -23,7 +23,7 @@
     &.open {
       background: var(--stp-background);
       border-radius: 0;
-      border-top: 3px solid var(--stp-background_active);
+      border-top: 3px solid var(--stp-foreground-alpha_quarternary);
       padding-top: calc(0.25em - 3px);
       .icon svg {
         width: 1em;
@@ -52,7 +52,7 @@
 
   .icon svg {
     width: 1.5em;
-    fill: var(--stp-foreground_muted);
+    fill: var(--stp-foreground-alpha_secondary);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -65,7 +65,7 @@
     left: 0;
     font-size: 0.9em;
     text-align: left;
-    background: var(--stp-background_active);
+    background: var(--stp-foreground-alpha_quarternary);
     border-radius: var(--stp-button_radius);
     padding: 0.25em;
 
@@ -81,12 +81,12 @@
       .icon {
         font-size: 0.9em;
         svg {
-          fill: var(--stp-foreground_muted);
+          fill: var(--stp-foreground-alpha_secondary);
         }
       }
       .text {
         padding-left: 0.5em;
-        color: var(--stp-foreground_muted);
+        color: var(--stp-foreground-alpha_secondary);
       }
       &.active {
         background: var(--stp-background);
@@ -98,7 +98,7 @@
         }
       }
       &:hover:not(.active) {
-        background: var(--stp-foreground_muted);
+        background: var(--stp-foreground-alpha_secondary);
         .text {
           color: var(--stp-background);
         }
