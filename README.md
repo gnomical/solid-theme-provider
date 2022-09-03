@@ -87,10 +87,10 @@ In addition to the default variables this package also detects hex colors (e.g. 
 
 | suffix               | transparency |
 | -------------------- | :----------: |
-| `-alpha_primary`     | 95%          |
-| `-alpha_secondary`   | 60%          |
-| `-alpha_tertiary`    | 30%          |
-| `-alpha_quarternary` | 18%          |
+| `-alpha_primary`     |     95%      |
+| `-alpha_secondary`   |     60%      |
+| `-alpha_tertiary`    |     30%      |
+| `-alpha_quarternary` |      9%      |
 
 **For Example**:  
 You might use the quarternary of the foreground as a hover state on a button.
