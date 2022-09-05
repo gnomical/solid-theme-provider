@@ -15,7 +15,7 @@ Lightweight component that allows for theme switching by injecting css variables
 - handle invert of select images for light/dark modes
 - dropdown list when more than 2 themes configured
 - fully customizable
-- auto generates 
+- automatically generates complementary transparencies when hex colors are provided as theme variables
 
 ## Installation
 
@@ -96,6 +96,10 @@ In addition to the default variables this package also detects hex colors (e.g. 
 You might use the quarternary of the foreground as a hover state on a button.
 ```css
 .btn {
+  background: var(--stp-background);
+}
+
+.btn:hover {
   background: var(--stp-foreground-alpha_quarternary);
 }
 ```
