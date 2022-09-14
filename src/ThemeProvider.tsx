@@ -233,9 +233,9 @@ export function ThemeProvider(props: ThemeProviderProps) {
         let currentlyLight = currentTheme() == system_theme_config.light;
 
         if (currentlyDark) {
-          invertStylesheet.innerText = '.invert-safe--light{filter:invert()}';
+          invertStylesheet.innerText = 'img[src$="#invert-safe--light"],.invert-safe--light{filter:invert()}';
         } else if (currentlyLight) {
-          invertStylesheet.innerText = '.invert-safe--dark{filter:invert()}';
+          invertStylesheet.innerText = 'img[src$="#invert-safe--dark"],.invert-safe--dark{filter:invert()}';
         }
       }
     }

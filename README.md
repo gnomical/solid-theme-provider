@@ -121,6 +121,12 @@ To cause a primarily black element to invert when the light theme is selected, a
 > **Note**  
 > This feature works best on black and white line art style images.
 
+You may also wish to use this feature on images you cannot control the class names on. The library also supports watching for images whose src attribute ends with the class names.
+
+```html
+<img src="./example.png#invert-safe--light">
+```
+
 ## Custom Themes
 
 ```jsx
