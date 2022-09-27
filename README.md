@@ -119,7 +119,7 @@ To cause a primarily black element to invert when the light theme is selected, a
 ```
 
 > **Note**  
-> This feature works best on black and white line art style images.
+> This feature works great on black and white line art style images. It also attempts to preserve the original hue within images and can therefore work well on more complex or colorful images also. Either way, it is intended to be used on images that have large swaths of white or black within them that would otherwise be jarring in a dark or light theme respectively.
 
 You may also wish to use this feature on images you cannot control the class names on. The library also supports watching for images whose src attribute ends with the class names.
 
