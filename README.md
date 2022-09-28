@@ -113,6 +113,9 @@ To cause a primarily white element to invert when the dark theme is selected, ap
 <img class="invert-safe--light" src="...">
 ```
 
+For Example:
+![Example of inverting a light image](https://github.com/gnomical/solid-theme-provider/blob/assets/weather_invert_example.gif?raw=true)
+
 To cause a primarily black element to invert when the light theme is selected, apply the `.invert-safe--dark` class.
 ```html
 <img class="invert-safe--dark" src="...">
