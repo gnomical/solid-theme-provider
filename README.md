@@ -108,21 +108,23 @@ You might use the quarternary of the foreground as a hover state on a button.
 ## Inverting Images
 This component injects styles that can be applied by your application. When a theme that is configured as one of your system themes is selected, it can cause select images to invert.
 
+> **Note**  
+> This feature works great on black and white line art style images. It also attempts to preserve the original hues within an image and can therefore sometimes work well on more complex or colorful images.
+
+> **For Example**  
+> 
+> ![Example of inverting a light image](https://github.com/gnomical/solid-theme-provider/blob/assets/weather_invert_example.gif?raw=true)
+
 To cause a primarily white element to invert when the dark theme is selected, apply the `.invert-safe--light` class.
 ```html
 <img class="invert-safe--light" src="...">
 ```
 
-For Example:  
-![Example of inverting a light image](https://github.com/gnomical/solid-theme-provider/blob/assets/weather_invert_example.gif?raw=true)
 
 To cause a primarily black element to invert when the light theme is selected, apply the `.invert-safe--dark` class.
 ```html
 <img class="invert-safe--dark" src="...">
 ```
-
-> **Note**  
-> This feature works great on black and white line art style images. It also attempts to preserve the original hue within images and can therefore work well on more complex or colorful images also. Either way, it is intended to be used on images that have large swaths of white or black within them that would otherwise be jarring in a dark or light theme respectively.
 
 You may also wish to use this feature on images you cannot control the class names on. The library also supports watching for images whose src attribute ends with the class names.
 
