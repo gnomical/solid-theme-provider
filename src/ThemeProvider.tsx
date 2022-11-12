@@ -68,9 +68,8 @@ export function ThemeProvider(props: ThemeProviderProps) {
     system_theme_config.hasOwnProperty("light") &&
     themes.hasOwnProperty(system_theme_config.dark) &&
     themes.hasOwnProperty(system_theme_config.light);
-  const numThemes = themeKeys.length - 1;
   const styles = props.styles || fallbackStyles;
-  const multiToggle = numThemes > 2;
+  const multiToggle = themeKeys.length > 2;
 
   const [active, setActive] = createSignal(false);
   const [useSystem, setUseSystem] = createSignal(
