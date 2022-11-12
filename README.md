@@ -1,5 +1,5 @@
+# Solid Theme Provider
 
-# Solid Theme Provider 
 <!-- [![npm version](https://img.shields.io/npm/v/solid-theme-provider)](https://www.npmjs.org/package/solid-theme-provider)
 [![npm](https://img.shields.io/npm/dt/solid-theme-provider)](https://www.npmjs.org/package/solid-theme-provider) -->
 
@@ -26,6 +26,7 @@ npm install solid-theme-provider
 ## Usage
 
 ### Props:
+
 All of these properties are optional
 
 - **default** - string  
@@ -58,7 +59,8 @@ import { ThemeProvider } from 'solid-theme-provider';
 ![Example of UI with custom label](https://github.com/gnomical/solid-theme-provider/blob/assets/label_ui.gif?raw=true)
 
 ### CSS Variables
-This component provides a few variables by default. 
+
+This component provides a few variables by default.
 
 ```css
 /* 'Light' theme values as an example */
@@ -67,13 +69,14 @@ This component provides a few variables by default.
 --stp-button_radius: 0.5em;
 ```
 
-These variables are used to render the button of the `<ThemeProvider>` component and should also be used within your application's style sheets to adopt the theme globally. 
+These variables are used to render the button of the `<ThemeProvider>` component and should also be used within your application's style sheets to adopt the theme globally.
 
 **For Example**:  
 It may be common for the `--stp-background` and `--stp-foreground` variables to be used as follows.
 
 ```css
-body, html {
+body,
+html {
   background: var(--stp-background);
   color: var(--stp-foreground);
 }
@@ -83,6 +86,7 @@ body, html {
 > If you implement custom themes for this component then you can add as many variables to the theme config as you want. The variables listed above are just the defaults.
 
 ### Special Considerations - Color
+
 In addition to the default variables this package also detects hex colors (e.g. #FFFFFF) and auto calculates complementary transparent versions for use throughout your project. They are accessed by appending a suffix to the variable name.
 
 | suffix               | transparency |
@@ -94,6 +98,7 @@ In addition to the default variables this package also detects hex colors (e.g. 
 
 **For Example**:  
 You might use the quarternary of the foreground as a hover state on a button.
+
 ```css
 .btn {
   background: var(--stp-background);
@@ -104,32 +109,33 @@ You might use the quarternary of the foreground as a hover state on a button.
 }
 ```
 
-
 ## Inverting Images
+
 This component injects styles that can be applied by your application. When a theme that is configured as one of your system themes is selected, it can cause select images to invert.
 
 > **Note**  
 > This feature works great on black and white line art style images. It also attempts to preserve the original hues within an image and can therefore sometimes work well on more complex or colorful images.
 
-> **For Example**  
-> 
+> **For Example**
+>
 > ![Example of inverting a light image](https://github.com/gnomical/solid-theme-provider/blob/assets/weather_invert_example.gif?raw=true)
 
 To cause a primarily white element to invert when the dark theme is selected, apply the `.invert-safe--light` class.
+
 ```html
-<img class="invert-safe--light" src="...">
+<img class="invert-safe--light" src="..." />
 ```
 
-
 To cause a primarily black element to invert when the light theme is selected, apply the `.invert-safe--dark` class.
+
 ```html
-<img class="invert-safe--dark" src="...">
+<img class="invert-safe--dark" src="..." />
 ```
 
 You may also wish to use this feature on images you cannot control the class names on. The library also supports watching for images whose src attribute ends with the class names.
 
 ```html
-<img src="./example.png#invert-safe--light">
+<img src="./example.png#invert-safe--light" />
 ```
 
 ## Custom Themes
@@ -206,6 +212,7 @@ this object represents which of the themes listed in your root object should be 
 Everything else is keyed by the theme name. If/when presented in the UI they will have their first first letters capitalized and underscores converted to spaces
 
 - **config:**
+
   - **icon**: base 64 encoded svg or html  
     This is presented within the toggle button to represent which theme will be applied if the button is clicked.
   - **browser_theme_color**: (optional) hex color code  
