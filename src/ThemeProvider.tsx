@@ -19,7 +19,7 @@ type ThemeObject = {
 type SystemThemesObject = {
   dark: string;
   light: string;
-}
+};
 
 type ThemesObject = {
   [key: string]: ThemeObject;
@@ -54,13 +54,14 @@ const CHEVRON_UP_ICON = (
 const SYSTEM_THEME_KEY = "stp_system_theme";
 const SYSTEM_THEME_CONFIG_KEY = "system_theme_config";
 
-
 export function ThemeProvider(props: ThemeProviderProps) {
   const prefix = props.prefix || "stp-";
-  const system_theme_config: SystemThemesObject = props.themes?.system_theme_config || fallbackThemes.system_theme_config;
+  const system_theme_config: SystemThemesObject =
+    props.themes?.system_theme_config || fallbackThemes.system_theme_config;
   const themes: ThemesObject = props.themes?.themes || fallbackThemes.themes;
   const themeKeys = Object.keys(themes);
-  const hasSystemThemesObject = props.themes && props.themes.hasOwnProperty(SYSTEM_THEME_CONFIG_KEY);
+  const hasSystemThemesObject =
+    props.themes && props.themes.hasOwnProperty(SYSTEM_THEME_CONFIG_KEY);
   const systemThemesCorrect =
     hasSystemThemesObject &&
     system_theme_config.hasOwnProperty("dark") &&
@@ -126,10 +127,10 @@ export function ThemeProvider(props: ThemeProviderProps) {
   // inject the invert stylesheet
   createEffect(() => {
     let stylesheet = document.createElement("style");
-    stylesheet.type = 'text/css';
-    stylesheet.id = 'stp-inverter';
+    stylesheet.type = "text/css";
+    stylesheet.id = "stp-inverter";
     document.head.appendChild(stylesheet);
-  })
+  });
 
   // check themes for proper config
   createEffect(() => {
@@ -188,22 +189,22 @@ export function ThemeProvider(props: ThemeProviderProps) {
 
       //if the current value is a hex color - add complementary transparencies
       let pattern = /^#[0-9A-F]{6}$/i;
-      if(themes[currentTheme()].vars[name].match(pattern)) {
+      if (themes[currentTheme()].vars[name].match(pattern)) {
         document.documentElement.style.setProperty(
-          "--" + prefix + name + '-alpha_primary',
-          themes[currentTheme()].vars[name] + 'f2' // 95%
+          "--" + prefix + name + "-alpha_primary",
+          themes[currentTheme()].vars[name] + "f2" // 95%
         );
         document.documentElement.style.setProperty(
-          "--" + prefix + name + '-alpha_secondary',
-          themes[currentTheme()].vars[name] + '99' // 60%
+          "--" + prefix + name + "-alpha_secondary",
+          themes[currentTheme()].vars[name] + "99" // 60%
         );
         document.documentElement.style.setProperty(
-          "--" + prefix + name + '-alpha_tertiary',
-          themes[currentTheme()].vars[name] + '4d' // 30%
+          "--" + prefix + name + "-alpha_tertiary",
+          themes[currentTheme()].vars[name] + "4d" // 30%
         );
         document.documentElement.style.setProperty(
-          "--" + prefix + name + '-alpha_quarternary',
-          themes[currentTheme()].vars[name] + '17' // 9%
+          "--" + prefix + name + "-alpha_quarternary",
+          themes[currentTheme()].vars[name] + "17" // 9%
         );
       }
     });
@@ -226,16 +227,18 @@ export function ThemeProvider(props: ThemeProviderProps) {
     }
 
     // find the stp-inverter stylesheet and edit it
-    if(systemThemesCorrect) {
-      let invertStylesheet = document.querySelector('#stp-inverter') as HTMLElement;
-      if(invertStylesheet) {
+    if (systemThemesCorrect) {
+      let invertStylesheet = document.querySelector("#stp-inverter") as HTMLElement;
+      if (invertStylesheet) {
         let currentlyDark = currentTheme() == system_theme_config.dark;
         let currentlyLight = currentTheme() == system_theme_config.light;
 
         if (currentlyDark) {
-          invertStylesheet.innerText = 'img[src$="#invert-safe--light"],.invert-safe--light{filter:hue-rotate(180deg) invert()}';
+          invertStylesheet.innerText =
+            'img[src$="#invert-safe--light"],.invert-safe--light{filter:hue-rotate(180deg) invert()}';
         } else if (currentlyLight) {
-          invertStylesheet.innerText = 'img[src$="#invert-safe--dark"],.invert-safe--dark{filter:hue-rotate(180deg) invert()}';
+          invertStylesheet.innerText =
+            'img[src$="#invert-safe--dark"],.invert-safe--dark{filter:hue-rotate(180deg) invert()}';
         }
       }
     }
