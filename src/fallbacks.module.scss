@@ -62,16 +62,31 @@
   .dropdown {
     position: absolute;
     top: calc(100% + 0.25em);
-    left: 0;
+    left: -.25em;
     font-size: 0.9em;
     text-align: left;
-    background: var(--stp-foreground-alpha_quarternary);
+    background: var(--stp-background-alpha_secondary);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
     border-radius: var(--stp-button_radius);
-    padding: 0.25em;
+    padding: 0.5em;
+
+    &::before {
+      content: "";
+      background: var(--stp-foreground-alpha_quarternary);
+      border-radius: var(--stp-button_radius);
+      position: absolute;
+      pointer-events: none;
+      top: 0.25em;
+      left: 0.25em;
+      width: calc(100% - 0.5em);
+      height: calc(100% - 0.5em);
+    }
 
     > div {
       cursor: pointer;
       white-space: nowrap;
+      position: relative;
       &:first-child {
         margin-top: 0;
       }
@@ -81,21 +96,15 @@
       .icon {
         font-size: 0.9em;
         svg {
-          fill: var(--stp-foreground-alpha_secondary);
+          fill: var(--stp-foreground);
         }
       }
       .text {
         padding-left: 0.5em;
-        color: var(--stp-foreground-alpha_secondary);
+        color: var(--stp-foreground);
       }
       &.active {
         background: var(--stp-background);
-        .text {
-          color: var(--stp-foreground);
-        }
-        .icon svg {
-          fill: var(--stp-foreground);
-        }
       }
       &:hover:not(.active) {
         background: var(--stp-foreground-alpha_secondary);
