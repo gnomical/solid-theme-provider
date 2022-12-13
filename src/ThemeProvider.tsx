@@ -37,6 +37,7 @@ type ThemeProviderProps = {
   prefix?: string;
   styles?: any;
   themes?: ThemesConfigObject;
+  menu_placement: "ne" | "se" | "sw" | "nw";
 };
 
 const SYSTEM_THEME_ICON = (
@@ -70,6 +71,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
     themes.hasOwnProperty(system_theme_config.light);
   const styles = props.styles || fallbackStyles;
   const multiToggle = themeKeys.length > 2;
+  const menu_placement = props.menu_placement || "se";
 
   const [active, setActive] = createSignal(false);
   const [useSystem, setUseSystem] = createSignal(
@@ -278,7 +280,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
   }
 
   return (
-    <div class={styles.component} id={props.id}>
+    <div class={styles.component + " " + styles[menu_placement]} id={props.id}>
       <div
         class={styles.button + (active() ? " " + styles.open : "")}
         onClick={multiToggle ? () => toggleDropdown() : () => toggleTheme(otherTheme())}

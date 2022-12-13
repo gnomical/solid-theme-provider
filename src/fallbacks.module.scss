@@ -22,9 +22,7 @@
 
     &.open {
       background: var(--stp-background);
-      border-radius: 0;
-      border-top: 3px solid var(--stp-foreground-alpha_quarternary);
-      padding-top: calc(0.25em - 3px);
+      border-radius: 0;      
       .icon svg {
         width: 1em;
       }
@@ -61,8 +59,6 @@
 
   .dropdown {
     position: absolute;
-    top: calc(100% + 0.25em);
-    left: -.25em;
     font-size: 0.9em;
     text-align: left;
     background: var(--stp-background-alpha_secondary);
@@ -115,6 +111,42 @@
           fill: var(--stp-background);
         }
       }
+    }
+  }
+
+  &.ne,
+  &.se {
+    .dropdown {
+      left: -0.25em;
+    }
+  }
+  &.nw,
+  &.sw {
+    .dropdown {
+      right: -0.25em;
+    }
+  }
+  &.ne,
+  &.nw {
+    .button.open {
+      border-bottom: 3px solid var(--stp-foreground-alpha_quarternary);
+      padding-bottom: calc(0.25em - 3px);
+    }
+    .dropdown {
+      bottom: 100%;
+    }
+  }
+  &.se,
+  &.sw {
+    .button.open {
+      border-top: 3px solid var(--stp-foreground-alpha_quarternary);
+      padding-top: calc(0.25em - 3px);
+      .icon svg {
+        transform: translate(-50%, -50%) rotate(180deg);
+      }
+    }
+    .dropdown {
+      top: 100%;
     }
   }
 }
