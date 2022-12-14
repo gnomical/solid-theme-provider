@@ -1,4 +1,4 @@
-import { createEffect, createSignal, For } from "solid-js";
+import { createEffect, createSignal, For, onCleanup, onMount } from "solid-js";
 import fallbackStyles from "./fallbacks.module.scss";
 import fallbackThemes from "./fallbacks.themes.json";
 
@@ -245,6 +245,18 @@ export function ThemeProvider(props: ThemeProviderProps) {
     }
   });
 
+  let containerRef: any;
+  const closeDropdown = (e: Event) => {
+    if(!containerRef.contains(e.target))
+      setActive(false);
+  }
+
+  // handle global click events
+  createEffect(() => {
+    document.addEventListener('mousedown',closeDropdown)
+    onCleanup(() => document.removeEventListener('mousedown',closeDropdown))
+  });
+
   function toggleTheme(nextTheme: string) {
     if (nextTheme == SYSTEM_THEME_KEY) {
       setUseSystem(true);
@@ -280,7 +292,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
   }
 
   return (
-    <div class={styles.component + " " + styles[menu_placement]} id={props.id}>
+    <div ref={containerRef} class={styles.component + " " + styles[menu_placement]} id={props.id}>
       <div
         class={styles.button + (active() ? " " + styles.open : "")}
         onClick={multiToggle ? () => toggleDropdown() : () => toggleTheme(otherTheme())}
