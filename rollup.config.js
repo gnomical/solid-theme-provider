@@ -18,10 +18,10 @@ const plugins = [
 ];
 
 export default {
-  input: "src/ThemeProvider.tsx",
+  input: "src/index.tsx",
   output: [
     {
-      file: "dist/solid-theme-provider.jsx",
+      file: "dist/index.jsx",
       format: "es",
     },
   ],

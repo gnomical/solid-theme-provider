@@ -18,8 +18,8 @@
     "prefers-color-scheme"
   ],
   "type": "module",
-  "main": "dist/solid-theme-provider.jsx",
-  "module": "dist/solid-theme-provider.jsx",
+  "main": "dist/index.jsx",
+  "module": "dist/index.jsx",
   "types": "types/ThemeProvider.d.ts",
   "files": [
     "dist",

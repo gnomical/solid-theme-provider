@@ -1,44 +1,12 @@
 import { createEffect, createSignal, For, onCleanup, onMount } from "solid-js";
 import fallbackStyles from "./fallbacks.module.scss";
 import fallbackThemes from "./fallbacks.themes.json";
-
-type ThemeConfig = {
-  icon: string;
-  browser_theme_color: string;
-};
-
-type ThemeVars = {
-  [key: string]: string;
-};
-
-type ThemeObject = {
-  config: ThemeConfig;
-  vars: ThemeVars;
-};
-
-type SystemThemesObject = {
-  dark: string;
-  light: string;
-};
-
-type ThemesObject = {
-  [key: string]: ThemeObject;
-};
-
-type ThemesConfigObject = {
-  system_theme_config: SystemThemesObject;
-  themes: ThemesObject;
-};
-
-type ThemeProviderProps = {
-  default?: string;
-  id?: string;
-  label?: string;
-  prefix?: string;
-  styles?: any;
-  themes?: ThemesConfigObject;
-  menu_placement: "ne" | "se" | "sw" | "nw";
-};
+import {
+  SystemThemesObject,
+  ThemeObject,
+  ThemeProviderProps,
+  ThemesObject
+} from "./types";
 
 const SYSTEM_THEME_ICON = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.9 25.9">
