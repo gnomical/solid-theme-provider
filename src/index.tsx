@@ -7,5 +7,6 @@ export {
     ThemeVars,
     ThemesConfigObject,
     ThemesObject
-  } from "./types";
+  } from "./lib/types";
+export { Dropdown } from "./Dropdown";
 export { ThemeProvider } from "./ThemeProvider";
