@@ -3,11 +3,9 @@ import {
   SYSTEM_THEME_CONFIG_KEY,
   SYSTEM_THEME_ICON,
   SYSTEM_THEME_KEY,
-  UNKNOWN_ICON
+  UNKNOWN_ICON,
 } from "./lib/constants";
-import {
-  themeHasBase64Icon
-} from "./lib/helpers"
+import { themeHasBase64Icon } from "./lib/helpers";
 
 type DropdownProps = {
   styles: any;
@@ -16,7 +14,7 @@ type DropdownProps = {
   toggleTheme: any;
   themes: any;
   setDropdownOpen: any;
-}; 
+};
 
 export function Dropdown(props: DropdownProps) {
   const styles = props.styles;
@@ -25,13 +23,12 @@ export function Dropdown(props: DropdownProps) {
   // handle global click events
   let containerRef: any;
   const closeDropdown = (e: Event) => {
-    if(!containerRef.contains(e.target))
-      props.setDropdownOpen(false);
-  }
+    if (!containerRef.contains(e.target)) props.setDropdownOpen(false);
+  };
 
   createEffect(() => {
-    document.addEventListener('mousedown',closeDropdown)
-    onCleanup(() => document.removeEventListener('mousedown',closeDropdown))
+    document.addEventListener("mousedown", closeDropdown);
+    onCleanup(() => document.removeEventListener("mousedown", closeDropdown));
   });
 
   return (
@@ -72,5 +69,5 @@ export function Dropdown(props: DropdownProps) {
         }}
       </For>
     </div>
-  )
+  );
 }

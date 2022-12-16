@@ -1,20 +1,14 @@
 import { createEffect, createSignal } from "solid-js";
 import fallbackStyles from "./fallbacks.module.scss";
 import fallbackThemes from "./fallbacks.themes.json";
-import {
-  SystemThemesObject,
-  ThemeProviderProps,
-  ThemesObject
-} from "./lib/types";
+import { SystemThemesObject, ThemeProviderProps, ThemesObject } from "./lib/types";
 import {
   CHEVRON_UP_ICON,
   SYSTEM_THEME_CONFIG_KEY,
   SYSTEM_THEME_KEY,
-  UNKNOWN_ICON
+  UNKNOWN_ICON,
 } from "./lib/constants";
-import {
-  themeHasBase64Icon
-} from "./lib/helpers"
+import { themeHasBase64Icon } from "./lib/helpers";
 import { Dropdown } from "./Dropdown";
 
 export function ThemeProvider(props: ThemeProviderProps) {
@@ -238,9 +232,9 @@ export function ThemeProvider(props: ThemeProviderProps) {
         {props.label && <span class={styles.text}>{props.label}</span>}
       </div>
       {dropdownOpen() && (
-        <Dropdown 
-          styles={styles} 
-          allowSystemTheme={systemThemesCorrect} 
+        <Dropdown
+          styles={styles}
+          allowSystemTheme={systemThemesCorrect}
           themes={themes}
           activeTheme={useSystem() ? SYSTEM_THEME_KEY : currentTheme()}
           toggleTheme={toggleTheme}

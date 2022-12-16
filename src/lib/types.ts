@@ -1,4 +1,3 @@
-
 export type ThemeConfig = {
   icon: string;
   browser_theme_color: string;
