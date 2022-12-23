@@ -33,5 +33,5 @@ export type ThemeProviderProps = {
   prefix?: string;
   styles?: any;
   themes?: ThemesConfigObject;
-  menu_placement: "ne" | "se" | "sw" | "nw";
+  menu_placement?: "ne" | "se" | "sw" | "nw";
 };
