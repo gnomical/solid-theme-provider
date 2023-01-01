@@ -45,7 +45,8 @@ All of these properties are optional
 - **themes** - json  
   override the default variables that will be injected to the document's root element styles upon theme switching
 - **menu_placement** - string  
-  a key that indicates the direction the menu will open to. the options available represent cardinal directions [`'ne'`, `'se'`, `'sw'`, `'nw'`]  
+  a key that indicates the direction the menu will open to. the options available represent ordinal, or intercardinal, directions.  
+  [`'ne'`, `'se'`, `'sw'`, `'nw'`]  
   defaults to `'se'`
 
 ### Component:
