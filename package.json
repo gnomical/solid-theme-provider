@@ -20,7 +20,7 @@
   "type": "module",
   "main": "dist/index.jsx",
   "module": "dist/index.jsx",
-  "types": "types/ThemeProvider.d.ts",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
     "types"
