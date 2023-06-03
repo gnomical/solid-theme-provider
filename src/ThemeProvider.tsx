@@ -38,7 +38,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
   const [currentTheme, setTheme] = createSignal(
     props.default ||
       (systemThemesCorrect
-        ? systemThemeIsDark
+        ? systemThemeIsDark.matches
           ? system_theme_config.dark
           : system_theme_config.light
         : themeKeys[0])
@@ -50,14 +50,14 @@ export function ThemeProvider(props: ThemeProviderProps) {
         ? props.default == system_theme_config.dark
           ? system_theme_config.light
           : system_theme_config.dark
-        : systemThemeIsDark
+        : systemThemeIsDark.matches
         ? system_theme_config.light
         : system_theme_config.dark
       : themeKeys[1]
   );
   const [currentSystem, setCurrentSystem] = createSignal(
     systemThemesCorrect
-      ? systemThemeIsDark
+      ? systemThemeIsDark.matches
         ? system_theme_config.dark
         : system_theme_config.light
       : themeKeys[0]
