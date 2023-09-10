@@ -11,6 +11,8 @@ import {
 import { themeHasBase64Icon } from "./lib/helpers";
 import { Dropdown } from "./Dropdown";
 
+export const [currentTheme, setTheme] = createSignal("initializing");
+
 export function ThemeProvider(props: ThemeProviderProps) {
   const prefix = props.prefix || "stp-";
   const system_theme_config: SystemThemesObject =
@@ -35,14 +37,17 @@ export function ThemeProvider(props: ThemeProviderProps) {
   );
 
   const systemThemeIsDark = window.matchMedia("(prefers-color-scheme: dark)");
-  const [currentTheme, setTheme] = createSignal(
-    props.default ||
+  // initialize the current theme
+  createEffect(() => {
+    setTheme(props.default ||
       (systemThemesCorrect
         ? systemThemeIsDark.matches
           ? system_theme_config.dark
           : system_theme_config.light
         : themeKeys[0])
-  );
+    );
+  });
+
   // otherTheme is used when the button is in toggle mode (only two themes configured)
   const [otherTheme, setOtherTheme] = createSignal(
     systemThemesCorrect

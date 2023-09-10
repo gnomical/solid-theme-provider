@@ -9,4 +9,4 @@ export {
   ThemesObject,
 } from "./lib/types";
 export { Dropdown } from "./Dropdown";
-export { ThemeProvider } from "./ThemeProvider";
+export { ThemeProvider, currentTheme, setTheme } from "./ThemeProvider";
