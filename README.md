@@ -226,6 +226,18 @@ Everything else is keyed by the theme name. If/when presented in the UI they wil
   each property within this object becomes a css variable that is injected into the document's root element styles. the key name becomes the variable name and all variables will be prefixed. For example, `background` would be combined with the default prefix, `stp`, to become the css variable `--stp-background`.  
   You can store any value within these variables that would normally be accepted by the CSS standard.
 
+## Advanced Integrations:
+
+`currentTheme` and `setTheme` are exposed for applications that wish to extend the functionality of this component
+
+```jsx
+// Example of passing a string of the theme name to a 3rd party component
+import { ThemeProvider, currentTheme } from 'solid-theme-provider';
+
+<ThemeProvider label="Toggle Theme">
+<MyComponent theme={currentTheme()}>
+```
+
 ## Custom Styles
 
 ```scss
