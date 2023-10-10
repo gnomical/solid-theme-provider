@@ -188,6 +188,12 @@ export function ThemeProvider(props: ThemeProviderProps) {
       if (theme_meta) theme_meta.remove();
     }
 
+    // add the browser theme color as a css variable
+    document.documentElement.style.setProperty(
+      "--" + prefix + "browser_theme_color",
+      themes[currentTheme()].config.browser_theme_color
+    );
+
     // find the stp-inverter stylesheet and edit it
     if (systemThemesCorrect) {
       let invertStylesheet = document.querySelector("#stp-inverter") as HTMLElement;
