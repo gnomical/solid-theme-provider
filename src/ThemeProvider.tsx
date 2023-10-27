@@ -165,6 +165,11 @@ export function ThemeProvider(props: ThemeProviderProps) {
           themes[currentTheme()].vars[name] + "4d" // 30%
         );
         document.documentElement.style.setProperty(
+          "--" + prefix + name + "-alpha_quaternary",
+          themes[currentTheme()].vars[name] + "17" // 9%
+        );
+        // allow for mispelled 'quarternary' for backwards compatibility
+        document.documentElement.style.setProperty(
           "--" + prefix + name + "-alpha_quarternary",
           themes[currentTheme()].vars[name] + "17" // 9%
         );
