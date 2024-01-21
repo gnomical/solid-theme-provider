@@ -149,6 +149,9 @@ export function ThemeProvider(props: ThemeProviderProps) {
         themes[currentTheme()].vars[name]
       );
 
+      // TODO: @jkofron
+      // convert to a default calculate_variants function so it can be overridden by the user
+      
       //if the current value is a hex color - add complementary transparencies
       let pattern = /^#[0-9A-F]{6}$/i;
       if (themes[currentTheme()].vars[name].match(pattern)) {

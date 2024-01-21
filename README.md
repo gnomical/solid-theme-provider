@@ -91,6 +91,9 @@ html {
 
 ### Special Considerations - Color
 
+> *Note*  
+> This behavior can be overriden, see the `Calculating Variants` section below this one.
+
 In addition to the default variables this package also detects hex colors (e.g. #FFFFFF) and auto calculates complementary transparent versions for use throughout your project. They are accessed by appending a suffix to the variable name.
 
 | suffix               | transparency |
@@ -111,6 +114,17 @@ You might use the quaternary of the foreground as a hover state on a button.
 .btn:hover {
   background: var(--stp-foreground-alpha_quaternary);
 }
+```
+
+### Calculating Variants
+The behavior outlined above is just the default `calculate_variants` function. You can supply an override to this behavior by passing a function into the `ThemeProvider`'s calculate_variants prop.
+
+The function will be passed the name and value of each variable in the current theme. It expects an object returned which contains the variants of the key/value to be added to the css variables written to the root element of the dom. 
+
+for instance, our default function looks like this:
+
+```javascript
+// TODO: @jkofron
 ```
 
 ## Inverting Images

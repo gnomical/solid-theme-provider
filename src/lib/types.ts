@@ -27,6 +27,7 @@ export type ThemesConfigObject = {
 };
 
 export type ThemeProviderProps = {
+  calculate_variants?: (value: string, variable: string) => ThemeVars;
   default?: string;
   id?: string;
   label?: string;
