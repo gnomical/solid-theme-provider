@@ -55,7 +55,7 @@ All of these properties are optional
 
 ```jsx
 // Example with a modified label
-import { ThemeProvider } from 'solid-theme-provider';
+import { ThemeProvider } from "solid-theme-provider";
 
 <ThemeProvider label="Toggle Theme" />
 ```
@@ -96,11 +96,11 @@ html {
 
 In addition to the default variables this package also detects hex colors (e.g. #FFFFFF) and auto calculates complementary transparent versions for use throughout your project. They are accessed by appending a suffix to the variable name.
 
-| suffix               | transparency |
-| -------------------- | :----------: |
-| `-alpha_primary`     |     95%      |
-| `-alpha_secondary`   |     60%      |
-| `-alpha_tertiary`    |     30%      |
+| suffix              | transparency |
+| ------------------- | :----------: |
+| `-alpha_primary`    |     95%      |
+| `-alpha_secondary`  |     60%      |
+| `-alpha_tertiary`   |     30%      |
 | `-alpha_quaternary` |      9%      |
 
 **For Example**:  
@@ -117,9 +117,10 @@ You might use the quaternary of the foreground as a hover state on a button.
 ```
 
 ### Calculating Variants
+
 The behavior outlined above is just the default `calculate_variants` function. You can supply an override to this behavior by passing a function into the `ThemeProvider`'s calculate_variants prop.
 
-The function will be passed the name and value of each variable in the current theme. It expects an object returned which contains the variants of the key/value to be added to the css variables written to the root element of the dom. 
+The function will be passed the name and value of each variable in the current theme. It expects an object returned which contains the variants of the key/value to be added to the css variables written to the root element of the dom.
 
 for instance, our default function looks like this:
 
@@ -183,13 +184,10 @@ You may also wish to use this feature on images you cannot control the class nam
 
 ```jsx
 // Example with custom themes configured
-import { ThemeProvider } from 'solid-theme-provider';
-import myThemes from './themes.json';
+import { ThemeProvider } from "solid-theme-provider";
+import myThemes from "./themes.json";
 
-<ThemeProvider
-  label="Theme"
-  themes={myThemes}
-/>
+<ThemeProvider label="Theme" themes={myThemes} />
 ```
 
 ![Example of UI with custom label](https://github.com/gnomical/solid-theme-provider/blob/assets/dropdown_ui.gif?raw=true)

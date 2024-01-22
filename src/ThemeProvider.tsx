@@ -56,12 +56,13 @@ export function ThemeProvider(props: ThemeProviderProps) {
   const systemThemeIsDark = window.matchMedia("(prefers-color-scheme: dark)");
   // initialize the current theme
   createEffect(() => {
-    setTheme(props.default ||
-      (systemThemesCorrect
-        ? systemThemeIsDark.matches
-          ? system_theme_config.dark
-          : system_theme_config.light
-        : themeKeys[0])
+    setTheme(
+      props.default ||
+        (systemThemesCorrect
+          ? systemThemeIsDark.matches
+            ? system_theme_config.dark
+            : system_theme_config.light
+          : themeKeys[0])
     );
   });
 
@@ -73,8 +74,8 @@ export function ThemeProvider(props: ThemeProviderProps) {
           ? system_theme_config.light
           : system_theme_config.dark
         : systemThemeIsDark.matches
-        ? system_theme_config.light
-        : system_theme_config.dark
+          ? system_theme_config.light
+          : system_theme_config.dark
       : themeKeys[1]
   );
   const [currentSystem, setCurrentSystem] = createSignal(
@@ -171,7 +172,6 @@ export function ThemeProvider(props: ThemeProviderProps) {
       Object.keys(variants).forEach(variant => {
         document.documentElement.style.setProperty("--" + prefix + variant, variants[variant]);
       });
-
     });
 
     // find the theme-color meta tag and edit it, or, create a new one
