@@ -57,7 +57,7 @@ All of these properties are optional
 // Example with a modified label
 import { ThemeProvider } from 'solid-theme-provider';
 
-<ThemeProvider label="Toggle Theme">
+<ThemeProvider label="Toggle Theme" />
 ```
 
 ![Example of UI with custom label](https://github.com/gnomical/solid-theme-provider/blob/assets/label_ui.gif?raw=true)
@@ -124,7 +124,30 @@ The function will be passed the name and value of each variable in the current t
 for instance, our default function looks like this:
 
 ```javascript
-// TODO: @jkofron
+const calculate_variants = (name: string, value: string) => {
+  // if the current value is a hex color
+  // add complementary transparencies
+  let pattern = /^#[0-9A-F]{6}$/i;
+  if (value.match(pattern)) {
+    return {
+      [name + "-alpha_primary"]: value + "f2", // 95%
+      [name + "-alpha_secondary"]: value + "99", // 60%
+      [name + "-alpha_tertiary"]: value + "4d", // 30%
+      [name + "-alpha_quaternary"]: value + "17", // 9%
+    };
+  }
+  return {};
+};
+```
+
+to override this behavior you would pass your own function to the `ThemeProvider`
+
+```javascript
+const my_custom_variants = (name: string, value: string) => {
+  // your custom logic
+};
+
+<ThemeProvider calculate_variants={my_custom_variants} />
 ```
 
 ## Inverting Images
@@ -166,7 +189,7 @@ import myThemes from './themes.json';
 <ThemeProvider
   label="Theme"
   themes={myThemes}
->
+/>
 ```
 
 ![Example of UI with custom label](https://github.com/gnomical/solid-theme-provider/blob/assets/dropdown_ui.gif?raw=true)
@@ -248,7 +271,7 @@ Everything else is keyed by the theme name. If/when presented in the UI they wil
 // Example of passing a string of the theme name to a 3rd party component
 import { ThemeProvider, currentTheme } from 'solid-theme-provider';
 
-<ThemeProvider label="Toggle Theme">
+<ThemeProvider label="Toggle Theme" />
 <MyComponent theme={currentTheme()}>
 ```
 

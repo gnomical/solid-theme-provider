@@ -13,6 +13,22 @@ import { Dropdown } from "./Dropdown";
 
 export const [currentTheme, setTheme] = createSignal("initializing");
 
+const calculate_variants = (name: string, value: string) => {
+  //if the current value is a hex color - add complementary transparencies
+  let pattern = /^#[0-9A-F]{6}$/i;
+  if (value.match(pattern)) {
+    return {
+      [name + "-alpha_primary"]: value + "f2", // 95%
+      [name + "-alpha_secondary"]: value + "99", // 60%
+      [name + "-alpha_tertiary"]: value + "4d", // 30%
+      [name + "-alpha_quaternary"]: value + "17", // 9%
+      // allow for mispelled 'quarternary' for backwards compatibility
+      [name + "-alpha_quarternary"]: value + "17", // 9%
+    };
+  }
+  return {};
+};
+
 export function ThemeProvider(props: ThemeProviderProps) {
   const prefix = props.prefix || "stp-";
   const system_theme_config: SystemThemesObject =
@@ -30,6 +46,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
   const styles = props.styles || fallbackStyles;
   const multiToggle = themeKeys.length > 2;
   const menu_placement = props.menu_placement || "se";
+  const custom_variants = props.calculate_variants || calculate_variants;
 
   const [dropdownOpen, setDropdownOpen] = createSignal(false);
   const [useSystem, setUseSystem] = createSignal(
@@ -149,34 +166,12 @@ export function ThemeProvider(props: ThemeProviderProps) {
         themes[currentTheme()].vars[name]
       );
 
-      // TODO: @jkofron
-      // convert to a default calculate_variants function so it can be overridden by the user
-      
-      //if the current value is a hex color - add complementary transparencies
-      let pattern = /^#[0-9A-F]{6}$/i;
-      if (themes[currentTheme()].vars[name].match(pattern)) {
-        document.documentElement.style.setProperty(
-          "--" + prefix + name + "-alpha_primary",
-          themes[currentTheme()].vars[name] + "f2" // 95%
-        );
-        document.documentElement.style.setProperty(
-          "--" + prefix + name + "-alpha_secondary",
-          themes[currentTheme()].vars[name] + "99" // 60%
-        );
-        document.documentElement.style.setProperty(
-          "--" + prefix + name + "-alpha_tertiary",
-          themes[currentTheme()].vars[name] + "4d" // 30%
-        );
-        document.documentElement.style.setProperty(
-          "--" + prefix + name + "-alpha_quaternary",
-          themes[currentTheme()].vars[name] + "17" // 9%
-        );
-        // allow for mispelled 'quarternary' for backwards compatibility
-        document.documentElement.style.setProperty(
-          "--" + prefix + name + "-alpha_quarternary",
-          themes[currentTheme()].vars[name] + "17" // 9%
-        );
-      }
+      // calculate any variants and inject them to the :root style element
+      let variants = custom_variants(name, themes[currentTheme()].vars[name]);
+      Object.keys(variants).forEach(variant => {
+        document.documentElement.style.setProperty("--" + prefix + variant, variants[variant]);
+      });
+
     });
 
     // find the theme-color meta tag and edit it, or, create a new one
