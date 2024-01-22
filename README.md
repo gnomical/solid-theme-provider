@@ -48,6 +48,9 @@ All of these properties are optional
   a key that indicates the direction the menu will open to. the options available represent ordinal, or intercardinal, directions.  
   [`'ne'`, `'se'`, `'sw'`, `'nw'`]  
   defaults to `'se'`
+- **[calculate_variants](#calculating-variants)** - (name: string, value: string) => { [key: string]: string }  
+  override the default behavior of adding complementary transparencies to any hex color code value.  
+  Instead, you can computationally augment the variables of your theme.json in any way you please.
 
 ### Component:
 
