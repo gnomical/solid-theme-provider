@@ -94,7 +94,7 @@ html {
 
 ### Special Considerations - Color
 
-> *Note*  
+> **Note**  
 > This behavior can be overriden, see the `Calculating Variants` section below this one.
 
 In addition to the default variables this package also detects hex colors (e.g. #FFFFFF) and auto calculates complementary transparent versions for use throughout your project. They are accessed by appending a suffix to the variable name.
