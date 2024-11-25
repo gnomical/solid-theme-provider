@@ -3,7 +3,7 @@
   "description": "Lightweight and customizable theme handler for Solid JS",
   "author": "Jacob Kofron",
   "license": "MIT",
-  "version": "0.9.2",
+  "version": "0.10.0",
   "homepage": "https://github.com/gnomical/solid-theme-provider#readme",
   "repository": {
     "type": "git",
@@ -32,21 +32,21 @@
     "prettier": "npx prettier --write ."
   },
   "devDependencies": {
-    "@babel/core": "^7.24.7",
-    "@babel/preset-typescript": "^7.24.3",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-typescript": "^7.26.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.6",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-typescript": "^12.1.1",
     "acorn-jsx": "^5.3.2",
-    "postcss": "^8.4.39",
-    "prettier": "^3.3.2",
-    "rollup": "^3.29.4",
+    "postcss": "^8.4.49",
+    "prettier": "^3.3.3",
+    "rollup": "^3.29.5",
     "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.77.6",
+    "sass": "^1.81.0",
     "solid-js": "^1.8.18",
-    "tslib": "^2.6.3",
-    "typescript": "^5.5.3"
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.2"
   },
   "peerDependencies": {
     "solid-js": "^1.8.18"
