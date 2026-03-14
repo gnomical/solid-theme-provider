@@ -13,10 +13,12 @@ export default {
   ],
   external: ["solid-js"],
   plugins: [
-    typescript({ 
-      compilerOptions: { 
+    typescript({
+      compilerOptions: {
         jsx: "preserve",
-      } 
+        outDir: "./dist",
+        declaration: false,
+      }
     }),
     json(),
     postcss({
