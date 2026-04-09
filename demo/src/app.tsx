@@ -15,9 +15,7 @@ export default function App() {
             <A href="/">Home</A>
             <A href="/minimal">Minimal</A>
             <A href="/custom-themes">Custom Themes</A>
-            <A href="/custom-styles">Custom Styles</A>
             <A href="/advanced">Advanced</A>
-            <A href="/calculate-variants">Variants</A>
             <A href="/image-invert">Image Invert</A>
             <span class="spacer" />
             <ThemeProvider />

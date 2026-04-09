@@ -67,6 +67,7 @@
     backdrop-filter: blur(15px);
     border-radius: var(--stp-button_radius);
     padding: 0.5em;
+    z-index: 2;
 
     &::before {
       content: "";

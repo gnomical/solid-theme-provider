@@ -84,6 +84,18 @@ h2 {
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
+  button {
+    padding: 0.5rem 1rem;
+    border-radius: var(--stp-button_radius);
+    border: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0,0,0,0.09));
+    background: transparent;
+    color: var(--stp-foreground);
+    cursor: pointer;
+    transition: background 0.15s;
+    &:hover {
+      background: var(--stp-foreground-alpha_quaternary, rgba(0,0,0,0.05));
+    }
+  }
 }
 
 pre {
@@ -154,12 +166,4 @@ code {
   padding: 0.5rem 1rem;
   border-radius: 0.4rem;
   background: var(--stp-foreground-alpha_quaternary, rgba(0,0,0,0.05));
-}
-
-img.invert-safe--light {
-  filter: invert(1) hue-rotate(180deg);
-}
-
-img.invert-safe--dark {
-  filter: invert(1) hue-rotate(180deg);
 }

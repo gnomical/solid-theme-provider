@@ -13,19 +13,9 @@ const pages = [
     description: "Supply a themes.json with multiple named themes.",
   },
   {
-    href: "/custom-styles",
-    title: "Custom Styles",
-    description: "Override the toggle button styles via the styles prop.",
-  },
-  {
     href: "/advanced",
     title: "Advanced",
     description: "Use currentTheme and setTheme to drive external components.",
-  },
-  {
-    href: "/calculate-variants",
-    title: "Calculate Variants",
-    description: "Override the default hex-transparency variant generator.",
   },
   {
     href: "/image-invert",
@@ -39,7 +29,7 @@ export default function Home() {
     <main>
       <Title>solid-theme-provider demo</Title>
       <h1>solid-theme-provider</h1>
-      <h2>Interactive demos for every feature in the README</h2>
+      <h2>Interactive demos for select features, view the README for more features and information.</h2>
       <div class="card-grid">
         {pages.map(page => (
           <A href={page.href} class="card">
