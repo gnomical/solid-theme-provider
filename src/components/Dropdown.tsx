@@ -3,23 +3,23 @@ import {
   SYSTEM_THEME_CONFIG_KEY,
   SYSTEM_THEME_ICON,
   SYSTEM_THEME_KEY,
-} from "./lib/constants";
-import { themeHasBase64Icon } from "./lib/helpers";
+} from "../lib/constants";
+import { themeHasBase64Icon } from "../lib/helpers";
+import { ThemesObject } from "../lib/types";
 
 type DropdownProps = {
   styles: any;
   activeTheme: string;
   allowSystemTheme?: boolean;
-  toggleTheme: any;
-  themes: any;
-  setDropdownOpen: any;
+  toggleTheme: (theme: string) => void;
+  themes: ThemesObject;
+  setDropdownOpen: (open: boolean) => void;
 };
 
 export function Dropdown(props: DropdownProps) {
   const styles = props.styles;
   const allowSystemTheme = props.allowSystemTheme || false;
 
-  // handle global click events
   let containerRef: any;
   const closeDropdown = (e: Event) => {
     if (!containerRef.contains(e.target)) props.setDropdownOpen(false);
@@ -37,7 +37,7 @@ export function Dropdown(props: DropdownProps) {
           class={props.activeTheme == SYSTEM_THEME_KEY ? styles.active : ""}
           onClick={() => props.toggleTheme(SYSTEM_THEME_KEY)}
         >
-          <span class={styles.icon}>{SYSTEM_THEME_ICON}</span>
+          <span class={styles.icon}>{SYSTEM_THEME_ICON()}</span>
           <span class={styles.text}>System Preference</span>
         </div>
       )}
@@ -48,9 +48,9 @@ export function Dropdown(props: DropdownProps) {
         fallback={<div>Loading...</div>}
       >
         {themeName => {
-          let themeLabel = themeName
+          const themeLabel = themeName
             .split("_")
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ");
           return (
             <div

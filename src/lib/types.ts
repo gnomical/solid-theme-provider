@@ -1,3 +1,5 @@
+import type { Accessor, JSX } from "solid-js";
+
 export type ThemeConfig = {
   icon?: string;
   browser_theme_color?: string;
@@ -26,13 +28,34 @@ export type ThemesConfigObject = {
   themes: ThemesObject;
 };
 
+export type ThemeContextValue = {
+  currentTheme: Accessor<string>;
+  setTheme: (theme: string) => void;
+  themes: ThemesObject;
+  themeKeys: string[];
+  systemThemeConfig: SystemThemesObject;
+  systemThemesCorrect: boolean;
+  useSystem: Accessor<boolean>;
+  setUseSystem: (val: boolean) => void;
+  currentSystem: Accessor<string>;
+  prefix: string;
+};
+
 export type ThemeProviderProps = {
-  calculate_variants?: (value: string, variable: string) => ThemeVars;
-  default?: string;
-  id?: string;
-  label?: string;
-  prefix?: string;
-  styles?: any;
   themes?: ThemesConfigObject;
-  menu_placement?: "ne" | "se" | "sw" | "nw";
+  default?: string;
+  prefix?: string;
+  calculateVariants?: (name: string, value: string) => ThemeVars;
+  children?: JSX.Element;
+};
+
+export type ThemeToggleProps = {
+  label?: string;
+  classList?: Record<string, boolean>;
+};
+
+export type ThemePickerProps = {
+  label?: string;
+  menuPlacement?: "ne" | "se" | "sw" | "nw";
+  classList?: Record<string, boolean>;
 };

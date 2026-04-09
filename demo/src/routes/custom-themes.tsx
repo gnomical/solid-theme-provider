@@ -1,6 +1,5 @@
 import { Title } from "@solidjs/meta";
-import { ThemeProvider } from "solid-theme-provider";
-import myThemes from "../data/custom-themes.json";
+import { ThemePicker } from "solid-theme-provider";
 
 export default function CustomThemes() {
   return (
@@ -8,24 +7,26 @@ export default function CustomThemes() {
       <Title>Custom Themes — solid-theme-provider demo</Title>
       <h1>Custom Themes</h1>
       <h2>
-        Supply a <code>themes</code> prop to define your own named themes. More than 2 themes
-        renders a dropdown.
+        Supply a <code>themes</code> prop to define your own named themes. Use{" "}
+        <code>ThemePicker</code> to render a dropdown for selecting between them.
       </h2>
 
       <div class="demo-section">
         <h3>Live</h3>
         <div class="demo-box">
-          <ThemeProvider label="Theme" themes={myThemes} />
-          <span class="note">3 themes: Humid Night, Warm Light, Turtle — dropdown auto-appears</span>
+          <ThemePicker label="Theme" />
+          <span class="note">3 themes: Humid Night, Warm Light, Turtle — dropdown with system preference</span>
         </div>
       </div>
 
       <div class="demo-section">
         <h3>Code</h3>
-        <pre><code>{`import { ThemeProvider } from "solid-theme-provider";
+        <pre><code>{`import { ThemeProvider, ThemePicker } from "solid-theme-provider";
 import myThemes from "./themes.json";
 
-<ThemeProvider label="Theme" themes={myThemes} />`}</code></pre>
+<ThemeProvider themes={myThemes}>
+  <ThemePicker label="Theme" />
+</ThemeProvider>`}</code></pre>
       </div>
 
       <div class="demo-section">

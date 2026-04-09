@@ -1,5 +1,5 @@
 import { Title } from "@solidjs/meta";
-import { ThemeProvider } from "solid-theme-provider";
+import { ThemeToggle } from "solid-theme-provider";
 
 export default function Minimal() {
   return (
@@ -11,24 +11,24 @@ export default function Minimal() {
       <div class="demo-section">
         <h3>Live</h3>
         <div class="demo-box">
-          <ThemeProvider />
+          <ThemeToggle />
           <span class="note">No props — defaults to system preference</span>
         </div>
         <div class="demo-box">
-          <ThemeProvider label="Toggle Theme" />
+          <ThemeToggle label="Toggle Theme" />
           <span class="note">With label prop</span>
         </div>
       </div>
 
       <div class="demo-section">
         <h3>Code</h3>
-        <pre><code>{`import { ThemeProvider } from "solid-theme-provider";
+        <pre><code>{`import { ThemeProvider, ThemeToggle } from "solid-theme-provider";
 
-// No props — system preference only
-<ThemeProvider />
-
-// With a label
-<ThemeProvider label="Toggle Theme" />`}</code></pre>
+<ThemeProvider>
+  <ThemeToggle />
+  <ThemeToggle label="Toggle Theme" />
+  {/* All toggles share the same theme state */}
+</ThemeProvider>`}</code></pre>
       </div>
 
       <div class="demo-section">

@@ -1,27 +1,25 @@
-import { createEffect, createSignal, onMount, onCleanup } from "solid-js";
-import fallbackStyles from "./fallbacks.module.scss";
-import fallbackThemes from "./fallbacks.themes.json";
-import { SystemThemesObject, ThemeProviderProps, ThemesObject } from "./lib/types";
+import { createContext, createEffect, createSignal, onCleanup, onMount, useContext } from "solid-js";
+import fallbackThemes from "../fallbacks.themes.json";
 import {
-  CHEVRON_UP_ICON,
-  SYSTEM_THEME_CONFIG_KEY,
-  SYSTEM_THEME_KEY,
-} from "./lib/constants";
-import { themeHasBase64Icon } from "./lib/helpers";
-import { Dropdown } from "./Dropdown";
+  SystemThemesObject,
+  ThemeContextValue,
+  ThemeProviderProps,
+  ThemeVars,
+  ThemesObject,
+} from "../lib/types";
+import { SYSTEM_THEME_CONFIG_KEY, SYSTEM_THEME_KEY } from "../lib/constants";
 
-export const [currentTheme, setTheme] = createSignal("initializing");
+const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-const calculate_variants = (name: string, value: string) => {
-  //if the current value is a hex color - add complementary transparencies
-  let pattern = /^#[0-9A-F]{6}$/i;
+const defaultCalculateVariants = (name: string, value: string): ThemeVars => {
+  const pattern = /^#[0-9A-F]{6}$/i;
   if (value.match(pattern)) {
     return {
       [name + "-alpha_primary"]: value + "f2", // 95%
       [name + "-alpha_secondary"]: value + "99", // 60%
       [name + "-alpha_tertiary"]: value + "4d", // 30%
       [name + "-alpha_quaternary"]: value + "17", // 9%
-      // allow for mispelled 'quarternary' for backwards compatibility
+      // allow for misspelled 'quarternary' for backwards compatibility
       [name + "-alpha_quarternary"]: value + "17", // 9%
     };
   }
@@ -42,31 +40,18 @@ export function ThemeProvider(props: ThemeProviderProps) {
     system_theme_config.hasOwnProperty("light") &&
     themes.hasOwnProperty(system_theme_config.dark) &&
     themes.hasOwnProperty(system_theme_config.light);
-  const styles = props.styles || fallbackStyles;
-  const multiToggle = themeKeys.length > 2;
-  const menu_placement = props.menu_placement || "se";
-  const custom_variants = props.calculate_variants || calculate_variants;
+  const calculateVariants = props.calculateVariants || defaultCalculateVariants;
 
-  const [dropdownOpen, setDropdownOpen] = createSignal(false);
   const [useSystem, setUseSystem] = createSignal(
     props.default ? false : systemThemesCorrect ? true : false
   );
 
   // Deterministic initial state: props.default, or light as a safe SSR fallback.
   // System preference is applied in onMount to avoid SSR/hydration mismatch.
-  const initialTheme = props.default ||
-    (systemThemesCorrect ? system_theme_config.light : themeKeys[0]);
+  const initialTheme =
+    props.default || (systemThemesCorrect ? system_theme_config.light : themeKeys[0]);
 
-  setTheme(initialTheme);
-
-  // otherTheme is used when the button is in toggle mode (only two themes configured)
-  const [otherTheme, setOtherTheme] = createSignal(
-    systemThemesCorrect
-      ? props.default == system_theme_config.dark
-        ? system_theme_config.light
-        : system_theme_config.dark
-      : themeKeys[1]
-  );
+  const [currentTheme, setTheme] = createSignal(initialTheme);
   const [currentSystem, setCurrentSystem] = createSignal(
     systemThemesCorrect ? system_theme_config.light : themeKeys[0]
   );
@@ -79,25 +64,16 @@ export function ThemeProvider(props: ThemeProviderProps) {
     if (!props.default && systemThemesCorrect) {
       const resolvedTheme = systemIsDark ? system_theme_config.dark : system_theme_config.light;
       setTheme(resolvedTheme);
-      setOtherTheme(systemIsDark ? system_theme_config.light : system_theme_config.dark);
       setCurrentSystem(resolvedTheme);
     }
 
     const handler = (e: MediaQueryListEvent) => {
       if (systemThemesCorrect) {
         if (useSystem()) {
-          let nextTheme = system_theme_config.light;
-          if (e.matches) {
-            nextTheme = system_theme_config.dark;
-          }
-          setOtherTheme(currentTheme());
+          const nextTheme = e.matches ? system_theme_config.dark : system_theme_config.light;
           setTheme(nextTheme);
         }
-        if (e.matches) {
-          setCurrentSystem(system_theme_config.dark);
-        } else {
-          setCurrentSystem(system_theme_config.light);
-        }
+        setCurrentSystem(e.matches ? system_theme_config.dark : system_theme_config.light);
       }
     };
     systemThemeIsDark.addEventListener("change", handler);
@@ -142,7 +118,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
         }
       }
     }
-    for (let [themeName, settings] of Object.entries(themes)) {
+    for (const [themeName, settings] of Object.entries(themes)) {
       if (!settings.hasOwnProperty("vars")) {
         console.warn(
           `The '${themeName}' object is missing its 'vars' property. It has been removed from the available themes`
@@ -155,7 +131,6 @@ export function ThemeProvider(props: ThemeProviderProps) {
 
   createEffect(() => {
     if (!themes[currentTheme()]) return;
-    // TODO: loop through properties of last theme and remove any that don't exist in the next theme
 
     // loop through the theme vars and inject them to the :root style element
     Object.keys(themes[currentTheme()].vars).forEach(name => {
@@ -165,14 +140,13 @@ export function ThemeProvider(props: ThemeProviderProps) {
       );
 
       // calculate any variants and inject them to the :root style element
-      let variants = custom_variants(name, themes[currentTheme()].vars[name]);
+      const variants = calculateVariants(name, themes[currentTheme()].vars[name]);
       Object.keys(variants).forEach(variant => {
         document.documentElement.style.setProperty("--" + prefix + variant, variants[variant]);
       });
     });
 
     // find the theme-color meta tag and edit it, or, create a new one
-    // <meta name="theme-color" content="#FFFFFF"></meta>
     let theme_meta = document.querySelector('meta[name="theme-color"]');
     if (themes[currentTheme()].config?.browser_theme_color) {
       if (!theme_meta) {
@@ -195,10 +169,10 @@ export function ThemeProvider(props: ThemeProviderProps) {
 
     // find the stp-inverter stylesheet and edit it
     if (systemThemesCorrect) {
-      let invertStylesheet = document.querySelector("#stp-inverter") as HTMLElement;
+      const invertStylesheet = document.querySelector("#stp-inverter") as HTMLElement;
       if (invertStylesheet) {
-        let currentlyDark = currentTheme() == system_theme_config.dark;
-        let currentlyLight = currentTheme() == system_theme_config.light;
+        const currentlyDark = currentTheme() == system_theme_config.dark;
+        const currentlyLight = currentTheme() == system_theme_config.light;
 
         if (currentlyDark) {
           invertStylesheet.innerText =
@@ -211,46 +185,30 @@ export function ThemeProvider(props: ThemeProviderProps) {
     }
   });
 
-  function toggleTheme(nextTheme: string) {
-    if (nextTheme == SYSTEM_THEME_KEY) {
-      setUseSystem(true);
-      setTheme(currentSystem());
-    } else {
-      setUseSystem(false);
-      setOtherTheme(currentTheme());
-      setTheme(nextTheme);
-    }
-    setDropdownOpen(false);
-  }
+  const contextValue: ThemeContextValue = {
+    currentTheme,
+    setTheme,
+    themes,
+    themeKeys,
+    systemThemeConfig: system_theme_config,
+    systemThemesCorrect,
+    useSystem,
+    setUseSystem,
+    currentSystem,
+    prefix,
+  };
 
   return (
-    <div class={styles.component + " " + styles[menu_placement]} id={props.id}>
-      <div
-        class={styles.button + (dropdownOpen() ? " " + styles.open : "")}
-        onMouseDown={multiToggle ? () => setDropdownOpen(true) : () => toggleTheme(otherTheme())}
-      >
-        {dropdownOpen() ? (
-          <span class={`${styles.icon} ${styles.chevron}`}>{CHEVRON_UP_ICON}</span>
-        ) : themeHasBase64Icon(themes[multiToggle ? currentTheme() : otherTheme()] ?? {}) ? (
-          <span
-            class={styles.icon}
-            innerHTML={atob(themes[multiToggle ? currentTheme() : otherTheme()].config.icon!)}
-          />
-        ) : multiToggle ? (
-          <span class={`${styles.icon} ${styles.chevron}`} style={{ transform: "rotate(180deg)" }}>{CHEVRON_UP_ICON}</span>
-        ) : null}
-        {props.label && <span class={styles.text}>{props.label}</span>}
-      </div>
-      {dropdownOpen() && (
-        <Dropdown
-          styles={styles}
-          allowSystemTheme={systemThemesCorrect}
-          themes={themes}
-          activeTheme={useSystem() ? SYSTEM_THEME_KEY : currentTheme()}
-          toggleTheme={toggleTheme}
-          setDropdownOpen={setDropdownOpen}
-        />
-      )}
-    </div>
+    <ThemeContext.Provider value={contextValue}>
+      {props.children}
+    </ThemeContext.Provider>
   );
+}
+
+export function useTheme(): ThemeContextValue {
+  const ctx = useContext(ThemeContext);
+  if (ctx === undefined) {
+    throw new Error("useTheme must be used inside a ThemeProvider");
+  }
+  return ctx;
 }
