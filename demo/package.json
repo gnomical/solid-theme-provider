@@ -1,5 +1,5 @@
 {
-  "name": "example-basic",
+  "name": "solid-theme-provider-demo",
   "type": "module",
   "scripts": {
     "dev": "vite dev",
@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "solid-theme-provider": "workspace:*",
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.16.1",
     "@solidjs/start": "2.0.0-alpha.2",
