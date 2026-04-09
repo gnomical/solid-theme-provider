@@ -1,19 +1,53 @@
 import { Title } from "@solidjs/meta";
-import Counter from "~/components/Counter";
+import { A } from "@solidjs/router";
+
+const pages = [
+  {
+    href: "/minimal",
+    title: "Minimal",
+    description: "Zero-config usage. System theme detection + label prop.",
+  },
+  {
+    href: "/custom-themes",
+    title: "Custom Themes",
+    description: "Supply a themes.json with multiple named themes.",
+  },
+  {
+    href: "/custom-styles",
+    title: "Custom Styles",
+    description: "Override the toggle button styles via the styles prop.",
+  },
+  {
+    href: "/advanced",
+    title: "Advanced",
+    description: "Use currentTheme and setTheme to drive external components.",
+  },
+  {
+    href: "/calculate-variants",
+    title: "Calculate Variants",
+    description: "Override the default hex-transparency variant generator.",
+  },
+  {
+    href: "/image-invert",
+    title: "Image Invert",
+    description: "Invert images automatically on theme switch.",
+  },
+];
 
 export default function Home() {
   return (
     <main>
-      <Title>Hello World</Title>
-      <h1>Hello world!</h1>
-      <Counter />
-      <p>
-        Visit{" "}
-        <a href="https://start.solidjs.com" target="_blank">
-          start.solidjs.com
-        </a>{" "}
-        to learn how to build SolidStart apps.
-      </p>
+      <Title>solid-theme-provider demo</Title>
+      <h1>solid-theme-provider</h1>
+      <h2>Interactive demos for every feature in the README</h2>
+      <div class="card-grid">
+        {pages.map(page => (
+          <A href={page.href} class="card">
+            <h3>{page.title}</h3>
+            <p>{page.description}</p>
+          </A>
+        ))}
+      </div>
     </main>
   );
 }

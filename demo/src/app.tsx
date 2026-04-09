@@ -1,7 +1,8 @@
 import { MetaProvider, Title } from "@solidjs/meta";
-import { Router } from "@solidjs/router";
+import { Router, A } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
+import { ThemeProvider } from "solid-theme-provider";
 import "./app.css";
 
 export default function App() {
@@ -9,9 +10,18 @@ export default function App() {
     <Router
       root={props => (
         <MetaProvider>
-          <Title>SolidStart - Basic</Title>
-          <a href="/">Index</a>
-          <a href="/about">About</a>
+          <Title>solid-theme-provider demo</Title>
+          <nav>
+            <A href="/">Home</A>
+            <A href="/minimal">Minimal</A>
+            <A href="/custom-themes">Custom Themes</A>
+            <A href="/custom-styles">Custom Styles</A>
+            <A href="/advanced">Advanced</A>
+            <A href="/calculate-variants">Variants</A>
+            <A href="/image-invert">Image Invert</A>
+            <span class="spacer" />
+            <ThemeProvider />
+          </nav>
           <Suspense>{props.children}</Suspense>
         </MetaProvider>
       )}
