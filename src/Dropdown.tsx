@@ -3,7 +3,6 @@ import {
   SYSTEM_THEME_CONFIG_KEY,
   SYSTEM_THEME_ICON,
   SYSTEM_THEME_KEY,
-  UNKNOWN_ICON,
 } from "./lib/constants";
 import { themeHasBase64Icon } from "./lib/helpers";
 
@@ -58,10 +57,8 @@ export function Dropdown(props: DropdownProps) {
               class={props.activeTheme == themeName ? styles.active : ""}
               onClick={() => props.toggleTheme(themeName)}
             >
-              {themeHasBase64Icon(props.themes[themeName]) ? (
-                <span class={styles.icon} innerHTML={atob(props.themes[themeName].config.icon)} />
-              ) : (
-                <span class={styles.icon}>{UNKNOWN_ICON}</span>
+              {themeHasBase64Icon(props.themes[themeName]) && (
+                <span class={styles.icon} innerHTML={atob(props.themes[themeName].config.icon!)} />
               )}
               <span class={styles.text}>{themeLabel}</span>
             </div>

@@ -1,10 +1,10 @@
 import json from "@rollup/plugin-json";
 import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
-import jsx from "acorn-jsx";
 
 export default {
   input: "src/index.tsx",
+  jsx: "preserve",
   output: [
     {
       file: "dist/index.jsx",
@@ -18,7 +18,7 @@ export default {
         jsx: "preserve",
         outDir: "./dist",
         declaration: false,
-      }
+      },
     }),
     json(),
     postcss({
@@ -26,5 +26,4 @@ export default {
       plugins: [],
     }),
   ],
-  acornInjectPlugins: [jsx()],
 };

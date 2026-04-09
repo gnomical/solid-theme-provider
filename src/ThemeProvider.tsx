@@ -1,4 +1,4 @@
-import { createEffect, createSignal } from "solid-js";
+import { createEffect, createSignal, onMount, onCleanup } from "solid-js";
 import fallbackStyles from "./fallbacks.module.scss";
 import fallbackThemes from "./fallbacks.themes.json";
 import { SystemThemesObject, ThemeProviderProps, ThemesObject } from "./lib/types";
@@ -6,7 +6,6 @@ import {
   CHEVRON_UP_ICON,
   SYSTEM_THEME_CONFIG_KEY,
   SYSTEM_THEME_KEY,
-  UNKNOWN_ICON,
 } from "./lib/constants";
 import { themeHasBase64Icon } from "./lib/helpers";
 import { Dropdown } from "./Dropdown";
@@ -36,7 +35,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
   const themes: ThemesObject = props.themes?.themes || fallbackThemes.themes;
   const themeKeys = Object.keys(themes);
   const hasSystemThemesObject =
-    props.themes && props.themes.hasOwnProperty(SYSTEM_THEME_CONFIG_KEY);
+    !props.themes || props.themes.hasOwnProperty(SYSTEM_THEME_CONFIG_KEY);
   const systemThemesCorrect =
     hasSystemThemesObject &&
     system_theme_config.hasOwnProperty("dark") &&
@@ -53,55 +52,56 @@ export function ThemeProvider(props: ThemeProviderProps) {
     props.default ? false : systemThemesCorrect ? true : false
   );
 
-  const systemThemeIsDark = window.matchMedia("(prefers-color-scheme: dark)");
-  // initialize the current theme
-  createEffect(() => {
-    setTheme(
-      props.default ||
-        (systemThemesCorrect
-          ? systemThemeIsDark.matches
-            ? system_theme_config.dark
-            : system_theme_config.light
-          : themeKeys[0])
-    );
-  });
+  // Deterministic initial state: props.default, or light as a safe SSR fallback.
+  // System preference is applied in onMount to avoid SSR/hydration mismatch.
+  const initialTheme = props.default ||
+    (systemThemesCorrect ? system_theme_config.light : themeKeys[0]);
+
+  setTheme(initialTheme);
 
   // otherTheme is used when the button is in toggle mode (only two themes configured)
   const [otherTheme, setOtherTheme] = createSignal(
     systemThemesCorrect
-      ? props.default
-        ? props.default == system_theme_config.dark
-          ? system_theme_config.light
-          : system_theme_config.dark
-        : systemThemeIsDark.matches
-          ? system_theme_config.light
-          : system_theme_config.dark
+      ? props.default == system_theme_config.dark
+        ? system_theme_config.light
+        : system_theme_config.dark
       : themeKeys[1]
   );
   const [currentSystem, setCurrentSystem] = createSignal(
-    systemThemesCorrect
-      ? systemThemeIsDark.matches
-        ? system_theme_config.dark
-        : system_theme_config.light
-      : themeKeys[0]
+    systemThemesCorrect ? system_theme_config.light : themeKeys[0]
   );
 
-  systemThemeIsDark.addEventListener("change", e => {
-    if (systemThemesCorrect) {
-      if (useSystem()) {
-        let nextTheme = system_theme_config.light;
-        if (e.matches) {
-          nextTheme = system_theme_config.dark;
-        }
-        setOtherTheme(currentTheme());
-        setTheme(nextTheme);
-      }
-      if (e.matches) {
-        setCurrentSystem(system_theme_config.dark);
-      } else {
-        setCurrentSystem(system_theme_config.light);
-      }
+  onMount(() => {
+    const systemThemeIsDark = window.matchMedia("(prefers-color-scheme: dark)");
+    const systemIsDark = systemThemeIsDark.matches;
+
+    // Apply actual system preference now that we're on the client
+    if (!props.default && systemThemesCorrect) {
+      const resolvedTheme = systemIsDark ? system_theme_config.dark : system_theme_config.light;
+      setTheme(resolvedTheme);
+      setOtherTheme(systemIsDark ? system_theme_config.light : system_theme_config.dark);
+      setCurrentSystem(resolvedTheme);
     }
+
+    const handler = (e: MediaQueryListEvent) => {
+      if (systemThemesCorrect) {
+        if (useSystem()) {
+          let nextTheme = system_theme_config.light;
+          if (e.matches) {
+            nextTheme = system_theme_config.dark;
+          }
+          setOtherTheme(currentTheme());
+          setTheme(nextTheme);
+        }
+        if (e.matches) {
+          setCurrentSystem(system_theme_config.dark);
+        } else {
+          setCurrentSystem(system_theme_config.light);
+        }
+      }
+    };
+    systemThemeIsDark.addEventListener("change", handler);
+    onCleanup(() => systemThemeIsDark.removeEventListener("change", handler));
   });
 
   // inject the invert stylesheet
@@ -149,15 +149,12 @@ export function ThemeProvider(props: ThemeProviderProps) {
         );
       } else if (!settings.hasOwnProperty("config")) {
         console.warn(`The '${themeName}' theme object is missing its 'config' property.`);
-      } else if (!settings.config.hasOwnProperty("icon")) {
-        console.warn(
-          `The '${themeName}.config' object is missing its 'icon' property. A fallback placeholder is being used instead.`
-        );
       }
     }
   });
 
   createEffect(() => {
+    if (!themes[currentTheme()]) return;
     // TODO: loop through properties of last theme and remove any that don't exist in the next theme
 
     // loop through the theme vars and inject them to the :root style element
@@ -177,25 +174,24 @@ export function ThemeProvider(props: ThemeProviderProps) {
     // find the theme-color meta tag and edit it, or, create a new one
     // <meta name="theme-color" content="#FFFFFF"></meta>
     let theme_meta = document.querySelector('meta[name="theme-color"]');
-    if (
-      themes[currentTheme()].hasOwnProperty("config") &&
-      themes[currentTheme()].config.hasOwnProperty("browser_theme_color")
-    ) {
+    if (themes[currentTheme()].config?.browser_theme_color) {
       if (!theme_meta) {
         theme_meta = document.createElement("meta");
         theme_meta.setAttribute("name", "theme-color");
         document.getElementsByTagName("head")[0].appendChild(theme_meta);
       }
-      theme_meta.setAttribute("content", themes[currentTheme()].config.browser_theme_color);
+      theme_meta.setAttribute("content", themes[currentTheme()].config.browser_theme_color!);
     } else {
       if (theme_meta) theme_meta.remove();
     }
 
     // add the browser theme color as a css variable
-    document.documentElement.style.setProperty(
-      "--" + prefix + "browser_theme_color",
-      themes[currentTheme()].config.browser_theme_color
-    );
+    if (themes[currentTheme()].config.browser_theme_color) {
+      document.documentElement.style.setProperty(
+        "--" + prefix + "browser_theme_color",
+        themes[currentTheme()].config.browser_theme_color!
+      );
+    }
 
     // find the stp-inverter stylesheet and edit it
     if (systemThemesCorrect) {
@@ -234,15 +230,15 @@ export function ThemeProvider(props: ThemeProviderProps) {
         onMouseDown={multiToggle ? () => setDropdownOpen(true) : () => toggleTheme(otherTheme())}
       >
         {dropdownOpen() ? (
-          <span class={styles.icon}>{CHEVRON_UP_ICON}</span>
-        ) : themeHasBase64Icon(themes[multiToggle ? currentTheme() : otherTheme()]) ? (
+          <span class={`${styles.icon} ${styles.chevron}`}>{CHEVRON_UP_ICON}</span>
+        ) : themeHasBase64Icon(themes[multiToggle ? currentTheme() : otherTheme()] ?? {}) ? (
           <span
             class={styles.icon}
-            innerHTML={atob(themes[multiToggle ? currentTheme() : otherTheme()].config.icon)}
+            innerHTML={atob(themes[multiToggle ? currentTheme() : otherTheme()].config.icon!)}
           />
-        ) : (
-          <span class={styles.icon}>{UNKNOWN_ICON}</span>
-        )}
+        ) : multiToggle ? (
+          <span class={`${styles.icon} ${styles.chevron}`} style={{ transform: "rotate(180deg)" }}>{CHEVRON_UP_ICON}</span>
+        ) : null}
         {props.label && <span class={styles.text}>{props.label}</span>}
       </div>
       {dropdownOpen() && (

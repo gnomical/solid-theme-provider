@@ -23,9 +23,6 @@
     &.open {
       background: var(--stp-background);
       border-radius: 0;
-      .icon svg {
-        width: 1em;
-      }
     }
   }
 
@@ -57,6 +54,10 @@
     transform: translate(-50%, -50%);
   }
 
+  .icon.chevron svg {
+    width: 1em;
+  }
+
   .dropdown {
     position: absolute;
     font-size: 0.9em;
@@ -66,6 +67,7 @@
     backdrop-filter: blur(15px);
     border-radius: var(--stp-button_radius);
     padding: 0.5em;
+    z-index: 2;
 
     &::before {
       content: "";
