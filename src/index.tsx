@@ -1,5 +1,5 @@
 export { For } from "solid-js";
-export {
+export type {
   SystemThemesObject,
   ThemeConfig,
   ThemeObject,

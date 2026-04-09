@@ -26,6 +26,9 @@ importers:
       '@rollup/plugin-typescript':
         specifier: ^12.3.0
         version: 12.3.0(rollup@4.60.1)(tslib@2.8.1)(typescript@6.0.2)
+      babel-preset-solid:
+        specifier: ^1.9.12
+        version: 1.9.12(@babel/core@7.29.0)(solid-js@1.9.12)
       postcss:
         specifier: ^8.5.9
         version: 8.5.9

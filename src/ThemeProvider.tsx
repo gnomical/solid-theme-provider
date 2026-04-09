@@ -1,4 +1,5 @@
-import { createEffect, createSignal } from "solid-js";
+import { createEffect, createSignal, onMount, onCleanup } from "solid-js";
+import { isServer } from "solid-js/web";
 import fallbackStyles from "./fallbacks.module.scss";
 import fallbackThemes from "./fallbacks.themes.json";
 import { SystemThemesObject, ThemeProviderProps, ThemesObject } from "./lib/types";
@@ -53,13 +54,16 @@ export function ThemeProvider(props: ThemeProviderProps) {
     props.default ? false : systemThemesCorrect ? true : false
   );
 
-  const systemThemeIsDark = window.matchMedia("(prefers-color-scheme: dark)");
+  const systemThemeIsDark = isServer
+    ? null
+    : window.matchMedia("(prefers-color-scheme: dark)");
+  const systemIsDark = !isServer && !!systemThemeIsDark?.matches;
   // initialize the current theme
   createEffect(() => {
     setTheme(
       props.default ||
         (systemThemesCorrect
-          ? systemThemeIsDark.matches
+          ? systemIsDark
             ? system_theme_config.dark
             : system_theme_config.light
           : themeKeys[0])
@@ -73,35 +77,40 @@ export function ThemeProvider(props: ThemeProviderProps) {
         ? props.default == system_theme_config.dark
           ? system_theme_config.light
           : system_theme_config.dark
-        : systemThemeIsDark.matches
+        : systemIsDark
           ? system_theme_config.light
           : system_theme_config.dark
       : themeKeys[1]
   );
   const [currentSystem, setCurrentSystem] = createSignal(
     systemThemesCorrect
-      ? systemThemeIsDark.matches
+      ? systemIsDark
         ? system_theme_config.dark
         : system_theme_config.light
       : themeKeys[0]
   );
 
-  systemThemeIsDark.addEventListener("change", e => {
-    if (systemThemesCorrect) {
-      if (useSystem()) {
-        let nextTheme = system_theme_config.light;
-        if (e.matches) {
-          nextTheme = system_theme_config.dark;
+  onMount(() => {
+    if (!systemThemeIsDark) return;
+    const handler = (e: MediaQueryListEvent) => {
+      if (systemThemesCorrect) {
+        if (useSystem()) {
+          let nextTheme = system_theme_config.light;
+          if (e.matches) {
+            nextTheme = system_theme_config.dark;
+          }
+          setOtherTheme(currentTheme());
+          setTheme(nextTheme);
         }
-        setOtherTheme(currentTheme());
-        setTheme(nextTheme);
+        if (e.matches) {
+          setCurrentSystem(system_theme_config.dark);
+        } else {
+          setCurrentSystem(system_theme_config.light);
+        }
       }
-      if (e.matches) {
-        setCurrentSystem(system_theme_config.dark);
-      } else {
-        setCurrentSystem(system_theme_config.light);
-      }
-    }
+    };
+    systemThemeIsDark.addEventListener("change", handler);
+    onCleanup(() => systemThemeIsDark.removeEventListener("change", handler));
   });
 
   // inject the invert stylesheet
