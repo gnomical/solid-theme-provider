@@ -174,10 +174,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
     // find the theme-color meta tag and edit it, or, create a new one
     // <meta name="theme-color" content="#FFFFFF"></meta>
     let theme_meta = document.querySelector('meta[name="theme-color"]');
-    if (
-      themes[currentTheme()].hasOwnProperty("config") &&
-      themes[currentTheme()].config.hasOwnProperty("browser_theme_color")
-    ) {
+    if (themes[currentTheme()].config?.browser_theme_color) {
       if (!theme_meta) {
         theme_meta = document.createElement("meta");
         theme_meta.setAttribute("name", "theme-color");
@@ -189,10 +186,12 @@ export function ThemeProvider(props: ThemeProviderProps) {
     }
 
     // add the browser theme color as a css variable
-    document.documentElement.style.setProperty(
-      "--" + prefix + "browser_theme_color",
-      themes[currentTheme()].config.browser_theme_color!
-    );
+    if (themes[currentTheme()].config.browser_theme_color) {
+      document.documentElement.style.setProperty(
+        "--" + prefix + "browser_theme_color",
+        themes[currentTheme()].config.browser_theme_color!
+      );
+    }
 
     // find the stp-inverter stylesheet and edit it
     if (systemThemesCorrect) {
