@@ -11,7 +11,7 @@ export default {
       format: "es",
     },
   ],
-  external: ["solid-js", "solid-js/web"],
+  external: ["solid-js"],
   plugins: [
     typescript({
       compilerOptions: {

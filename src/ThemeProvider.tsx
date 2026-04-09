@@ -1,5 +1,4 @@
 import { createEffect, createSignal, onMount, onCleanup } from "solid-js";
-import { isServer } from "solid-js/web";
 import fallbackStyles from "./fallbacks.module.scss";
 import fallbackThemes from "./fallbacks.themes.json";
 import { SystemThemesObject, ThemeProviderProps, ThemesObject } from "./lib/types";
@@ -53,44 +52,37 @@ export function ThemeProvider(props: ThemeProviderProps) {
     props.default ? false : systemThemesCorrect ? true : false
   );
 
-  const systemThemeIsDark = isServer
-    ? null
-    : window.matchMedia("(prefers-color-scheme: dark)");
-  const systemIsDark = !isServer && !!systemThemeIsDark?.matches;
-  // initialize the current theme
-  createEffect(() => {
-    setTheme(
-      props.default ||
-        (systemThemesCorrect
-          ? systemIsDark
-            ? system_theme_config.dark
-            : system_theme_config.light
-          : themeKeys[0])
-    );
-  });
+  // Deterministic initial state: props.default, or light as a safe SSR fallback.
+  // System preference is applied in onMount to avoid SSR/hydration mismatch.
+  const initialTheme = props.default ||
+    (systemThemesCorrect ? system_theme_config.light : themeKeys[0]);
+
+  setTheme(initialTheme);
 
   // otherTheme is used when the button is in toggle mode (only two themes configured)
   const [otherTheme, setOtherTheme] = createSignal(
     systemThemesCorrect
-      ? props.default
-        ? props.default == system_theme_config.dark
-          ? system_theme_config.light
-          : system_theme_config.dark
-        : systemIsDark
-          ? system_theme_config.light
-          : system_theme_config.dark
+      ? props.default == system_theme_config.dark
+        ? system_theme_config.light
+        : system_theme_config.dark
       : themeKeys[1]
   );
   const [currentSystem, setCurrentSystem] = createSignal(
-    systemThemesCorrect
-      ? systemIsDark
-        ? system_theme_config.dark
-        : system_theme_config.light
-      : themeKeys[0]
+    systemThemesCorrect ? system_theme_config.light : themeKeys[0]
   );
 
   onMount(() => {
-    if (!systemThemeIsDark) return;
+    const systemThemeIsDark = window.matchMedia("(prefers-color-scheme: dark)");
+    const systemIsDark = systemThemeIsDark.matches;
+
+    // Apply actual system preference now that we're on the client
+    if (!props.default && systemThemesCorrect) {
+      const resolvedTheme = systemIsDark ? system_theme_config.dark : system_theme_config.light;
+      setTheme(resolvedTheme);
+      setOtherTheme(systemIsDark ? system_theme_config.light : system_theme_config.dark);
+      setCurrentSystem(resolvedTheme);
+    }
+
     const handler = (e: MediaQueryListEvent) => {
       if (systemThemesCorrect) {
         if (useSystem()) {
