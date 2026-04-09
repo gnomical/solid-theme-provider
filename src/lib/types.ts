@@ -1,6 +1,6 @@
 export type ThemeConfig = {
-  icon: string;
-  browser_theme_color: string;
+  icon?: string;
+  browser_theme_color?: string;
 };
 
 export type ThemeVars = {

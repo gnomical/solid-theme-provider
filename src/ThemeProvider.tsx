@@ -7,7 +7,6 @@ import {
   CHEVRON_UP_ICON,
   SYSTEM_THEME_CONFIG_KEY,
   SYSTEM_THEME_KEY,
-  UNKNOWN_ICON,
 } from "./lib/constants";
 import { themeHasBase64Icon } from "./lib/helpers";
 import { Dropdown } from "./Dropdown";
@@ -167,6 +166,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
   });
 
   createEffect(() => {
+    if (!themes[currentTheme()]) return;
     // TODO: loop through properties of last theme and remove any that don't exist in the next theme
 
     // loop through the theme vars and inject them to the :root style element
@@ -195,7 +195,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
         theme_meta.setAttribute("name", "theme-color");
         document.getElementsByTagName("head")[0].appendChild(theme_meta);
       }
-      theme_meta.setAttribute("content", themes[currentTheme()].config.browser_theme_color);
+      theme_meta.setAttribute("content", themes[currentTheme()].config.browser_theme_color!);
     } else {
       if (theme_meta) theme_meta.remove();
     }
@@ -203,7 +203,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
     // add the browser theme color as a css variable
     document.documentElement.style.setProperty(
       "--" + prefix + "browser_theme_color",
-      themes[currentTheme()].config.browser_theme_color
+      themes[currentTheme()].config.browser_theme_color!
     );
 
     // find the stp-inverter stylesheet and edit it
@@ -243,15 +243,15 @@ export function ThemeProvider(props: ThemeProviderProps) {
         onMouseDown={multiToggle ? () => setDropdownOpen(true) : () => toggleTheme(otherTheme())}
       >
         {dropdownOpen() ? (
-          <span class={styles.icon}>{CHEVRON_UP_ICON}</span>
-        ) : themeHasBase64Icon(themes[multiToggle ? currentTheme() : otherTheme()]) ? (
+          <span class={`${styles.icon} ${styles.chevron}`}>{CHEVRON_UP_ICON}</span>
+        ) : themeHasBase64Icon(themes[multiToggle ? currentTheme() : otherTheme()] ?? {}) ? (
           <span
             class={styles.icon}
-            innerHTML={atob(themes[multiToggle ? currentTheme() : otherTheme()].config.icon)}
+            innerHTML={atob(themes[multiToggle ? currentTheme() : otherTheme()].config.icon!)}
           />
-        ) : (
-          <span class={styles.icon}>{UNKNOWN_ICON}</span>
-        )}
+        ) : multiToggle ? (
+          <span class={`${styles.icon} ${styles.chevron}`} style={{ transform: "rotate(180deg)" }}>{CHEVRON_UP_ICON}</span>
+        ) : null}
         {props.label && <span class={styles.text}>{props.label}</span>}
       </div>
       {dropdownOpen() && (

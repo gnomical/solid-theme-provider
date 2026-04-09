@@ -23,9 +23,6 @@
     &.open {
       background: var(--stp-background);
       border-radius: 0;
-      .icon svg {
-        width: 1em;
-      }
     }
   }
 
@@ -55,6 +52,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  .icon.chevron svg {
+    width: 1em;
   }
 
   .dropdown {
