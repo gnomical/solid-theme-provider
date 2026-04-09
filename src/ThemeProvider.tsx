@@ -37,7 +37,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
   const themes: ThemesObject = props.themes?.themes || fallbackThemes.themes;
   const themeKeys = Object.keys(themes);
   const hasSystemThemesObject =
-    props.themes && props.themes.hasOwnProperty(SYSTEM_THEME_CONFIG_KEY);
+    !props.themes || props.themes.hasOwnProperty(SYSTEM_THEME_CONFIG_KEY);
   const systemThemesCorrect =
     hasSystemThemesObject &&
     system_theme_config.hasOwnProperty("dark") &&
