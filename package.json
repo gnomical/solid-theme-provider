@@ -18,6 +18,7 @@
     "prefers-color-scheme"
   ],
   "type": "module",
+  "packageManager": "pnpm@10.33.0",
   "main": "dist/index.jsx",
   "module": "dist/index.jsx",
   "types": "types/index.d.ts",
