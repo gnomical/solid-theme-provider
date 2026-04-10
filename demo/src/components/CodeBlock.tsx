@@ -2,8 +2,16 @@ import { createResource, Show } from "solid-js"
 import { createHighlighter } from "shiki"
 import { useTheme } from "solid-theme-provider"
 
+const shikiThemeMap: Record<string, string> = {
+  dark: "github-dark",
+  ember_night: "github-dark",
+  light: "night-owl-light",
+  warm_light: "night-owl-light",
+  turtle: "everforest-light",
+}
+
 const highlighterPromise = createHighlighter({
-  themes: ["night-owl-light", "github-dark"],
+  themes: ["night-owl-light", "github-dark", "everforest-light"],
   langs: ["tsx", "html", "css", "json"],
 })
 
@@ -15,15 +23,15 @@ type CodeBlockProps = {
 export function CodeBlock(props: CodeBlockProps) {
   const ctx = useTheme()
 
-  const isDark = () => ctx.currentTheme() === ctx.systemThemes()?.dark
+  const shikiTheme = () => shikiThemeMap[ctx.currentTheme()] ?? "github-dark"
 
   const [html] = createResource(
-    () => [props.code, isDark()] as const,
-    async ([code, dark]) => {
+    () => [props.code, shikiTheme()] as const,
+    async ([code, theme]) => {
       const highlighter = await highlighterPromise
       return highlighter.codeToHtml(code, {
         lang: props.lang ?? "tsx",
-        theme: dark ? "github-dark" : "night-owl-light",
+        theme,
       })
     },
   )

@@ -29,7 +29,7 @@ export function Dropdown(props: DropdownProps) {
 
   const themeIcon = (themeName: string) => {
     const theme = props.themes[themeName]
-    if (themeHasIcon(theme)) return theme.config!.icon
+    if (themeHasIcon(theme)) return theme.config!.icon!()
     if (props.systemThemes?.dark === themeName) return DEFAULT_DARK_ICON()
     if (props.systemThemes?.light === themeName) return DEFAULT_LIGHT_ICON()
     return null

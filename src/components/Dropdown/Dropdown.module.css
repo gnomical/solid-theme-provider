@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.25em;
-  background: var(--stp-background-alpha_quaternary);
+  background: var(--stp-background-alpha_tertiary);
   -webkit-backdrop-filter: blur(9px);
   backdrop-filter: blur(9px);
   border-radius: var(--stp-button_radius);

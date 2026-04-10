@@ -26,7 +26,7 @@ export function ThemeToggle(props: ThemeToggleProps) {
 
   const icon = () => {
     const theme = ctx.themes()[otherTheme()]
-    if (themeHasIcon(theme)) return theme.config!.icon
+    if (themeHasIcon(theme)) return theme.config!.icon!()
     if (ctx.systemThemes()?.dark === otherTheme()) return DEFAULT_DARK_ICON()
     return DEFAULT_LIGHT_ICON()
   }

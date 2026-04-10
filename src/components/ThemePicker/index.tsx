@@ -24,7 +24,7 @@ export function ThemePicker(props: ThemePickerProps) {
 
   const icon = () => {
     const theme = ctx.themes()[ctx.currentTheme()]
-    if (themeHasIcon(theme)) return theme.config!.icon
+    if (themeHasIcon(theme)) return theme.config!.icon!()
     return <span class={styles.chevron}>{CHEVRON_UP_ICON()}</span>
   }
 

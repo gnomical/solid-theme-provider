@@ -2,7 +2,7 @@ import type { Accessor, JSX } from "solid-js"
 
 export type ThemeConfig = {
   label?: string
-  icon?: JSX.Element
+  icon?: () => JSX.Element
   browserThemeColor?: string
 }
 
