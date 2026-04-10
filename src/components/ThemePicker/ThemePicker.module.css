@@ -1,38 +1,6 @@
 .component {
   position: relative;
 
-  & .button {
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5em;
-    padding: 0.5em;
-    border-radius: var(--stp-button_radius);
-    background: var(--stp-background);
-    color: var(--stp-foreground-alpha_secondary);
-    -webkit-user-select: none;
-    user-select: none;
-
-    &:hover {
-      background-color: var(--stp-foreground-alpha_quaternary);
-      color: var(--stp-foreground);
-    }
-
-    &.open {
-      background: var(--stp-backkground);
-      color: var(--stp-foreground);
-      border-radius: 0;
-    }
-    &:not(.open) .chevron svg {
-      transform: rotate(180deg);
-    }
-  }
-
-  & .icon {
-    width: 1.5em;
-    height: 1.5em;
-  }
-
   &.ne,
   &.se {
     & .dropdown {

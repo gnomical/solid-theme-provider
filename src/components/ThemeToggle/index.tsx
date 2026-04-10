@@ -1,9 +1,9 @@
 import { createMemo } from "solid-js"
-import styles from "./ThemeToggle.module.css"
 import { useTheme } from "../../context/ThemeContext"
 import { themeHasBase64Icon } from "../../lib/helpers"
 import { DEFAULT_DARK_ICON, DEFAULT_LIGHT_ICON } from "../../lib/constants"
 import { ThemeToggleProps } from "../../lib/types"
+import { IconButton } from "../IconButton"
 
 export function ThemeToggle(props: ThemeToggleProps) {
   const ctx = useTheme()
@@ -24,18 +24,14 @@ export function ThemeToggle(props: ThemeToggleProps) {
     ctx.setTheme(otherTheme())
   }
 
+  const icon = () => {
+    if (themeHasBase64Icon(ctx.themes[otherTheme()] ?? {})) {
+      return <span innerHTML={atob(ctx.themes[otherTheme()].config.icon!)} />
+    }
+    return otherTheme() === ctx.systemThemeConfig?.dark ? DEFAULT_DARK_ICON() : DEFAULT_LIGHT_ICON()
+  }
+
   return (
-    <div class={styles.button} classList={props.classList} onMouseDown={toggle}>
-      <span class={styles.icon}>
-        {themeHasBase64Icon(ctx.themes[otherTheme()] ?? {}) ? (
-          <span innerHTML={atob(ctx.themes[otherTheme()].config.icon!)} />
-        ) : otherTheme() === ctx.systemThemeConfig?.dark ? (
-          DEFAULT_DARK_ICON()
-        ) : (
-          DEFAULT_LIGHT_ICON()
-        )}
-      </span>
-      {props.label && <span>{props.label}</span>}
-    </div>
+    <IconButton icon={icon()} label={props.label} classList={props.classList} onMouseDown={toggle} />
   )
 }
