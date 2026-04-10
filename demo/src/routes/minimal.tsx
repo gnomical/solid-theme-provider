@@ -1,5 +1,5 @@
-import { Title } from "@solidjs/meta";
-import { ThemeToggle } from "solid-theme-provider";
+import { Title } from "@solidjs/meta"
+import { ThemeToggle } from "solid-theme-provider"
 
 export default function Minimal() {
   return (
@@ -22,26 +22,30 @@ export default function Minimal() {
 
       <div class="demo-section">
         <h3>Code</h3>
-        <pre><code>{`import { ThemeProvider, ThemeToggle } from "solid-theme-provider";
+        <pre>
+          <code>{`import { ThemeProvider, ThemeToggle } from "solid-theme-provider";
 
 <ThemeProvider>
   <ThemeToggle />
   <ThemeToggle label="Toggle Theme" />
   {/* All toggles share the same theme state */}
-</ThemeProvider>`}</code></pre>
+</ThemeProvider>`}</code>
+        </pre>
       </div>
 
       <div class="demo-section">
         <h3>Default CSS Variables</h3>
-        <pre><code>{`body, html {
+        <pre>
+          <code>{`body, html {
   background: var(--stp-background);
   color: var(--stp-foreground);
-}`}</code></pre>
+}`}</code>
+        </pre>
         <p class="note" style={{ "margin-top": "0.75rem" }}>
           The component injects <code>--stp-background</code>, <code>--stp-foreground</code>, and{" "}
           <code>--stp-button_radius</code> into <code>:root</code> on every theme switch.
         </p>
       </div>
     </main>
-  );
+  )
 }

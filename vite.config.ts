@@ -1,12 +1,11 @@
-import { defineConfig } from "vite";
-import solid from "vite-plugin-solid";
-import { resolve } from "path";
+import { defineConfig } from "vite"
+import solid from "vite-plugin-solid"
 
 export default defineConfig({
   plugins: [solid()],
   build: {
     lib: {
-      entry: resolve(__dirname, "src/index.tsx"),
+      entry: new URL("src/index.tsx", import.meta.url).pathname,
       formats: ["es"],
       fileName: "index",
     },
@@ -22,4 +21,4 @@ export default defineConfig({
     cssCodeSplit: true,
     minify: false,
   },
-});
+})

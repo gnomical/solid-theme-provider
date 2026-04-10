@@ -1,6 +1,6 @@
-export { ThemeProvider, useTheme } from "./context/ThemeContext";
-export { ThemeToggle } from "./components/ThemeToggle";
-export { ThemePicker } from "./components/ThemePicker";
+export { ThemeProvider, useTheme } from "./context/ThemeContext"
+export { ThemeToggle } from "./components/ThemeToggle"
+export { ThemePicker } from "./components/ThemePicker"
 
 export type {
   ThemeContextValue,
@@ -13,4 +13,4 @@ export type {
   ThemeVars,
   ThemesConfigObject,
   ThemesObject,
-} from "./lib/types";
+} from "./lib/types"

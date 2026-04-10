@@ -1,33 +1,29 @@
-import { createEffect, For, onCleanup } from "solid-js";
-import styles from "./Dropdown.module.css";
-import {
-  SYSTEM_THEME_CONFIG_KEY,
-  SYSTEM_THEME_ICON,
-  SYSTEM_THEME_KEY,
-} from "../../lib/constants";
-import { themeHasBase64Icon } from "../../lib/helpers";
-import { ThemesObject } from "../../lib/types";
+import { createEffect, For, onCleanup } from "solid-js"
+import styles from "./Dropdown.module.css"
+import { SYSTEM_THEME_CONFIG_KEY, SYSTEM_THEME_ICON, SYSTEM_THEME_KEY } from "../../lib/constants"
+import { themeHasBase64Icon } from "../../lib/helpers"
+import { ThemesObject } from "../../lib/types"
 
 type DropdownProps = {
-  activeTheme: string;
-  allowSystemTheme?: boolean;
-  toggleTheme: (theme: string) => void;
-  themes: ThemesObject;
-  setDropdownOpen: (open: boolean) => void;
-};
+  activeTheme: string
+  allowSystemTheme?: boolean
+  toggleTheme: (theme: string) => void
+  themes: ThemesObject
+  setDropdownOpen: (open: boolean) => void
+}
 
 export function Dropdown(props: DropdownProps) {
-  const allowSystemTheme = props.allowSystemTheme || false;
+  const allowSystemTheme = props.allowSystemTheme || false
 
-  let containerRef: any;
+  let containerRef: any
   const closeDropdown = (e: Event) => {
-    if (!containerRef.contains(e.target)) props.setDropdownOpen(false);
-  };
+    if (!containerRef.contains(e.target)) props.setDropdownOpen(false)
+  }
 
   createEffect(() => {
-    document.addEventListener("mousedown", closeDropdown);
-    onCleanup(() => document.removeEventListener("mousedown", closeDropdown));
-  });
+    document.addEventListener("mousedown", closeDropdown)
+    onCleanup(() => document.removeEventListener("mousedown", closeDropdown))
+  })
 
   return (
     <div ref={containerRef} class={styles.dropdown}>
@@ -42,7 +38,7 @@ export function Dropdown(props: DropdownProps) {
       )}
       <For
         each={Object.keys(props.themes).filter(key => {
-          return key != SYSTEM_THEME_CONFIG_KEY && props.themes[key].hasOwnProperty("vars");
+          return key != SYSTEM_THEME_CONFIG_KEY && props.themes[key].hasOwnProperty("vars")
         })}
         fallback={<div>Loading...</div>}
       >
@@ -50,7 +46,7 @@ export function Dropdown(props: DropdownProps) {
           const themeLabel = themeName
             .split("_")
             .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ");
+            .join(" ")
           return (
             <div
               class={props.activeTheme == themeName ? styles.active : ""}
@@ -61,9 +57,9 @@ export function Dropdown(props: DropdownProps) {
               )}
               <span class={styles.text}>{themeLabel}</span>
             </div>
-          );
+          )
         }}
       </For>
     </div>
-  );
+  )
 }

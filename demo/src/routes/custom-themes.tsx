@@ -1,5 +1,5 @@
-import { Title } from "@solidjs/meta";
-import { ThemePicker } from "solid-theme-provider";
+import { Title } from "@solidjs/meta"
+import { ThemePicker } from "solid-theme-provider"
 
 export default function CustomThemes() {
   return (
@@ -15,23 +15,28 @@ export default function CustomThemes() {
         <h3>Live</h3>
         <div class="demo-box">
           <ThemePicker label="Theme" />
-          <span class="note">3 themes: Humid Night, Warm Light, Turtle — dropdown with system preference</span>
+          <span class="note">
+            3 themes: Humid Night, Warm Light, Turtle — dropdown with system preference
+          </span>
         </div>
       </div>
 
       <div class="demo-section">
         <h3>Code</h3>
-        <pre><code>{`import { ThemeProvider, ThemePicker } from "solid-theme-provider";
+        <pre>
+          <code>{`import { ThemeProvider, ThemePicker } from "solid-theme-provider";
 import myThemes from "./themes.json";
 
 <ThemeProvider themes={myThemes}>
   <ThemePicker label="Theme" />
-</ThemeProvider>`}</code></pre>
+</ThemeProvider>`}</code>
+        </pre>
       </div>
 
       <div class="demo-section">
         <h3>themes.json shape</h3>
-        <pre><code>{`{
+        <pre>
+          <code>{`{
   "system_theme_config": {
     "dark": "humid_night",
     "light": "warm_light"
@@ -48,12 +53,13 @@ import myThemes from "./themes.json";
     "warm_light": { ... },
     "turtle": { ... }
   }
-}`}</code></pre>
+}`}</code>
+        </pre>
         <p class="note" style={{ "margin-top": "0.75rem" }}>
           <code>system_theme_config</code> maps <code>dark</code> / <code>light</code> to theme
           keys, so system preference auto-selects the right one. Every other key is a named theme.
         </p>
       </div>
     </main>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import { Title } from "@solidjs/meta";
-import { ThemeProvider, ThemeToggle, useTheme } from "solid-theme-provider";
+import { Title } from "@solidjs/meta"
+import { ThemeProvider, ThemeToggle, useTheme } from "solid-theme-provider"
 
 function ThemeControls() {
-  const { currentTheme, setTheme } = useTheme();
+  const { currentTheme, setTheme } = useTheme()
   return (
     <>
       <div class="demo-box">
@@ -12,12 +12,14 @@ function ThemeControls() {
         </div>
       </div>
       <div class="demo-box" style={{ gap: "0.5rem", "flex-wrap": "wrap" }}>
-        <span class="note" style={{ width: "100%", "margin-top": 0 }}>Drive theme externally:</span>
+        <span class="note" style={{ width: "100%", "margin-top": 0 }}>
+          Drive theme externally:
+        </span>
         <button onClick={() => setTheme("light")}>Force Light</button>
         <button onClick={() => setTheme("dark")}>Force Dark</button>
       </div>
     </>
-  );
+  )
 }
 
 export default function Advanced() {
@@ -39,7 +41,8 @@ export default function Advanced() {
 
       <div class="demo-section">
         <h3>Code</h3>
-        <pre><code>{`import { ThemeProvider, ThemeToggle, useTheme } from "solid-theme-provider";
+        <pre>
+          <code>{`import { ThemeProvider, ThemeToggle, useTheme } from "solid-theme-provider";
 
 function ThemeControls() {
   const { currentTheme, setTheme } = useTheme();
@@ -54,18 +57,19 @@ function ThemeControls() {
 
 <ThemeProvider>
   <ThemeControls />
-</ThemeProvider>`}</code></pre>
+</ThemeProvider>`}</code>
+        </pre>
       </div>
 
       <div class="demo-section">
         <h3>Notes</h3>
         <p class="note">
           <code>useTheme()</code> returns a <code>currentTheme</code> Solid signal accessor — it's
-          reactive and triggers updates in any component that reads it.{" "}
-          <code>setTheme(name)</code> accepts any theme key defined in your themes config.
-          Must be called inside a component that is a descendant of <code>ThemeProvider</code>.
+          reactive and triggers updates in any component that reads it. <code>setTheme(name)</code>{" "}
+          accepts any theme key defined in your themes config. Must be called inside a component
+          that is a descendant of <code>ThemeProvider</code>.
         </p>
       </div>
     </main>
-  );
+  )
 }

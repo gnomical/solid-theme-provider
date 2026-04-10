@@ -1,2 +1,4 @@
 **/dist
 **/types
+pnpm-lock.yaml
+**/*.md

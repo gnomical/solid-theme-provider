@@ -11,11 +11,14 @@
 }
 
 body {
-  font-family: Gordita, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family:
+    Gordita, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   background: var(--stp-background);
   color: var(--stp-foreground);
   min-height: 100vh;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 nav {
@@ -23,7 +26,7 @@ nav {
   align-items: center;
   gap: 1rem;
   padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0,0,0,0.09));
+  border-bottom: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.09));
   flex-wrap: wrap;
 }
 
@@ -77,7 +80,7 @@ h2 {
 
 .demo-box {
   padding: 1.5rem;
-  border: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0,0,0,0.09));
+  border: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.09));
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   display: flex;
@@ -87,19 +90,19 @@ h2 {
   button {
     padding: 0.5rem 1rem;
     border-radius: var(--stp-button_radius);
-    border: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0,0,0,0.09));
+    border: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.09));
     background: transparent;
     color: var(--stp-foreground);
     cursor: pointer;
     transition: background 0.15s;
     &:hover {
-      background: var(--stp-foreground-alpha_quaternary, rgba(0,0,0,0.05));
+      background: var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.05));
     }
   }
 }
 
 pre {
-  background: var(--stp-foreground-alpha_quaternary, rgba(0,0,0,0.05));
+  background: var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.05));
   border-radius: 0.4rem;
   padding: 1rem 1.25rem;
   overflow-x: auto;
@@ -120,7 +123,7 @@ code {
 
 .card {
   padding: 1.25rem;
-  border: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0,0,0,0.09));
+  border: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.09));
   border-radius: 0.5rem;
   text-decoration: none;
   color: var(--stp-foreground);
@@ -128,7 +131,7 @@ code {
 }
 
 .card:hover {
-  background: var(--stp-foreground-alpha_quaternary, rgba(0,0,0,0.05));
+  background: var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.05));
 }
 
 .card h3 {
@@ -152,7 +155,7 @@ code {
   width: 1rem;
   height: 1rem;
   border-radius: 50%;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .note {
@@ -165,5 +168,5 @@ code {
   font-size: 1rem;
   padding: 0.5rem 1rem;
   border-radius: 0.4rem;
-  background: var(--stp-foreground-alpha_quaternary, rgba(0,0,0,0.05));
+  background: var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.05));
 }

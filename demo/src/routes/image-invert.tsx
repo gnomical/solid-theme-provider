@@ -1,9 +1,9 @@
-import { Title } from "@solidjs/meta";
-import { ThemeProvider, ThemeToggle } from "solid-theme-provider";
+import { Title } from "@solidjs/meta"
+import { ThemeProvider, ThemeToggle } from "solid-theme-provider"
 
 // Simple inline SVGs to demo the invert classes without needing external assets
-const lightSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect width="80" height="80" fill="white"/><circle cx="40" cy="40" r="20" fill="black"/><text x="40" y="45" text-anchor="middle" fill="white" font-size="12">light</text></svg>`;
-const darkSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect width="80" height="80" fill="black"/><circle cx="40" cy="40" r="20" fill="white"/><text x="40" y="45" text-anchor="middle" fill="black" font-size="12">dark</text></svg>`;
+const lightSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect width="80" height="80" fill="white"/><circle cx="40" cy="40" r="20" fill="black"/><text x="40" y="45" text-anchor="middle" fill="white" font-size="12">light</text></svg>`
+const darkSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect width="80" height="80" fill="black"/><circle cx="40" cy="40" r="20" fill="white"/><text x="40" y="45" text-anchor="middle" fill="black" font-size="12">dark</text></svg>`
 
 export default function ImageInvert() {
   return (
@@ -60,18 +60,22 @@ export default function ImageInvert() {
 
       <div class="demo-section">
         <h3>Class-based usage</h3>
-        <pre><code>{`<!-- Inverts when dark theme is active (primarily light image) -->
+        <pre>
+          <code>{`<!-- Inverts when dark theme is active (primarily light image) -->
 <img class="invert-safe--light" src="..." />
 
 <!-- Inverts when light theme is active (primarily dark image) -->
-<img class="invert-safe--dark" src="..." />`}</code></pre>
+<img class="invert-safe--dark" src="..." />`}</code>
+        </pre>
       </div>
 
       <div class="demo-section">
         <h3>src attribute usage (when you can't set class names)</h3>
-        <pre><code>{`<!-- Works by appending the class name as a URL fragment -->
+        <pre>
+          <code>{`<!-- Works by appending the class name as a URL fragment -->
 <img src="./logo.png#invert-safe--light" />
-<img src="./icon.png#invert-safe--dark" />`}</code></pre>
+<img src="./icon.png#invert-safe--dark" />`}</code>
+        </pre>
       </div>
 
       <div class="demo-section">
@@ -83,5 +87,5 @@ export default function ImageInvert() {
         </p>
       </div>
     </main>
-  );
+  )
 }
