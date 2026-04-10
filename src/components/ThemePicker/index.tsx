@@ -34,7 +34,7 @@ export function ThemePicker(props: ThemePickerProps) {
     <div class={`${styles.component} ${styles[menuPlacement()]}`} classList={props.classList}>
       <IconButton
         icon={icon()}
-        label={props.label}
+        label={props.label ?? "Theme"}
         classList={{ [styles.open]: dropdownOpen() }}
         onMouseDown={() => setDropdownOpen(true)}
       />

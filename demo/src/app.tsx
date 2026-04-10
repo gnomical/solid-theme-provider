@@ -8,7 +8,7 @@ import "./app.css"
 
 export default function App() {
   return (
-    <ThemeProvider themes={customThemes}>
+    <ThemeProvider>
       <Router
         root={props => (
           <MetaProvider>

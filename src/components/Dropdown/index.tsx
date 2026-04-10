@@ -33,7 +33,7 @@ export function Dropdown(props: DropdownProps) {
           onClick={() => props.toggleTheme(SYSTEM_THEME_KEY)}
         >
           <span class={styles.icon}>{SYSTEM_THEME_ICON()}</span>
-          <span class={styles.text}>System Preference</span>
+          <span class={styles.text}>Match System</span>
         </div>
       )}
       <For

@@ -1,6 +1,6 @@
 :root {
-  --stp-background: #fffff5;
-  --stp-foreground: #111100;
+  --stp-background: #ffffff;
+  --stp-foreground: #111111;
   --stp-button_radius: 0.5em;
 }
 
@@ -16,9 +16,6 @@ body {
   background: var(--stp-background);
   color: var(--stp-foreground);
   min-height: 100vh;
-  transition:
-    background 0.2s,
-    color 0.2s;
 }
 
 nav {
@@ -61,8 +58,27 @@ h2 {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  opacity: 0.6;
+  color: var(--stp-foreground-alpha_secondary);
   font-weight: 400;
+}
+
+p {
+  /* color: var(--stp-foreground-alpha_primary); */
+  opacity: 0.8;
+  line-height: 1.6;
+  margin: 1rem 0;
+
+  &.note {
+    font-size: 0.85rem;
+    margin-top: -0.75rem;
+    color: var(--stp-foreground-alpha_secondary);
+  }
+
+  code {
+    background: var(--stp-foreground-alpha_quaternary);
+    padding: 0.1rem 0.25rem;
+    border-radius: 0.25rem;
+  }
 }
 
 .demo-section {
@@ -75,7 +91,7 @@ h2 {
   margin-bottom: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  opacity: 0.5;
+  color: var(--stp-foreground-alpha_tertiary);
 }
 
 .demo-box {
@@ -114,6 +130,19 @@ code {
   font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
 }
 
+.shiki-wrapper pre {
+  border-radius: var(--stp-button_radius);
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  border: 1px solid var(--stp-foreground-alpha_quaternary);
+}
+
+.shiki-wrapper code {
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -123,7 +152,7 @@ code {
 
 .card {
   padding: 1.25rem;
-  border: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.09));
+  border: 1px solid var(--stp-foreground-alpha_quaternary);
   border-radius: 0.5rem;
   text-decoration: none;
   color: var(--stp-foreground);
@@ -131,7 +160,7 @@ code {
 }
 
 .card:hover {
-  background: var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.05));
+  background: var(--stp-foreground-alpha_quaternary);
 }
 
 .card h3 {
@@ -142,7 +171,8 @@ code {
 
 .card p {
   font-size: 0.85rem;
-  opacity: 0.6;
+  color: var(--stp-foreground-alpha_secondary);
+  margin: 0;
 }
 
 .theme-preview {

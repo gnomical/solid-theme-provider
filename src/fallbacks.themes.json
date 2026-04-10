@@ -6,21 +6,21 @@
   "themes": {
     "dark": {
       "config": {
-        "browser_theme_color": "#110000"
+        "browser_theme_color": "#111111"
       },
       "vars": {
-        "background": "#110000",
-        "foreground": "#ddddcc",
+        "background": "#111111",
+        "foreground": "#eeeeee",
         "button_radius": "0.5em"
       }
     },
     "light": {
       "config": {
-        "browser_theme_color": "#f1efe5"
+        "browser_theme_color": "#ffffff"
       },
       "vars": {
-        "background": "#fffff5",
-        "foreground": "#111100",
+        "background": "#ffffff",
+        "foreground": "#111111",
         "button_radius": "0.5em"
       }
     }

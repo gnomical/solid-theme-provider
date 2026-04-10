@@ -1,5 +1,6 @@
 import { Title } from "@solidjs/meta"
 import { ThemeProvider, ThemeToggle, useTheme } from "solid-theme-provider"
+import { CodeBlock } from "../components/CodeBlock"
 
 function ThemeControls() {
   const { currentTheme, setTheme } = useTheme()
@@ -41,8 +42,7 @@ export default function Advanced() {
 
       <div class="demo-section">
         <h3>Code</h3>
-        <pre>
-          <code>{`import { ThemeProvider, ThemeToggle, useTheme } from "solid-theme-provider";
+        <CodeBlock code={`import { ThemeProvider, ThemeToggle, useTheme } from "solid-theme-provider";
 
 function ThemeControls() {
   const { currentTheme, setTheme } = useTheme();
@@ -57,8 +57,7 @@ function ThemeControls() {
 
 <ThemeProvider>
   <ThemeControls />
-</ThemeProvider>`}</code>
-        </pre>
+</ThemeProvider>`} />
       </div>
 
       <div class="demo-section">
