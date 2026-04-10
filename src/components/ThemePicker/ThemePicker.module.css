@@ -3,28 +3,28 @@
 
   &.ne,
   &.se {
-    & .dropdown {
+    .dropdown {
       left: -0.25em;
     }
   }
 
   &.nw,
   &.sw {
-    & .dropdown {
+    .dropdown {
       right: -0.25em;
     }
   }
 
   &.ne,
   &.nw {
-    & .dropdown {
+    .dropdown {
       bottom: 100%;
     }
   }
 
   &.se,
   &.sw {
-    & .dropdown {
+    .dropdown {
       top: 100%;
     }
   }

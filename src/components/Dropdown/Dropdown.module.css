@@ -21,7 +21,7 @@
     height: calc(100% - 0.5em);
   }
 
-  & > div {
+  > div {
     cursor: pointer;
     white-space: nowrap;
     position: relative;
@@ -33,15 +33,15 @@
       margin-top: 0;
     }
 
-    & .icon {
+    .icon {
       font-size: 0.9em;
 
-      & svg {
+      svg {
         fill: var(--stp-foreground);
       }
     }
 
-    & .text {
+    .text {
       padding-left: 0.5em;
       color: var(--stp-foreground);
     }
@@ -53,11 +53,11 @@
     &:hover:not(.active) {
       background: var(--stp-foreground-alpha_secondary);
 
-      & .text {
+      .text {
         color: var(--stp-background);
       }
 
-      & .icon svg {
+      .icon svg {
         fill: var(--stp-background);
       }
     }
@@ -78,7 +78,7 @@
   position: relative;
   margin: 0.2em 0;
 
-  & svg {
+  svg {
     width: 1.5em;
     position: absolute;
     top: 50%;
