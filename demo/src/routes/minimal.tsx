@@ -26,9 +26,7 @@ export default function Minimal() {
           <code>{`import { ThemeProvider, ThemeToggle } from "solid-theme-provider";
 
 <ThemeProvider>
-  <ThemeToggle />
-  <ThemeToggle label="Toggle Theme" />
-  {/* All toggles share the same theme state */}
+    <ThemeToggle label="Toggle Theme" />
 </ThemeProvider>`}</code>
         </pre>
       </div>
