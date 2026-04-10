@@ -19,12 +19,18 @@ body {
 }
 
 nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   gap: 1rem;
   padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.09));
+  border-bottom: 1px solid var(--stp-foreground-alpha_quaternary);
   flex-wrap: wrap;
+  background: var(--stp-background-alpha_quaternary);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 nav a {
@@ -36,6 +42,11 @@ nav a {
 
 nav a:hover {
   opacity: 1;
+}
+
+nav a[aria-current="page"] {
+  opacity: 1;
+  border-bottom: 3px solid currentColor;
 }
 
 nav .spacer {

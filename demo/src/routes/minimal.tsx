@@ -6,7 +6,7 @@ export default function Minimal() {
   return (
     <main>
       <Title>Minimal — solid-theme-provider demo</Title>
-      <h1>Minimal Toggle</h1>
+      <h1>Minimal</h1>
       <h2>No configuration required. Detects system light/dark preference automatically.</h2>
 
       <div class="demo-section">
