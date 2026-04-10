@@ -1,3 +1,16 @@
+.open {
+  background: var(--stp-background);
+  color: var(--stp-foreground);
+}
+
+.chevron svg {
+  transform: rotate(180deg);
+}
+
+.open .chevron svg {
+  transform: none;
+}
+
 .component {
   position: relative;
 

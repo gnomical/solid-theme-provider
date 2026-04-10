@@ -6,7 +6,6 @@ import { ThemePickerProps } from "../../lib/types"
 import { CHEVRON_UP_ICON, SYSTEM_THEME_KEY } from "../../lib/constants"
 import { Dropdown } from "../Dropdown"
 import { IconButton } from "../IconButton"
-import iconButtonStyles from "../IconButton/IconButton.module.css"
 
 export function ThemePicker(props: ThemePickerProps) {
   const ctx = useTheme()
@@ -25,11 +24,10 @@ export function ThemePicker(props: ThemePickerProps) {
   }
 
   const icon = () => {
-    if (dropdownOpen()) return CHEVRON_UP_ICON()
     if (themeHasBase64Icon(ctx.themes[ctx.currentTheme()] ?? {})) {
       return <span innerHTML={atob(ctx.themes[ctx.currentTheme()].config.icon!)} />
     }
-    return <span class={iconButtonStyles.chevron}>{CHEVRON_UP_ICON()}</span>
+    return <span class={styles.chevron}>{CHEVRON_UP_ICON()}</span>
   }
 
   return (
@@ -37,7 +35,7 @@ export function ThemePicker(props: ThemePickerProps) {
       <IconButton
         icon={icon()}
         label={props.label}
-        classList={{ [iconButtonStyles.open]: dropdownOpen() }}
+        classList={{ [styles.open]: dropdownOpen() }}
         onMouseDown={() => setDropdownOpen(true)}
       />
       {dropdownOpen() && (

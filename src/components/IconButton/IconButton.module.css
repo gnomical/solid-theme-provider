@@ -15,15 +15,6 @@
     color: var(--stp-foreground);
   }
 
-  &.open {
-    background: var(--stp-background);
-    color: var(--stp-foreground);
-    border-radius: 0;
-  }
-  &:not(.open) .chevron svg {
-    transform: rotate(180deg);
-  }
-
   .icon {
     width: 1.5em;
     height: 1.5em;
