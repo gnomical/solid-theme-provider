@@ -1,92 +1,46 @@
 .dropdown {
   position: absolute;
-  font-size: 0.9em;
-  text-align: left;
-  background: var(--stp-background-alpha_secondary);
-  -webkit-backdrop-filter: blur(15px);
-  backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  background: var(--stp-background-alpha_quaternary);
+  -webkit-backdrop-filter: blur(9px);
+  backdrop-filter: blur(9px);
   border-radius: var(--stp-button_radius);
-  padding: 0.5em;
+  padding: 0.25em;
   z-index: 2;
-
-  &::before {
-    content: "";
-    background: var(--stp-foreground-alpha_quaternary);
-    border-radius: var(--stp-button_radius);
-    position: absolute;
-    pointer-events: none;
-    top: 0.25em;
-    left: 0.25em;
-    width: calc(100% - 0.5em);
-    height: calc(100% - 0.5em);
-  }
-
-  > div {
-    cursor: pointer;
-    white-space: nowrap;
-    position: relative;
-    margin-top: 0.25em;
-    padding: 0.2em calc(0.25em + (var(--stp-button_radius) / 2));
-    border-radius: calc(var(--stp-button_radius) * 0.9);
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    .icon {
-      font-size: 0.9em;
-
-      svg {
-        fill: var(--stp-foreground);
-      }
-    }
-
-    .text {
-      padding-left: 0.5em;
-      color: var(--stp-foreground);
-    }
-
-    &.active {
-      background: var(--stp-background);
-    }
-
-    &:hover:not(.active) {
-      background: var(--stp-foreground-alpha_secondary);
-
-      .text {
-        color: var(--stp-background);
-      }
-
-      .icon svg {
-        fill: var(--stp-background);
-      }
-    }
-  }
+  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--stp-foreground-alpha_quarternary);
 }
 
-.icon,
-.text {
-  vertical-align: middle;
-  display: inline-block;
+.item {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  white-space: nowrap;
+  padding: 0.2em 0.5em 0.2em 0.25em;
+  border-radius: var(--stp-button_radius);
   -webkit-user-select: none;
   user-select: none;
+  border: 1px solid transparent;
+
+  &.active {
+    background: var(--stp-background);
+    border-color: var(--stp-foreground-alpha_tertiary);
+  }
+
+  &:hover:not(.active) {
+    background: var(--stp-foreground-alpha_quarternary);
+  }
 }
 
 .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 1.5em;
   height: 1.5em;
-  position: relative;
-  margin: 0.2em 0;
-
-  svg {
-    width: 1.5em;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
-.active {
-  background: var(--stp-background);
+  font-size: 0.9em;
+  flex-shrink: 0;
 }

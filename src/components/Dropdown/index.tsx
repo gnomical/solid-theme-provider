@@ -49,11 +49,11 @@ export function Dropdown(props: DropdownProps) {
     <div ref={containerRef} class={styles.dropdown}>
       {allowSystemTheme && (
         <div
-          class={props.activeTheme == SYSTEM_THEME_KEY ? styles.active : ""}
+          class={`${styles.item}${props.activeTheme == SYSTEM_THEME_KEY ? ` ${styles.active}` : ""}`}
           onClick={() => props.toggleTheme(SYSTEM_THEME_KEY)}
         >
           <span class={styles.icon}>{SYSTEM_THEME_ICON()}</span>
-          <span class={styles.text}>Match System</span>
+          <span>Match System</span>
         </div>
       )}
       <For
@@ -64,11 +64,11 @@ export function Dropdown(props: DropdownProps) {
           const icon = themeIcon(themeName)
           return (
             <div
-              class={props.activeTheme == themeName ? styles.active : ""}
+              class={`${styles.item}${props.activeTheme == themeName ? ` ${styles.active}` : ""}`}
               onClick={() => props.toggleTheme(themeName)}
             >
               {icon && <span class={styles.icon}>{icon}</span>}
-              <span class={styles.text}>{themeLabel(themeName)}</span>
+              <span>{themeLabel(themeName)}</span>
             </div>
           )
         }}
