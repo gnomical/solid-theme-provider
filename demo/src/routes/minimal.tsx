@@ -41,7 +41,7 @@ export default function Minimal() {
         </pre>
         <p class="note" style={{ "margin-top": "0.75rem" }}>
           The component injects <code>--stp-background</code>, <code>--stp-foreground</code>, and{" "}
-          <code>--stp-button_radius</code> into <code>:root</code> on every theme switch.
+          <code>--stp-button_radius</code> into <code>:root</code> on every theme switch. These can be cusomized by passing a <code>theme</code> prop to the <code>ThemeProvider</code>.
         </p>
       </div>
     </main>
