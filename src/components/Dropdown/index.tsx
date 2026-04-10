@@ -1,14 +1,14 @@
 import { createEffect, For, onCleanup } from "solid-js";
+import styles from "./Dropdown.module.css";
 import {
   SYSTEM_THEME_CONFIG_KEY,
   SYSTEM_THEME_ICON,
   SYSTEM_THEME_KEY,
-} from "../lib/constants";
-import { themeHasBase64Icon } from "../lib/helpers";
-import { ThemesObject } from "../lib/types";
+} from "../../lib/constants";
+import { themeHasBase64Icon } from "../../lib/helpers";
+import { ThemesObject } from "../../lib/types";
 
 type DropdownProps = {
-  styles: any;
   activeTheme: string;
   allowSystemTheme?: boolean;
   toggleTheme: (theme: string) => void;
@@ -17,7 +17,6 @@ type DropdownProps = {
 };
 
 export function Dropdown(props: DropdownProps) {
-  const styles = props.styles;
   const allowSystemTheme = props.allowSystemTheme || false;
 
   let containerRef: any;

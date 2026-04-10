@@ -1,10 +1,10 @@
 import { createSignal } from "solid-js";
-import fallbackStyles from "../fallbacks.module.scss";
-import { useTheme } from "../context/ThemeContext";
-import { themeHasBase64Icon } from "../lib/helpers";
-import { ThemePickerProps } from "../lib/types";
-import { CHEVRON_UP_ICON, SYSTEM_THEME_KEY } from "../lib/constants";
-import { Dropdown } from "./Dropdown";
+import styles from "./ThemePicker.module.css";
+import { useTheme } from "../../context/ThemeContext";
+import { themeHasBase64Icon } from "../../lib/helpers";
+import { ThemePickerProps } from "../../lib/types";
+import { CHEVRON_UP_ICON, SYSTEM_THEME_KEY } from "../../lib/constants";
+import { Dropdown } from "../Dropdown";
 
 export function ThemePicker(props: ThemePickerProps) {
   const ctx = useTheme();
@@ -24,35 +24,34 @@ export function ThemePicker(props: ThemePickerProps) {
 
   return (
     <div
-      class={`${fallbackStyles.component} ${fallbackStyles[menuPlacement()]}`}
+      class={`${styles.component} ${styles[menuPlacement()]}`}
       classList={props.classList}
     >
       <div
-        class={fallbackStyles.button + (dropdownOpen() ? " " + fallbackStyles.open : "")}
+        class={styles.button + (dropdownOpen() ? " " + styles.open : "")}
         onMouseDown={() => setDropdownOpen(true)}
       >
         {dropdownOpen() ? (
-          <span class={`${fallbackStyles.icon} ${fallbackStyles.chevron}`}>
+          <span class={`${styles.icon} ${styles.chevron}`}>
             {CHEVRON_UP_ICON()}
           </span>
         ) : themeHasBase64Icon(ctx.themes[ctx.currentTheme()] ?? {}) ? (
           <span
-            class={fallbackStyles.icon}
+            class={styles.icon}
             innerHTML={atob(ctx.themes[ctx.currentTheme()].config.icon!)}
           />
         ) : (
           <span
-            class={`${fallbackStyles.icon} ${fallbackStyles.chevron}`}
+            class={`${styles.icon} ${styles.chevron}`}
             style={{ transform: "rotate(180deg)" }}
           >
             {CHEVRON_UP_ICON()}
           </span>
         )}
-        {props.label && <span class={fallbackStyles.text}>{props.label}</span>}
+        {props.label && <span class={styles.text}>{props.label}</span>}
       </div>
       {dropdownOpen() && (
         <Dropdown
-          styles={fallbackStyles}
           allowSystemTheme={ctx.systemThemesCorrect}
           themes={ctx.themes}
           activeTheme={ctx.useSystem() ? SYSTEM_THEME_KEY : ctx.currentTheme()}

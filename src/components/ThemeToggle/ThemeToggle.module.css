@@ -1,0 +1,52 @@
+.component {
+  position: relative;
+
+  & .button {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.25em calc(0.25em + (var(--stp-button_radius) / 2));
+    border-radius: var(--stp-button_radius);
+    background: var(--stp-background);
+    color: var(--stp-foreground-alpha_secondary);
+    vertical-align: top;
+
+    &:hover {
+      background: var(--stp-foreground-alpha_quaternary);
+
+      & .text {
+        color: var(--stp-foreground);
+      }
+
+      & .icon svg {
+        fill: var(--stp-foreground);
+      }
+    }
+  }
+
+  & .icon,
+  & .text {
+    vertical-align: middle;
+    display: inline-block;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  & .icon {
+    width: 1.5em;
+    height: 1.5em;
+    position: relative;
+    margin: 0.2em 0;
+
+    & svg {
+      width: 1.5em;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  & .text:not(:empty) {
+    padding-left: 0.25em;
+  }
+}

@@ -1,9 +1,9 @@
 import { createMemo } from "solid-js";
-import fallbackStyles from "../fallbacks.module.scss";
-import { useTheme } from "../context/ThemeContext";
-import { themeHasBase64Icon } from "../lib/helpers";
-import { DEFAULT_DARK_ICON, DEFAULT_LIGHT_ICON } from "../lib/constants";
-import { ThemeToggleProps } from "../lib/types";
+import styles from "./ThemeToggle.module.css";
+import { useTheme } from "../../context/ThemeContext";
+import { themeHasBase64Icon } from "../../lib/helpers";
+import { DEFAULT_DARK_ICON, DEFAULT_LIGHT_ICON } from "../../lib/constants";
+import { ThemeToggleProps } from "../../lib/types";
 
 export function ThemeToggle(props: ThemeToggleProps) {
   const ctx = useTheme();
@@ -25,9 +25,9 @@ export function ThemeToggle(props: ThemeToggleProps) {
   }
 
   return (
-    <div class={fallbackStyles.component} classList={props.classList}>
-      <div class={fallbackStyles.button} onMouseDown={toggle}>
-        <span class={fallbackStyles.icon}>
+    <div class={styles.component} classList={props.classList}>
+      <div class={styles.button} onMouseDown={toggle}>
+        <span class={styles.icon}>
           {themeHasBase64Icon(ctx.themes[otherTheme()] ?? {}) ? (
             <span innerHTML={atob(ctx.themes[otherTheme()].config.icon!)} />
           ) : otherTheme() === ctx.systemThemeConfig?.dark ? (
@@ -36,7 +36,7 @@ export function ThemeToggle(props: ThemeToggleProps) {
             DEFAULT_LIGHT_ICON()
           )}
         </span>
-        {props.label && <span class={fallbackStyles.text}>{props.label}</span>}
+        {props.label && <span class={styles.text}>{props.label}</span>}
       </div>
     </div>
   );

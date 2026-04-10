@@ -23,6 +23,7 @@ export default {
     json(),
     postcss({
       minimize: true,
+      modules: true,
       plugins: [],
     }),
   ],
