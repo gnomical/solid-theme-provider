@@ -49,6 +49,15 @@ export default function App() {
       </div>
 
       <div class="demo-section">
+        <h3>Fallback Icons</h3>
+        <p>
+          Themes identified as <code>systemThemes.dark</code> and <code>systemThemes.light</code>{" "}
+          automatically receive a moon and sun icon respectively in the dropdown when no{" "}
+          <code>icon</code> is provided. Any other theme with no icon will render without one.
+        </p>
+      </div>
+
+      <div class="demo-section">
         <h3>themes.tsx</h3>
         <CodeBlock code={`import type { ThemesConfig } from "solid-theme-provider";
 

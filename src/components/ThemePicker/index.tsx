@@ -1,7 +1,6 @@
 import { createSignal } from "solid-js"
 import styles from "./ThemePicker.module.css"
 import { useTheme } from "../../context/ThemeContext"
-import { themeHasIcon } from "../../lib/helpers"
 import { ThemePickerProps } from "../../lib/types"
 import { CHEVRON_UP_ICON, SYSTEM_THEME_KEY } from "../../lib/constants"
 import { Dropdown } from "../Dropdown"
@@ -22,11 +21,7 @@ export function ThemePicker(props: ThemePickerProps) {
     }
   }
 
-  const icon = () => {
-    const theme = ctx.themes()[ctx.currentTheme()]
-    if (themeHasIcon(theme)) return theme.config!.icon!()
-    return <span class={styles.chevron}>{CHEVRON_UP_ICON()}</span>
-  }
+  const icon = () => <span class={styles.chevron}>{CHEVRON_UP_ICON()}</span>
 
   return (
     <div class={`${styles.component} ${styles[menuPlacement()]}`} classList={props.classList}>
