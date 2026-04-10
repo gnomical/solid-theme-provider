@@ -19,9 +19,7 @@ export default function ImageInvert() {
       <div class="demo-section">
         <h3>Live — toggle the theme to see inversion</h3>
         <div class="demo-box" style={{ gap: "2rem", "align-items": "flex-start" }}>
-          <ThemeProvider>
-            <ThemeToggle label="Toggle" />
-          </ThemeProvider>
+          <ThemeToggle label="Toggle" />
         </div>
         <div class="demo-box" style={{ gap: "2rem" }}>
           <div style={{ "text-align": "center" }}>
@@ -77,7 +75,7 @@ export default function ImageInvert() {
 
       <div class="demo-section">
         <h3>Notes</h3>
-        <p class="note">
+        <p>
           The inversion uses <code>filter: invert(1) hue-rotate(180deg)</code> which preserves hues
           while flipping luminosity. Works best on black-and-white line art but can work on colorful
           images too.

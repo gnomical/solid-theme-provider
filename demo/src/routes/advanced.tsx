@@ -35,9 +35,7 @@ export default function Advanced() {
 
       <div class="demo-section">
         <h3>Live</h3>
-        <ThemeProvider>
-          <ThemeControls />
-        </ThemeProvider>
+        <ThemeControls />
       </div>
 
       <div class="demo-section">
@@ -53,16 +51,12 @@ function ThemeControls() {
       <button onClick={() => setTheme("dark")}>Force Dark</button>
     </>
   );
-}
-
-<ThemeProvider>
-  <ThemeControls />
-</ThemeProvider>`} />
+}`} />
       </div>
 
       <div class="demo-section">
         <h3>Notes</h3>
-        <p class="note">
+        <p>
           <code>useTheme()</code> returns a <code>currentTheme</code> Solid signal accessor — it's
           reactive and triggers updates in any component that reads it. <code>setTheme(name)</code>{" "}
           accepts any theme key defined in your themes config. Must be called inside a component

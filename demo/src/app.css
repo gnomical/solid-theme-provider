@@ -67,14 +67,12 @@ h1 {
 
 h2 {
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 1rem;
   color: var(--stp-foreground-alpha_secondary);
-  font-weight: 400;
 }
 
 p {
-  /* color: var(--stp-foreground-alpha_primary); */
   opacity: 0.8;
   line-height: 1.6;
   margin: 1rem 0;
@@ -186,18 +184,6 @@ code {
   margin: 0;
 }
 
-.theme-preview {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.swatch {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
 
 .note {
   font-size: 0.85rem;
