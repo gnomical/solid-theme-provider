@@ -28,16 +28,16 @@ export function ThemePicker(props: ThemePickerProps) {
         class={styles.button + (dropdownOpen() ? " " + styles.open : "")}
         onMouseDown={() => setDropdownOpen(true)}
       >
-        {dropdownOpen() ? (
-          <span class={`${styles.icon} ${styles.chevron}`}>{CHEVRON_UP_ICON()}</span>
-        ) : themeHasBase64Icon(ctx.themes[ctx.currentTheme()] ?? {}) ? (
-          <span class={styles.icon} innerHTML={atob(ctx.themes[ctx.currentTheme()].config.icon!)} />
-        ) : (
-          <span class={`${styles.icon} ${styles.chevron}`} style={{ transform: "rotate(180deg)" }}>
-            {CHEVRON_UP_ICON()}
-          </span>
-        )}
-        {props.label && <span class={styles.text}>{props.label}</span>}
+        <span class={styles.icon}>
+          {dropdownOpen() ? (
+            CHEVRON_UP_ICON()
+          ) : themeHasBase64Icon(ctx.themes[ctx.currentTheme()] ?? {}) ? (
+            <span innerHTML={atob(ctx.themes[ctx.currentTheme()].config.icon!)} />
+          ) : (
+            <span class={styles.chevron}>{CHEVRON_UP_ICON()}</span>
+          )}
+        </span>
+        {props.label && <span>{props.label}</span>}
       </div>
       {dropdownOpen() && (
         <Dropdown
