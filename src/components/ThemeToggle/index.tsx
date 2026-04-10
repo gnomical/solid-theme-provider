@@ -1,6 +1,6 @@
 import { createMemo } from "solid-js"
 import { useTheme } from "../../context/ThemeContext"
-import { themeHasBase64Icon } from "../../lib/helpers"
+import { themeHasIcon } from "../../lib/helpers"
 import { DEFAULT_DARK_ICON, DEFAULT_LIGHT_ICON } from "../../lib/constants"
 import { ThemeToggleProps } from "../../lib/types"
 import { IconButton } from "../IconButton"
@@ -13,7 +13,7 @@ export function ThemeToggle(props: ThemeToggleProps) {
   const otherTheme = createMemo(() => {
     const current = ctx.currentTheme()
     if (ctx.systemThemesCorrect) {
-      const { dark, light } = ctx.systemThemeConfig
+      const { dark, light } = ctx.systemThemes!
       return current === dark ? light : dark
     }
     return ctx.themeKeys.find(k => k !== current) ?? ctx.themeKeys[0]
@@ -25,10 +25,10 @@ export function ThemeToggle(props: ThemeToggleProps) {
   }
 
   const icon = () => {
-    if (themeHasBase64Icon(ctx.themes[otherTheme()] ?? {})) {
-      return <span innerHTML={atob(ctx.themes[otherTheme()].config.icon!)} />
-    }
-    return otherTheme() === ctx.systemThemeConfig?.dark ? DEFAULT_DARK_ICON() : DEFAULT_LIGHT_ICON()
+    const theme = ctx.themes[otherTheme()]
+    if (themeHasIcon(theme)) return theme.config!.icon
+    if (ctx.systemThemes?.dark === otherTheme()) return DEFAULT_DARK_ICON()
+    return DEFAULT_LIGHT_ICON()
   }
 
   return (

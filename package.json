@@ -22,7 +22,10 @@
   "main": "dist/index.jsx",
   "module": "dist/index.jsx",
   "exports": {
-    ".": "./dist/index.jsx"
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./dist/index.jsx"
+    }
   },
   "types": "types/index.d.ts",
   "files": [

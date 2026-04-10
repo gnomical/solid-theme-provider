@@ -1,7 +1,7 @@
 import { createSignal } from "solid-js"
 import styles from "./ThemePicker.module.css"
 import { useTheme } from "../../context/ThemeContext"
-import { themeHasBase64Icon } from "../../lib/helpers"
+import { themeHasIcon } from "../../lib/helpers"
 import { ThemePickerProps } from "../../lib/types"
 import { CHEVRON_UP_ICON, SYSTEM_THEME_KEY } from "../../lib/constants"
 import { Dropdown } from "../Dropdown"
@@ -24,9 +24,8 @@ export function ThemePicker(props: ThemePickerProps) {
   }
 
   const icon = () => {
-    if (themeHasBase64Icon(ctx.themes[ctx.currentTheme()] ?? {})) {
-      return <span innerHTML={atob(ctx.themes[ctx.currentTheme()].config.icon!)} />
-    }
+    const theme = ctx.themes[ctx.currentTheme()]
+    if (themeHasIcon(theme)) return theme.config!.icon
     return <span class={styles.chevron}>{CHEVRON_UP_ICON()}</span>
   }
 
@@ -42,6 +41,7 @@ export function ThemePicker(props: ThemePickerProps) {
         <Dropdown
           allowSystemTheme={ctx.systemThemesCorrect}
           themes={ctx.themes}
+          systemThemes={ctx.systemThemes}
           activeTheme={ctx.useSystem() ? SYSTEM_THEME_KEY : ctx.currentTheme()}
           toggleTheme={selectTheme}
           setDropdownOpen={setDropdownOpen}

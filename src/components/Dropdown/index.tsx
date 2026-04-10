@@ -1,14 +1,16 @@
 import { createEffect, For, onCleanup } from "solid-js"
 import styles from "./Dropdown.module.css"
-import { SYSTEM_THEME_CONFIG_KEY, SYSTEM_THEME_ICON, SYSTEM_THEME_KEY } from "../../lib/constants"
-import { themeHasBase64Icon } from "../../lib/helpers"
-import { ThemesObject } from "../../lib/types"
+import { SYSTEM_THEME_ICON, SYSTEM_THEME_KEY } from "../../lib/constants"
+import { DEFAULT_DARK_ICON, DEFAULT_LIGHT_ICON } from "../../lib/constants"
+import { themeHasIcon } from "../../lib/helpers"
+import { SystemThemesObject, ThemesObject } from "../../lib/types"
 
 type DropdownProps = {
   activeTheme: string
   allowSystemTheme?: boolean
   toggleTheme: (theme: string) => void
   themes: ThemesObject
+  systemThemes: SystemThemesObject | undefined
   setDropdownOpen: (open: boolean) => void
 }
 
@@ -25,6 +27,24 @@ export function Dropdown(props: DropdownProps) {
     onCleanup(() => document.removeEventListener("mousedown", closeDropdown))
   })
 
+  const themeIcon = (themeName: string) => {
+    const theme = props.themes[themeName]
+    if (themeHasIcon(theme)) return theme.config!.icon
+    if (props.systemThemes?.dark === themeName) return DEFAULT_DARK_ICON()
+    if (props.systemThemes?.light === themeName) return DEFAULT_LIGHT_ICON()
+    return null
+  }
+
+  const themeLabel = (themeName: string) => {
+    return (
+      props.themes[themeName]?.config?.label ??
+      themeName
+        .split("_")
+        .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")
+    )
+  }
+
   return (
     <div ref={containerRef} class={styles.dropdown}>
       {allowSystemTheme && (
@@ -37,25 +57,18 @@ export function Dropdown(props: DropdownProps) {
         </div>
       )}
       <For
-        each={Object.keys(props.themes).filter(key => {
-          return key != SYSTEM_THEME_CONFIG_KEY && props.themes[key].hasOwnProperty("vars")
-        })}
+        each={Object.keys(props.themes).filter(key => props.themes[key].hasOwnProperty("vars"))}
         fallback={<div>Loading...</div>}
       >
         {themeName => {
-          const themeLabel = themeName
-            .split("_")
-            .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ")
+          const icon = themeIcon(themeName)
           return (
             <div
               class={props.activeTheme == themeName ? styles.active : ""}
               onClick={() => props.toggleTheme(themeName)}
             >
-              {themeHasBase64Icon(props.themes[themeName]) && (
-                <span class={styles.icon} innerHTML={atob(props.themes[themeName].config.icon!)} />
-              )}
-              <span class={styles.text}>{themeLabel}</span>
+              {icon && <span class={styles.icon}>{icon}</span>}
+              <span class={styles.text}>{themeLabel(themeName)}</span>
             </div>
           )
         }}

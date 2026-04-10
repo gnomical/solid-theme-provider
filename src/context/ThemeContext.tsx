@@ -1,5 +1,5 @@
 import { createContext, createEffect, createSignal, onCleanup, onMount, useContext } from "solid-js"
-import fallbackThemes from "../fallbacks.themes.json"
+import { fallbackThemes } from "../fallbacks.themes"
 import {
   SystemThemesObject,
   ThemeContextValue,
@@ -7,9 +7,11 @@ import {
   ThemeVars,
   ThemesObject,
 } from "../lib/types"
-import { SYSTEM_THEME_CONFIG_KEY, SYSTEM_THEME_KEY } from "../lib/constants"
+import { SYSTEM_THEME_KEY } from "../lib/constants"
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined)
+
+const CSS_VAR_NAME_PATTERN = /^[a-zA-Z][a-zA-Z0-9_-]*$/
 
 const defaultCalculateVariants = (name: string, value: string): ThemeVars => {
   const pattern = /^#[0-9A-F]{6}$/i
@@ -28,18 +30,19 @@ const defaultCalculateVariants = (name: string, value: string): ThemeVars => {
 
 export function ThemeProvider(props: ThemeProviderProps) {
   const prefix = props.prefix || "stp-"
-  const system_theme_config: SystemThemesObject =
-    props.themes?.system_theme_config || fallbackThemes.system_theme_config
-  const themes: ThemesObject = props.themes?.themes || fallbackThemes.themes
+  const systemThemes: SystemThemesObject | undefined =
+    props.themes?.systemThemes ?? fallbackThemes.systemThemes
+  const themes: ThemesObject = props.themes?.themes ?? fallbackThemes.themes
   const themeKeys = Object.keys(themes)
-  const hasSystemThemesObject =
-    !props.themes || props.themes.hasOwnProperty(SYSTEM_THEME_CONFIG_KEY)
+
+  const hasSystemThemes = !!systemThemes
   const systemThemesCorrect =
-    hasSystemThemesObject &&
-    system_theme_config.hasOwnProperty("dark") &&
-    system_theme_config.hasOwnProperty("light") &&
-    themes.hasOwnProperty(system_theme_config.dark) &&
-    themes.hasOwnProperty(system_theme_config.light)
+    hasSystemThemes &&
+    systemThemes.hasOwnProperty("dark") &&
+    systemThemes.hasOwnProperty("light") &&
+    themes.hasOwnProperty(systemThemes.dark) &&
+    themes.hasOwnProperty(systemThemes.light)
+
   const calculateVariants = props.calculateVariants || defaultCalculateVariants
 
   const [useSystem, setUseSystem] = createSignal(
@@ -49,11 +52,11 @@ export function ThemeProvider(props: ThemeProviderProps) {
   // Deterministic initial state: props.default, or light as a safe SSR fallback.
   // System preference is applied in onMount to avoid SSR/hydration mismatch.
   const initialTheme =
-    props.default || (systemThemesCorrect ? system_theme_config.light : themeKeys[0])
+    props.default || (systemThemesCorrect ? systemThemes!.light : themeKeys[0])
 
   const [currentTheme, setTheme] = createSignal(initialTheme)
   const [currentSystem, setCurrentSystem] = createSignal(
-    systemThemesCorrect ? system_theme_config.light : themeKeys[0],
+    systemThemesCorrect ? systemThemes!.light : themeKeys[0],
   )
 
   onMount(() => {
@@ -62,7 +65,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
 
     // Apply actual system preference now that we're on the client
     if (!props.default && systemThemesCorrect) {
-      const resolvedTheme = systemIsDark ? system_theme_config.dark : system_theme_config.light
+      const resolvedTheme = systemIsDark ? systemThemes!.dark : systemThemes!.light
       setTheme(resolvedTheme)
       setCurrentSystem(resolvedTheme)
     }
@@ -70,10 +73,10 @@ export function ThemeProvider(props: ThemeProviderProps) {
     const handler = (e: MediaQueryListEvent) => {
       if (systemThemesCorrect) {
         if (useSystem()) {
-          const nextTheme = e.matches ? system_theme_config.dark : system_theme_config.light
+          const nextTheme = e.matches ? systemThemes!.dark : systemThemes!.light
           setTheme(nextTheme)
         }
-        setCurrentSystem(e.matches ? system_theme_config.dark : system_theme_config.light)
+        setCurrentSystem(e.matches ? systemThemes!.dark : systemThemes!.light)
       }
     }
     systemThemeIsDark.addEventListener("change", handler)
@@ -92,39 +95,43 @@ export function ThemeProvider(props: ThemeProviderProps) {
   createEffect(() => {
     if (!systemThemesCorrect) {
       console.warn(
-        `The '${SYSTEM_THEME_CONFIG_KEY}' property of your themes object is misconfigured. Automatic theme toggling may not work and the 'System Preference' dropdown option has been disabled`,
+        `The 'systemThemes' property of your themes config is misconfigured. Automatic theme toggling may not work and the 'System Preference' dropdown option has been disabled.`,
       )
-      if (!hasSystemThemesObject) {
-        console.warn(`Your themes object is missing the '${SYSTEM_THEME_CONFIG_KEY}' property.`)
+      if (!hasSystemThemes) {
         if (!props.default) {
           console.warn(
-            `Because you have omitted the '${SYSTEM_THEME_CONFIG_KEY}' object and have not provided a default theme via props; Theme toggling will utilize the first two themes in your themes object.`,
+            `Because you have omitted 'systemThemes' and have not provided a default theme via props; theme toggling will utilize the first two themes in your themes object.`,
           )
         }
       } else {
-        if (!system_theme_config.hasOwnProperty("dark")) {
-          console.warn("The 'system_themes.dark' property of your themes object is undefined.")
-        } else if (!themes.hasOwnProperty(system_theme_config.dark)) {
+        if (!systemThemes!.hasOwnProperty("dark")) {
+          console.warn("The 'systemThemes.dark' property of your themes config is undefined.")
+        } else if (!themes.hasOwnProperty(systemThemes!.dark)) {
           console.warn(
-            `The 'system_themes.dark' property of your themes object is misconfigured. The theme '${system_theme_config.dark}' cannot be found.`,
+            `The 'systemThemes.dark' value '${systemThemes!.dark}' does not match any theme key.`,
           )
         }
-        if (!system_theme_config.hasOwnProperty("light")) {
-          console.warn("The 'system_themes.light' property of your themes object is undefined.")
-        } else if (!themes.hasOwnProperty(system_theme_config.light)) {
+        if (!systemThemes!.hasOwnProperty("light")) {
+          console.warn("The 'systemThemes.light' property of your themes config is undefined.")
+        } else if (!themes.hasOwnProperty(systemThemes!.light)) {
           console.warn(
-            `The 'system_themes.light' property of your themes object is misconfigured. The theme '${system_theme_config.light}' cannot be found.`,
+            `The 'systemThemes.light' value '${systemThemes!.light}' does not match any theme key.`,
           )
         }
       }
     }
-    for (const [themeName, settings] of Object.entries(themes)) {
-      if (!settings.hasOwnProperty("vars")) {
+    for (const [themeName, themeObj] of Object.entries(themes)) {
+      if (!themeObj.hasOwnProperty("vars")) {
         console.warn(
-          `The '${themeName}' object is missing its 'vars' property. It has been removed from the available themes`,
+          `The '${themeName}' theme is missing its 'vars' property and has been removed from available themes.`,
         )
-      } else if (!settings.hasOwnProperty("config")) {
-        console.warn(`The '${themeName}' theme object is missing its 'config' property.`)
+      }
+      for (const varName of Object.keys(themeObj.vars ?? {})) {
+        if (!CSS_VAR_NAME_PATTERN.test(varName)) {
+          console.warn(
+            `The var key '${varName}' in theme '${themeName}' is not a valid CSS custom property name and will be skipped.`,
+          )
+        }
       }
     }
   })
@@ -134,6 +141,8 @@ export function ThemeProvider(props: ThemeProviderProps) {
 
     // loop through the theme vars and inject them to the :root style element
     Object.keys(themes[currentTheme()].vars).forEach(name => {
+      if (!CSS_VAR_NAME_PATTERN.test(name)) return
+
       document.documentElement.style.setProperty(
         "--" + prefix + name,
         themes[currentTheme()].vars[name],
@@ -148,22 +157,22 @@ export function ThemeProvider(props: ThemeProviderProps) {
 
     // find the theme-color meta tag and edit it, or, create a new one
     let theme_meta = document.querySelector('meta[name="theme-color"]')
-    if (themes[currentTheme()].config?.browser_theme_color) {
+    if (themes[currentTheme()].config?.browserThemeColor) {
       if (!theme_meta) {
         theme_meta = document.createElement("meta")
         theme_meta.setAttribute("name", "theme-color")
         document.getElementsByTagName("head")[0].appendChild(theme_meta)
       }
-      theme_meta.setAttribute("content", themes[currentTheme()].config.browser_theme_color!)
+      theme_meta.setAttribute("content", themes[currentTheme()].config!.browserThemeColor!)
     } else {
       if (theme_meta) theme_meta.remove()
     }
 
     // add the browser theme color as a css variable
-    if (themes[currentTheme()].config.browser_theme_color) {
+    if (themes[currentTheme()].config?.browserThemeColor) {
       document.documentElement.style.setProperty(
         "--" + prefix + "browser_theme_color",
-        themes[currentTheme()].config.browser_theme_color!,
+        themes[currentTheme()].config!.browserThemeColor!,
       )
     }
 
@@ -171,8 +180,8 @@ export function ThemeProvider(props: ThemeProviderProps) {
     if (systemThemesCorrect) {
       const invertStylesheet = document.querySelector("#stp-inverter") as HTMLElement
       if (invertStylesheet) {
-        const currentlyDark = currentTheme() == system_theme_config.dark
-        const currentlyLight = currentTheme() == system_theme_config.light
+        const currentlyDark = currentTheme() == systemThemes!.dark
+        const currentlyLight = currentTheme() == systemThemes!.light
 
         if (currentlyDark) {
           invertStylesheet.innerText =
@@ -190,7 +199,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
     setTheme,
     themes,
     themeKeys,
-    systemThemeConfig: system_theme_config,
+    systemThemes,
     systemThemesCorrect,
     useSystem,
     setUseSystem,

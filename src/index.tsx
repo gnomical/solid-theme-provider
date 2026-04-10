@@ -11,6 +11,6 @@ export type {
   ThemeConfig,
   ThemeObject,
   ThemeVars,
-  ThemesConfigObject,
+  ThemesConfig,
   ThemesObject,
 } from "./lib/types"

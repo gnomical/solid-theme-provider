@@ -15,7 +15,7 @@ type CodeBlockProps = {
 export function CodeBlock(props: CodeBlockProps) {
   const ctx = useTheme()
 
-  const isDark = () => ctx.currentTheme() === ctx.systemThemeConfig?.dark
+  const isDark = () => ctx.currentTheme() === ctx.systemThemes?.dark
 
   const [html] = createResource(
     () => [props.code, isDark()] as const,

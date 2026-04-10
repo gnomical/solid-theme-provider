@@ -25,7 +25,7 @@ export default function CustomThemes() {
       <div class="demo-section">
         <h3>Code</h3>
         <CodeBlock code={`import { ThemeProvider, ThemePicker } from "solid-theme-provider";
-import myThemes from "./themes.json";
+import { myThemes } from "./themes";
 
 <ThemeProvider themes={myThemes}>
   <header>
@@ -38,28 +38,30 @@ import myThemes from "./themes.json";
       </div>
 
       <div class="demo-section">
-        <h3>themes.json shape</h3>
-        <CodeBlock lang="json" code={`{
-  "system_theme_config": {
-    "dark": "humid_night",
-    "light": "warm_light"
+        <h3>themes.ts shape</h3>
+        <CodeBlock code={`import type { ThemesConfig } from "solid-theme-provider";
+
+export const myThemes: ThemesConfig = {
+  systemThemes: {
+    dark: "humid_night",
+    light: "warm_light",
   },
-  "themes": {
-    "humid_night": {
-      "config": { "browser_theme_color": "#110000" },
-      "vars": {
-        "background": "#110000",
-        "foreground": "#ddddcc",
-        "button_radius": "0.5em"
-      }
+  themes: {
+    humid_night: {
+      config: { label: "Humid Night", browserThemeColor: "#110000" },
+      vars: {
+        background: "#110000",
+        foreground: "#ddddcc",
+        button_radius: "0.5em",
+      },
     },
-    "warm_light": { ... },
-    "turtle": { ... }
-  }
-}`} />
+    warm_light: { ... },
+    turtle: { ... },
+  },
+};`} />
         <p class="note" style={{ "margin-top": "0.75rem" }}>
-          <code>system_theme_config</code> maps <code>dark</code> / <code>light</code> to theme
-          keys, so system preference auto-selects the right one. Every other key is a named theme.
+          <code>systemThemes</code> maps <code>dark</code> / <code>light</code> to theme keys, so
+          system preference auto-selects the right one. Every other key is a named theme.
         </p>
       </div>
     </main>

@@ -1,8 +1,9 @@
 import type { Accessor, JSX } from "solid-js"
 
 export type ThemeConfig = {
-  icon?: string
-  browser_theme_color?: string
+  label?: string
+  icon?: JSX.Element
+  browserThemeColor?: string
 }
 
 export type ThemeVars = {
@@ -10,7 +11,7 @@ export type ThemeVars = {
 }
 
 export type ThemeObject = {
-  config: ThemeConfig
+  config?: ThemeConfig
   vars: ThemeVars
 }
 
@@ -23,8 +24,8 @@ export type ThemesObject = {
   [key: string]: ThemeObject
 }
 
-export type ThemesConfigObject = {
-  system_theme_config: SystemThemesObject
+export type ThemesConfig = {
+  systemThemes?: SystemThemesObject
   themes: ThemesObject
 }
 
@@ -33,7 +34,7 @@ export type ThemeContextValue = {
   setTheme: (theme: string) => void
   themes: ThemesObject
   themeKeys: string[]
-  systemThemeConfig: SystemThemesObject
+  systemThemes: SystemThemesObject | undefined
   systemThemesCorrect: boolean
   useSystem: Accessor<boolean>
   setUseSystem: (val: boolean) => void
@@ -42,7 +43,7 @@ export type ThemeContextValue = {
 }
 
 export type ThemeProviderProps = {
-  themes?: ThemesConfigObject
+  themes?: ThemesConfig
   default?: string
   prefix?: string
   calculateVariants?: (name: string, value: string) => ThemeVars

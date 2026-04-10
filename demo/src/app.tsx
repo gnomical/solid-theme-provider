@@ -3,7 +3,6 @@ import { Router, A } from "@solidjs/router"
 import { FileRoutes } from "@solidjs/start/router"
 import { Suspense } from "solid-js"
 import { ThemeProvider, ThemeToggle } from "solid-theme-provider"
-import customThemes from "./data/custom-themes.json"
 import "./app.css"
 
 export default function App() {
