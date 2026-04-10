@@ -25,19 +25,17 @@ export function ThemeToggle(props: ThemeToggleProps) {
   }
 
   return (
-    <div class={styles.component} classList={props.classList}>
-      <div class={styles.button} onMouseDown={toggle}>
-        <span class={styles.icon}>
-          {themeHasBase64Icon(ctx.themes[otherTheme()] ?? {}) ? (
-            <span innerHTML={atob(ctx.themes[otherTheme()].config.icon!)} />
-          ) : otherTheme() === ctx.systemThemeConfig?.dark ? (
-            DEFAULT_DARK_ICON()
-          ) : (
-            DEFAULT_LIGHT_ICON()
-          )}
-        </span>
-        {props.label && <span class={styles.text}>{props.label}</span>}
-      </div>
+    <div class={styles.button} classList={props.classList} onMouseDown={toggle}>
+      <span class={styles.icon}>
+        {themeHasBase64Icon(ctx.themes[otherTheme()] ?? {}) ? (
+          <span innerHTML={atob(ctx.themes[otherTheme()].config.icon!)} />
+        ) : otherTheme() === ctx.systemThemeConfig?.dark ? (
+          DEFAULT_DARK_ICON()
+        ) : (
+          DEFAULT_LIGHT_ICON()
+        )}
+      </span>
+      {props.label && <span>{props.label}</span>}
     </div>
   )
 }
