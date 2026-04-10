@@ -1,8 +1,18 @@
+import { onCleanup, onMount } from "solid-js"
 import { Title } from "@solidjs/meta"
-import { ThemePicker } from "solid-theme-provider"
+import { ThemePicker, useTheme } from "solid-theme-provider"
 import { CodeBlock } from "../components/CodeBlock"
+import { customThemes } from "../data/custom-themes"
 
 export default function CustomThemes() {
+  const ctx = useTheme()
+
+  onMount(() => {
+    const previous = { systemThemes: ctx.systemThemes(), themes: ctx.themes() }
+    ctx.setThemesConfig(customThemes)
+    onCleanup(() => ctx.setThemesConfig(previous))
+  })
+
   return (
     <main>
       <Title>Custom Themes — solid-theme-provider demo</Title>

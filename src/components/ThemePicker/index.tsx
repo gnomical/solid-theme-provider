@@ -23,7 +23,7 @@ export function ThemePicker(props: ThemePickerProps) {
   }
 
   const icon = () => {
-    const theme = ctx.themes[ctx.currentTheme()]
+    const theme = ctx.themes()[ctx.currentTheme()]
     if (themeHasIcon(theme)) return theme.config!.icon
     return <span class={styles.chevron}>{CHEVRON_UP_ICON()}</span>
   }
@@ -38,9 +38,9 @@ export function ThemePicker(props: ThemePickerProps) {
       />
       {dropdownOpen() && (
         <Dropdown
-          allowSystemTheme={ctx.systemThemesCorrect}
-          themes={ctx.themes}
-          systemThemes={ctx.systemThemes}
+          allowSystemTheme={ctx.systemThemesCorrect()}
+          themes={ctx.themes()}
+          systemThemes={ctx.systemThemes()}
           activeTheme={ctx.useSystem() ? SYSTEM_THEME_KEY : ctx.currentTheme()}
           toggleTheme={selectTheme}
           setDropdownOpen={setDropdownOpen}

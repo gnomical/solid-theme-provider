@@ -12,11 +12,11 @@ export function ThemeToggle(props: ThemeToggleProps) {
   // Falls back to the first theme that isn't current when no system config exists.
   const otherTheme = createMemo(() => {
     const current = ctx.currentTheme()
-    if (ctx.systemThemesCorrect) {
-      const { dark, light } = ctx.systemThemes!
+    if (ctx.systemThemesCorrect()) {
+      const { dark, light } = ctx.systemThemes()!
       return current === dark ? light : dark
     }
-    return ctx.themeKeys.find(k => k !== current) ?? ctx.themeKeys[0]
+    return ctx.themeKeys().find(k => k !== current) ?? ctx.themeKeys()[0]
   })
 
   function toggle() {
@@ -25,9 +25,9 @@ export function ThemeToggle(props: ThemeToggleProps) {
   }
 
   const icon = () => {
-    const theme = ctx.themes[otherTheme()]
+    const theme = ctx.themes()[otherTheme()]
     if (themeHasIcon(theme)) return theme.config!.icon
-    if (ctx.systemThemes?.dark === otherTheme()) return DEFAULT_DARK_ICON()
+    if (ctx.systemThemes()?.dark === otherTheme()) return DEFAULT_DARK_ICON()
     return DEFAULT_LIGHT_ICON()
   }
 

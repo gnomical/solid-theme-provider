@@ -44,3 +44,9 @@
   font-size: 0.9em;
   flex-shrink: 0;
 }
+
+.item:not(:has(.icon)) {
+  span {
+    padding-left: 2em;
+  }
+}

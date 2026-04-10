@@ -32,13 +32,14 @@ export type ThemesConfig = {
 export type ThemeContextValue = {
   currentTheme: Accessor<string>
   setTheme: (theme: string) => void
-  themes: ThemesObject
-  themeKeys: string[]
-  systemThemes: SystemThemesObject | undefined
-  systemThemesCorrect: boolean
+  themes: Accessor<ThemesObject>
+  themeKeys: Accessor<string[]>
+  systemThemes: Accessor<SystemThemesObject | undefined>
+  systemThemesCorrect: Accessor<boolean>
   useSystem: Accessor<boolean>
   setUseSystem: (val: boolean) => void
   currentSystem: Accessor<string>
+  setThemesConfig: (config: ThemesConfig) => void
   prefix: string
 }
 
