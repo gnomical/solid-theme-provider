@@ -65,15 +65,15 @@ Opens a dropdown listing all available themes as well as a "Match System" settin
 
 ## CSS Variables
 
-The built-in themes inject these variables into `:root`:
+On every theme switch, all variables defined in your theme's `vars` object are injected into `:root`. The built-in themes define these defaults:
 
 ```css
 --stp-background
 --stp-foreground
---stp-button_radius
+--stp-button-radius
 ```
 
-Use them in your own stylesheets to adopt the theme globally:
+In practice you'll define your own variables — any key/value pair in `vars` becomes a CSS custom property. Your stylesheets then consume them directly:
 
 ```css
 body, html {
