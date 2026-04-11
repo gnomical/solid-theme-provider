@@ -18,10 +18,10 @@ const defaultCalculateVariants = (name: string, value: string): ThemeVars => {
   const pattern = /^#[0-9A-F]{6}$/i
   if (value.match(pattern)) {
     return {
-      [name + "-alpha_primary"]: value + "f2", // 95%
-      [name + "-alpha_secondary"]: value + "99", // 60%
-      [name + "-alpha_tertiary"]: value + "4d", // 30%
-      [name + "-alpha_quaternary"]: value + "17", // 9%
+      [name + "-alpha-primary"]: value + "f2", // 95%
+      [name + "-alpha-secondary"]: value + "99", // 60%
+      [name + "-alpha-tertiary"]: value + "4d", // 30%
+      [name + "-alpha-quaternary"]: value + "17", // 9%
     }
   }
   return {}
