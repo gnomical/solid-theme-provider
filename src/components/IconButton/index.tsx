@@ -10,7 +10,12 @@ type IconButtonProps = {
 
 export function IconButton(props: IconButtonProps) {
   return (
-    <button type="button" class={styles.button} classList={props.classList} onMouseDown={props.onMouseDown}>
+    <button
+      type="button"
+      class={styles.button}
+      classList={props.classList}
+      onMouseDown={props.onMouseDown}
+    >
       <span class={styles.icon}>{props.icon}</span>
       {props.label && <span>{props.label}</span>}
     </button>
