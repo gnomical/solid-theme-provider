@@ -1,9 +1,10 @@
-import { Title } from "@solidjs/meta";
-import { ThemeProvider } from "solid-theme-provider";
+import { Title } from "@solidjs/meta"
+import { ThemeProvider, ThemeToggle } from "solid-theme-provider"
+import { CodeBlock } from "../components/CodeBlock"
 
 // Simple inline SVGs to demo the invert classes without needing external assets
-const lightSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect width="80" height="80" fill="white"/><circle cx="40" cy="40" r="20" fill="black"/><text x="40" y="45" text-anchor="middle" fill="white" font-size="12">light</text></svg>`;
-const darkSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect width="80" height="80" fill="black"/><circle cx="40" cy="40" r="20" fill="white"/><text x="40" y="45" text-anchor="middle" fill="black" font-size="12">dark</text></svg>`;
+const lightSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect width="80" height="80" fill="white"/><circle cx="40" cy="40" r="20" fill="black"/><text x="40" y="45" text-anchor="middle" fill="white" font-size="12">light</text></svg>`
+const darkSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect width="80" height="80" fill="black"/><circle cx="40" cy="40" r="20" fill="white"/><text x="40" y="45" text-anchor="middle" fill="black" font-size="12">dark</text></svg>`
 
 export default function ImageInvert() {
   return (
@@ -18,7 +19,7 @@ export default function ImageInvert() {
       <div class="demo-section">
         <h3>Live — toggle the theme to see inversion</h3>
         <div class="demo-box" style={{ gap: "2rem", "align-items": "flex-start" }}>
-          <ThemeProvider label="Toggle" />
+          <ThemeToggle label="Toggle" />
         </div>
         <div class="demo-box" style={{ gap: "2rem" }}>
           <div style={{ "text-align": "center" }}>
@@ -58,28 +59,28 @@ export default function ImageInvert() {
 
       <div class="demo-section">
         <h3>Class-based usage</h3>
-        <pre><code>{`<!-- Inverts when dark theme is active (primarily light image) -->
+        <CodeBlock lang="html" code={`<!-- Inverts when dark theme is active (primarily light image) -->
 <img class="invert-safe--light" src="..." />
 
 <!-- Inverts when light theme is active (primarily dark image) -->
-<img class="invert-safe--dark" src="..." />`}</code></pre>
+<img class="invert-safe--dark" src="..." />`} />
       </div>
 
       <div class="demo-section">
         <h3>src attribute usage (when you can't set class names)</h3>
-        <pre><code>{`<!-- Works by appending the class name as a URL fragment -->
+        <CodeBlock lang="html" code={`<!-- Works by appending the class name as a URL fragment -->
 <img src="./logo.png#invert-safe--light" />
-<img src="./icon.png#invert-safe--dark" />`}</code></pre>
+<img src="./icon.png#invert-safe--dark" />`} />
       </div>
 
       <div class="demo-section">
         <h3>Notes</h3>
-        <p class="note">
+        <p>
           The inversion uses <code>filter: invert(1) hue-rotate(180deg)</code> which preserves hues
           while flipping luminosity. Works best on black-and-white line art but can work on colorful
           images too.
         </p>
       </div>
     </main>
-  );
+  )
 }

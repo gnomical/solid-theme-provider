@@ -1,5 +1,5 @@
-import { Title } from "@solidjs/meta";
-import { HttpStatusCode } from "@solidjs/start";
+import { Title } from "@solidjs/meta"
+import { HttpStatusCode } from "@solidjs/start"
 
 export default function NotFound() {
   return (
@@ -15,5 +15,5 @@ export default function NotFound() {
         to learn how to build SolidStart apps.
       </p>
     </main>
-  );
+  )
 }

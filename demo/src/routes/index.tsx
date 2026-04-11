@@ -1,5 +1,5 @@
-import { Title } from "@solidjs/meta";
-import { A } from "@solidjs/router";
+import { Title } from "@solidjs/meta"
+import { A } from "@solidjs/router"
 
 const pages = [
   {
@@ -22,14 +22,16 @@ const pages = [
     title: "Image Invert",
     description: "Invert images automatically on theme switch.",
   },
-];
+]
 
 export default function Home() {
   return (
     <main>
       <Title>solid-theme-provider demo</Title>
       <h1>solid-theme-provider</h1>
-      <h2>Interactive demos for select features, view the README for more features and information.</h2>
+      <h2>
+        Interactive demos for select features, view the README for more features and information.
+      </h2>
       <div class="card-grid">
         {pages.map(page => (
           <A href={page.href} class="card">
@@ -39,5 +41,5 @@ export default function Home() {
         ))}
       </div>
     </main>
-  );
+  )
 }

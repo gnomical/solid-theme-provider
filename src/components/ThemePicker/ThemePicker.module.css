@@ -1,0 +1,15 @@
+.component {
+  position: relative;
+  width: fit-content;
+
+  .chevron svg {
+    transform: rotate(180deg);
+  }
+  .open {
+    background: var(--stp-background);
+    color: var(--stp-foreground);
+    .chevron svg {
+      transform: none;
+    }
+  }
+}

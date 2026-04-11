@@ -1,5 +1,6 @@
-import { Title } from "@solidjs/meta";
-import { ThemeProvider } from "solid-theme-provider";
+import { Title } from "@solidjs/meta"
+import { ThemeToggle, ThemePicker } from "solid-theme-provider"
+import { CodeBlock } from "../components/CodeBlock"
 
 export default function Minimal() {
   return (
@@ -11,37 +12,48 @@ export default function Minimal() {
       <div class="demo-section">
         <h3>Live</h3>
         <div class="demo-box">
-          <ThemeProvider />
-          <span class="note">No props — defaults to system preference</span>
+          <ThemeToggle />
         </div>
+        <p class="note"><code>ThemeToggle</code> No props</p>
         <div class="demo-box">
-          <ThemeProvider label="Toggle Theme" />
-          <span class="note">With label prop</span>
+          <ThemeToggle label="Toggle Theme" />
         </div>
+        <p class="note"><code>ThemeToggle</code> With label prop</p>
+        <div class="demo-box">
+          <ThemePicker />
+        </div>
+        <p class="note"><code>ThemePicker</code> No props</p>
       </div>
 
       <div class="demo-section">
         <h3>Code</h3>
-        <pre><code>{`import { ThemeProvider } from "solid-theme-provider";
+        <CodeBlock code={`import { ThemeProvider, ThemeToggle } from "solid-theme-provider";
 
-// No props — system preference only
-<ThemeProvider />
-
-// With a label
-<ThemeProvider label="Toggle Theme" />`}</code></pre>
+export default function App() {
+  return (
+    <ThemeProvider>
+      <nav>
+        <ThemeToggle label="Toggle Theme" />
+      </nav>
+    </ThemeProvider>
+  )
+}`} />
+        <p>
+          The <code>ThemeProvider</code> component should wrap your app, and the ui components (<code>ThemeToggle</code>, <code>ThemePicker</code>) can be placed anywhere within it. By default, the provider will detect the user's system preference and apply the appropriate theme.
+        </p>
       </div>
 
       <div class="demo-section">
         <h3>Default CSS Variables</h3>
-        <pre><code>{`body, html {
+        <CodeBlock lang="css" code={`body, html {
   background: var(--stp-background);
   color: var(--stp-foreground);
-}`}</code></pre>
-        <p class="note" style={{ "margin-top": "0.75rem" }}>
+}`} />
+        <p>
           The component injects <code>--stp-background</code>, <code>--stp-foreground</code>, and{" "}
-          <code>--stp-button_radius</code> into <code>:root</code> on every theme switch.
+          <code>--stp-button_radius</code> into <code>:root</code> on every theme switch. These can be customized by passing a <code>theme</code> prop to the <code>ThemeProvider</code>.
         </p>
       </div>
     </main>
-  );
+  )
 }

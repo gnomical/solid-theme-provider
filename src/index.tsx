@@ -1,12 +1,16 @@
-export { For } from "solid-js";
+export { ThemeProvider, useTheme } from "./context/ThemeContext"
+export { ThemeToggle } from "./components/ThemeToggle"
+export { ThemePicker } from "./components/ThemePicker"
+
 export type {
+  ThemeContextValue,
+  ThemeProviderProps,
+  ThemeToggleProps,
+  ThemePickerProps,
   SystemThemesObject,
   ThemeConfig,
   ThemeObject,
-  ThemeProviderProps,
   ThemeVars,
-  ThemesConfigObject,
+  ThemesConfig,
   ThemesObject,
-} from "./lib/types";
-export { Dropdown } from "./Dropdown";
-export { ThemeProvider, currentTheme, setTheme } from "./ThemeProvider";
+} from "./lib/types"
