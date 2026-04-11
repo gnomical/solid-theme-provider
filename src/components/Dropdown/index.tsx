@@ -8,6 +8,7 @@ import { SystemThemesObject, ThemesObject } from "../../lib/types"
 type DropdownProps = {
   activeTheme: string
   allowSystemTheme?: boolean
+  menuPlacement?: "ne" | "se" | "sw" | "nw"
   toggleTheme: (theme: string) => void
   themes: ThemesObject
   systemThemes: SystemThemesObject | undefined
@@ -46,7 +47,7 @@ export function Dropdown(props: DropdownProps) {
   }
 
   return (
-    <div ref={containerRef} class={styles.dropdown}>
+    <div ref={containerRef} class={`${styles.dropdown}${props.menuPlacement ? ` ${styles[props.menuPlacement]}` : ""}`}>
       {allowSystemTheme && (
         <div
           class={`${styles.item}${props.activeTheme == SYSTEM_THEME_KEY ? ` ${styles.active}` : ""}`}

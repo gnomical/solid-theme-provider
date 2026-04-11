@@ -1,44 +1,15 @@
-.open {
-  background: var(--stp-background);
-  color: var(--stp-foreground);
-}
-
-.chevron svg {
-  transform: rotate(180deg);
-}
-
-.open .chevron svg {
-  transform: none;
-}
-
 .component {
   position: relative;
+  width: fit-content;
 
-  &.ne,
-  &.se {
-    .dropdown {
-      left: -0.25em;
-    }
+  .chevron svg {
+    transform: rotate(180deg);
   }
-
-  &.nw,
-  &.sw {
-    .dropdown {
-      right: -0.25em;
-    }
-  }
-
-  &.ne,
-  &.nw {
-    .dropdown {
-      bottom: 100%;
-    }
-  }
-
-  &.se,
-  &.sw {
-    .dropdown {
-      top: 100%;
+  .open {
+    background: var(--stp-background);
+    color: var(--stp-foreground);
+    .chevron svg {
+      transform: none;
     }
   }
 }

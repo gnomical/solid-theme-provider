@@ -24,7 +24,7 @@ export function ThemePicker(props: ThemePickerProps) {
   const icon = () => <span class={styles.chevron}>{CHEVRON_UP_ICON()}</span>
 
   return (
-    <div class={`${styles.component} ${styles[menuPlacement()]}`} classList={props.classList}>
+    <div class={styles.component} classList={props.classList}>
       <IconButton
         icon={icon()}
         label={props.label ?? "Theme"}
@@ -34,6 +34,7 @@ export function ThemePicker(props: ThemePickerProps) {
       {dropdownOpen() && (
         <Dropdown
           allowSystemTheme={ctx.systemThemesCorrect()}
+          menuPlacement={menuPlacement()}
           themes={ctx.themes()}
           systemThemes={ctx.systemThemes()}
           activeTheme={ctx.useSystem() ? SYSTEM_THEME_KEY : ctx.currentTheme()}

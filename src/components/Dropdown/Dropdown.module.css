@@ -11,6 +11,11 @@
   z-index: 2;
   box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
   border: 1px solid var(--stp-foreground-alpha_quarternary);
+
+  &.ne, &.se { left: -0.25em; }
+  &.nw, &.sw { right: -0.25em; }
+  &.ne, &.nw { bottom: 100%; }
+  &.se, &.sw { top: 100%; }
 }
 
 .item {
