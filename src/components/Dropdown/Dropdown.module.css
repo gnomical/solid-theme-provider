@@ -10,7 +10,7 @@
   padding: 0.25em;
   z-index: 2;
   box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--stp-foreground-alpha_quarternary);
+  border: 1px solid var(--stp-foreground-alpha_quaternary);
 
   &.ne,
   &.se {
@@ -48,7 +48,7 @@
   }
 
   &:hover:not(.active) {
-    background: var(--stp-foreground-alpha_quarternary);
+    background: var(--stp-foreground-alpha_quaternary);
   }
 }
 
