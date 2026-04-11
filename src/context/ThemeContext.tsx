@@ -14,7 +14,6 @@ import {
   ThemesConfig,
   ThemeVars,
 } from "../lib/types"
-import { SYSTEM_THEME_KEY } from "../lib/constants"
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined)
 
@@ -28,8 +27,6 @@ const defaultCalculateVariants = (name: string, value: string): ThemeVars => {
       [name + "-alpha_secondary"]: value + "99", // 60%
       [name + "-alpha_tertiary"]: value + "4d", // 30%
       [name + "-alpha_quaternary"]: value + "17", // 9%
-      // allow for misspelled 'quarternary' for backwards compatibility
-      [name + "-alpha_quarternary"]: value + "17", // 9%
     }
   }
   return {}
@@ -113,11 +110,14 @@ export function ThemeProvider(props: ThemeProviderProps) {
   })
 
   // inject the invert stylesheet
-  createEffect(() => {
-    let stylesheet = document.createElement("style")
-    stylesheet.type = "text/css"
-    stylesheet.id = "stp-inverter"
-    document.head.appendChild(stylesheet)
+  onMount(() => {
+    let stylesheet = document.getElementById("stp-inverter") as HTMLStyleElement | null
+    if (!stylesheet) {
+      stylesheet = document.createElement("style")
+      stylesheet.id = "stp-inverter"
+      document.head.appendChild(stylesheet)
+    }
+    onCleanup(() => stylesheet!.remove())
   })
 
   // check themes for proper config
