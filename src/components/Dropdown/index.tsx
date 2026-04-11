@@ -47,7 +47,10 @@ export function Dropdown(props: DropdownProps) {
   }
 
   return (
-    <div ref={containerRef} class={`${styles.dropdown}${props.menuPlacement ? ` ${styles[props.menuPlacement]}` : ""}`}>
+    <div
+      ref={containerRef}
+      class={`${styles.dropdown}${props.menuPlacement ? ` ${styles[props.menuPlacement]}` : ""}`}
+    >
       {allowSystemTheme && (
         <div
           class={`${styles.item}${props.activeTheme == SYSTEM_THEME_KEY ? ` ${styles.active}` : ""}`}

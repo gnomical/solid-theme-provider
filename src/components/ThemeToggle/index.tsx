@@ -32,6 +32,11 @@ export function ThemeToggle(props: ThemeToggleProps) {
   }
 
   return (
-    <IconButton icon={icon()} label={props.label} classList={props.classList} onMouseDown={toggle} />
+    <IconButton
+      icon={icon()}
+      label={props.label}
+      classList={props.classList}
+      onMouseDown={toggle}
+    />
   )
 }

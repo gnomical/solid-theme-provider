@@ -37,7 +37,14 @@ export function CodeBlock(props: CodeBlockProps) {
   )
 
   return (
-    <Show when={html()} fallback={<pre><code>{props.code}</code></pre>}>
+    <Show
+      when={html()}
+      fallback={
+        <pre>
+          <code>{props.code}</code>
+        </pre>
+      }
+    >
       <div class="shiki-wrapper" innerHTML={html()} />
     </Show>
   )

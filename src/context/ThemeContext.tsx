@@ -8,12 +8,7 @@ import {
   useContext,
 } from "solid-js"
 import { fallbackThemes } from "../fallbacks.themes"
-import {
-  ThemeContextValue,
-  ThemeProviderProps,
-  ThemesConfig,
-  ThemeVars,
-} from "../lib/types"
+import { ThemeContextValue, ThemeProviderProps, ThemesConfig, ThemeVars } from "../lib/types"
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined)
 
@@ -36,9 +31,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
   const prefix = props.prefix || "stp-"
   const calculateVariants = props.calculateVariants || defaultCalculateVariants
 
-  const [themesConfig, setThemesConfig] = createSignal<ThemesConfig>(
-    props.themes ?? fallbackThemes,
-  )
+  const [themesConfig, setThemesConfig] = createSignal<ThemesConfig>(props.themes ?? fallbackThemes)
 
   const systemThemes = createMemo(() => themesConfig().systemThemes)
   const themes = createMemo(() => themesConfig().themes)
@@ -138,16 +131,12 @@ export function ThemeProvider(props: ThemeProviderProps) {
         if (!st.hasOwnProperty("dark")) {
           console.warn("The 'systemThemes.dark' property of your themes config is undefined.")
         } else if (!t.hasOwnProperty(st.dark)) {
-          console.warn(
-            `The 'systemThemes.dark' value '${st.dark}' does not match any theme key.`,
-          )
+          console.warn(`The 'systemThemes.dark' value '${st.dark}' does not match any theme key.`)
         }
         if (!st.hasOwnProperty("light")) {
           console.warn("The 'systemThemes.light' property of your themes config is undefined.")
         } else if (!t.hasOwnProperty(st.light)) {
-          console.warn(
-            `The 'systemThemes.light' value '${st.light}' does not match any theme key.`,
-          )
+          console.warn(`The 'systemThemes.light' value '${st.light}' does not match any theme key.`)
         }
       }
     }

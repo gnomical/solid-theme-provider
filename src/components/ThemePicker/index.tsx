@@ -19,6 +19,7 @@ export function ThemePicker(props: ThemePickerProps) {
       ctx.setUseSystem(false)
       ctx.setTheme(nextTheme)
     }
+    setDropdownOpen(false)
   }
 
   const icon = () => <span class={styles.chevron}>{CHEVRON_UP_ICON()}</span>
