@@ -27,11 +27,16 @@ jobs:
 
       - uses: pnpm/action-setup@v4
 
-      - name: Install dependencies
+      - name: Install root dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install demo dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: demo
+
       - name: Build static demo
-        run: pnpm --filter solid-theme-provider-demo run build:static
+        run: pnpm run build:static
+        working-directory: demo
 
       - name: Add CNAME for custom domain
         run: echo "stp.jacobkofron.com" > demo/.output/public/CNAME
