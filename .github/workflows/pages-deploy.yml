@@ -27,11 +27,8 @@ jobs:
 
       - uses: pnpm/action-setup@v4
 
-      - name: Install root dependencies
-        run: pnpm install --frozen-lockfile
-
       - name: Install demo dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
         working-directory: demo
 
       - name: Build static demo
