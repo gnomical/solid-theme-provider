@@ -5,12 +5,13 @@ import { resolve } from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url))
+const localSrc = resolve(__dirname, "../src/index.tsx")
 
 export default defineConfig({
   plugins: [solidStart(), nitro()],
   resolve: {
     alias: {
-      "solid-theme-provider": resolve(__dirname, "../src/index.tsx"),
+      "solid-theme-provider": localSrc,
     },
   },
 })
