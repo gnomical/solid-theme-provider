@@ -64,20 +64,43 @@ export function ThemeProvider(props: ThemeProviderProps) {
   const [currentTheme, setTheme] = createSignal(resolveDefaultTheme())
   const [currentSystem, setCurrentSystem] = createSignal(resolveDefaultTheme())
 
-  // When the themes config changes, reset to the new config's appropriate default
-  // (skip on first run — initial signals handle that)
-  let configInitialized = false
-  createEffect(() => {
-    themesConfig() // subscribe
-    if (!configInitialized) {
-      configInitialized = true
-      return
+  let isMounted = false
+  onMount(() => {
+    isMounted = true
+  })
+
+  const setThemesConfigWithIntent = (config: ThemesConfig) => {
+    // Capture intent before config changes
+    const st = systemThemes()
+    const wasDark = st ? currentTheme() === st.dark : false
+    const wasUsingSystem = useSystem()
+    setThemesConfig(config)
+
+    // Resolve new theme based on intent
+    const newSt = config.systemThemes
+    const newSystemThemesCorrect =
+      !!newSt &&
+      newSt.hasOwnProperty("dark") &&
+      newSt.hasOwnProperty("light") &&
+      !!config.themes[newSt.dark] &&
+      !!config.themes[newSt.light]
+
+    let next: string
+    if (wasUsingSystem && newSystemThemesCorrect) {
+      next = isMounted
+        ? window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? newSt!.dark
+          : newSt!.light
+        : newSt!.light
+    } else if (!wasUsingSystem && newSystemThemesCorrect) {
+      next = wasDark ? newSt!.dark : newSt!.light
+    } else {
+      next = props.default || Object.keys(config.themes)[0]
     }
-    const next = resolveDefaultTheme()
+
     setTheme(next)
     setCurrentSystem(next)
-    setUseSystem(props.default ? false : systemThemesCorrect())
-  })
+  }
 
   onMount(() => {
     const systemThemeIsDark = window.matchMedia("(prefers-color-scheme: dark)")
@@ -221,7 +244,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
     useSystem,
     setUseSystem,
     currentSystem,
-    setThemesConfig,
+    setThemesConfig: setThemesConfigWithIntent,
     prefix,
   }
 

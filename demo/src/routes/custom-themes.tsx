@@ -8,9 +8,15 @@ export default function CustomThemes() {
   const ctx = useTheme()
 
   onMount(() => {
-    const previous = { systemThemes: ctx.systemThemes(), themes: ctx.themes() }
+    const previousConfig = { systemThemes: ctx.systemThemes(), themes: ctx.themes() }
+    const previousTheme = ctx.currentTheme()
+    const previousUseSystem = ctx.useSystem()
     ctx.setThemesConfig(customThemes)
-    onCleanup(() => ctx.setThemesConfig(previous))
+    onCleanup(() => {
+      ctx.setThemesConfig(previousConfig)
+      ctx.setTheme(previousTheme)
+      ctx.setUseSystem(previousUseSystem)
+    })
   })
 
   return (
