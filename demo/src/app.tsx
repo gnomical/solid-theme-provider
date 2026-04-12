@@ -14,7 +14,9 @@ export default function App() {
           <MetaProvider>
             <Title>solid-theme-provider demo</Title>
             <nav>
-              <A class="logo" href="/">STP</A>
+              <A class="logo" href="/">
+                STP
+              </A>
               <A href="/">Home</A>
               <A href="/toggle">ThemeToggle</A>
               <A href="/picker">ThemePicker</A>
