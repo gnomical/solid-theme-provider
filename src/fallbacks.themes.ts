@@ -13,7 +13,7 @@ export const fallbackThemes: ThemesConfig = {
       vars: {
         background: "#111111",
         foreground: "#eeeeee",
-        button_radius: "0.5em",
+        "button-radius": "0.5em",
       },
     },
     light: {
@@ -23,7 +23,7 @@ export const fallbackThemes: ThemesConfig = {
       vars: {
         background: "#ffffff",
         foreground: "#111111",
-        button_radius: "0.5em",
+        "button-radius": "0.5em",
       },
     },
   },

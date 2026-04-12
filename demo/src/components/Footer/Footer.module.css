@@ -1,0 +1,19 @@
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  margin-top: 4rem;
+  border-top: 1px solid var(--stp-foreground-alpha-quaternary);
+  font-size: 0.85rem;
+  color: var(--stp-foreground-alpha-secondary);
+
+  a {
+    color: var(--stp-foreground-alpha-secondary);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--stp-foreground);
+    }
+  }
+}

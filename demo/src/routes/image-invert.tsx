@@ -59,18 +59,24 @@ export default function ImageInvert() {
 
       <div class="demo-section">
         <h3>Class-based usage</h3>
-        <CodeBlock lang="html" code={`<!-- Inverts when dark theme is active (primarily light image) -->
+        <CodeBlock
+          lang="html"
+          code={`<!-- Inverts when dark theme is active (primarily light image) -->
 <img class="invert-safe--light" src="..." />
 
 <!-- Inverts when light theme is active (primarily dark image) -->
-<img class="invert-safe--dark" src="..." />`} />
+<img class="invert-safe--dark" src="..." />`}
+        />
       </div>
 
       <div class="demo-section">
         <h3>src attribute usage (when you can't set class names)</h3>
-        <CodeBlock lang="html" code={`<!-- Works by appending the class name as a URL fragment -->
+        <CodeBlock
+          lang="html"
+          code={`<!-- Works by appending the class name as a URL fragment -->
 <img src="./logo.png#invert-safe--light" />
-<img src="./icon.png#invert-safe--dark" />`} />
+<img src="./icon.png#invert-safe--dark" />`}
+        />
       </div>
 
       <div class="demo-section">

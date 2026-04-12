@@ -16,8 +16,12 @@ function ThemeControls() {
         <span class="note" style={{ width: "100%", "margin-top": 0 }}>
           Drive theme externally:
         </span>
-        <button onClick={() => setTheme("light")}>Force Light</button>
-        <button onClick={() => setTheme("dark")}>Force Dark</button>
+        <button class="button" onClick={() => setTheme("light")}>
+          Force Light
+        </button>
+        <button class="button" onClick={() => setTheme("dark")}>
+          Force Dark
+        </button>
       </div>
     </>
   )
@@ -40,7 +44,8 @@ export default function Advanced() {
 
       <div class="demo-section">
         <h3>Code</h3>
-        <CodeBlock code={`import { ThemeProvider, ThemeToggle, useTheme } from "solid-theme-provider";
+        <CodeBlock
+          code={`import { ThemeProvider, ThemeToggle, useTheme } from "solid-theme-provider";
 
 function ThemeControls() {
   const { currentTheme, setTheme } = useTheme();
@@ -51,7 +56,8 @@ function ThemeControls() {
       <button onClick={() => setTheme("dark")}>Force Dark</button>
     </>
   );
-}`} />
+}`}
+        />
       </div>
 
       <div class="demo-section">

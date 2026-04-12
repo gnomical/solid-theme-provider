@@ -3,6 +3,7 @@ import { Router, A } from "@solidjs/router"
 import { FileRoutes } from "@solidjs/start/router"
 import { Suspense } from "solid-js"
 import { ThemeProvider, ThemeToggle } from "solid-theme-provider"
+import { Footer } from "./components/Footer"
 import "./app.css"
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
           <MetaProvider>
             <Title>solid-theme-provider demo</Title>
             <nav>
+              <span class="logo">STP</span>
               <A href="/">Home</A>
               <A href="/minimal">Minimal</A>
               <A href="/custom-themes">Custom Themes</A>
@@ -22,6 +24,7 @@ export default function App() {
               <ThemeToggle />
             </nav>
             <Suspense>{props.children}</Suspense>
+            <Footer />
           </MetaProvider>
         )}
       >
