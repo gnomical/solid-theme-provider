@@ -1,6 +1,7 @@
 import { createResource, Show } from "solid-js"
 import { createHighlighter } from "shiki"
 import { useTheme } from "solid-theme-provider"
+import styles from "./Code.module.css"
 
 const shikiThemeMap: Record<string, string> = {
   dark: "github-dark",
@@ -45,7 +46,7 @@ export function CodeBlock(props: CodeBlockProps) {
         </pre>
       }
     >
-      <div class="shiki-wrapper" innerHTML={html()} />
+      <div class={styles.code} innerHTML={html()} />
     </Show>
   )
 }

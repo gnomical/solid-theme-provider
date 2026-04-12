@@ -133,32 +133,6 @@ p {
   }
 }
 
-pre {
-  background: var(--stp-foreground-alpha-quaternary, rgba(0, 0, 0, 0.05));
-  border-radius: 0.4rem;
-  padding: 1rem 1.25rem;
-  overflow-x: auto;
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
-
-code {
-  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
-}
-
-.shiki-wrapper pre {
-  border-radius: var(--stp-button-radius);
-  padding: 1rem 1.25rem;
-  overflow-x: auto;
-  font-size: 0.85rem;
-  line-height: 1.6;
-  border: 1px solid var(--stp-foreground-alpha-quaternary);
-}
-
-.shiki-wrapper code {
-  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
-}
-
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
