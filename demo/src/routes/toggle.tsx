@@ -15,13 +15,13 @@ export default function Toggle() {
           <ThemeToggle />
         </div>
         <p class="note">
-          <CodeSpan code={`<ThemeToggle />`} /> No props
+          <CodeSpan code={`<ThemeToggle />`} /> - No props
         </p>
         <div class="demo-box">
           <ThemeToggle label="Toggle Theme" />
         </div>
         <p class="note">
-          <CodeSpan code={`<ThemeToggle label="Toggle Theme" />`} /> With label prop
+          <CodeSpan code={`<ThemeToggle label="Toggle Theme" />`} /> - With label prop
         </p>
       </div>
 
