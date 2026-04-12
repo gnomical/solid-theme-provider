@@ -1,6 +1,6 @@
 import { Title } from "@solidjs/meta"
 import { ThemeProvider, ThemeToggle, useTheme } from "solid-theme-provider"
-import { CodeBlock } from "../components/CodeBlock"
+import { CodeBlock } from "../components/Code"
 
 function ThemeControls() {
   const { currentTheme, setTheme } = useTheme()

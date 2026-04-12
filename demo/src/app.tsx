@@ -16,7 +16,8 @@ export default function App() {
             <nav>
               <span class="logo">STP</span>
               <A href="/">Home</A>
-              <A href="/minimal">Minimal</A>
+              <A href="/toggle">ThemeToggle</A>
+              <A href="/picker">ThemePicker</A>
               <A href="/custom-themes">Custom Themes</A>
               <A href="/advanced">Advanced</A>
               <A href="/image-invert">Image Invert</A>

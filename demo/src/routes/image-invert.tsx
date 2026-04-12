@@ -1,6 +1,6 @@
 import { Title } from "@solidjs/meta"
 import { ThemeProvider, ThemeToggle } from "solid-theme-provider"
-import { CodeBlock } from "../components/CodeBlock"
+import { CodeBlock } from "../components/Code"
 
 // Simple inline SVGs to demo the invert classes without needing external assets
 const lightSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect width="80" height="80" fill="white"/><circle cx="40" cy="40" r="20" fill="black"/><text x="40" y="45" text-anchor="middle" fill="white" font-size="12">light</text></svg>`

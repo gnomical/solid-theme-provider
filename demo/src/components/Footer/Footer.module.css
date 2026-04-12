@@ -3,7 +3,7 @@
   align-items: center;
   gap: 1.5rem;
   padding: 1.5rem;
-  margin-top: 4rem;
+  margin-top: auto;
   border-top: 1px solid var(--stp-foreground-alpha-quaternary);
   font-size: 0.85rem;
   color: var(--stp-foreground-alpha-secondary);
@@ -11,9 +11,20 @@
   a {
     color: var(--stp-foreground-alpha-secondary);
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 
     &:hover {
       color: var(--stp-foreground);
     }
+
+    svg {
+      width: 1.5em;
+    }
+  }
+
+  .sponsor svg {
+    color: hotpink;
   }
 }

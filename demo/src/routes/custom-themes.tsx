@@ -1,7 +1,7 @@
 import { onCleanup, onMount } from "solid-js"
 import { Title } from "@solidjs/meta"
 import { ThemePicker, useTheme } from "solid-theme-provider"
-import { CodeBlock } from "../components/CodeBlock"
+import { CodeBlock } from "../components/Code"
 import { customThemes } from "../data/custom-themes"
 
 export default function CustomThemes() {

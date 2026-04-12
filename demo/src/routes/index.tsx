@@ -3,19 +3,24 @@ import { A } from "@solidjs/router"
 
 const pages = [
   {
-    href: "/minimal",
-    title: "Minimal",
-    description: "Zero-config usage. System theme detection + label prop.",
+    href: "/toggle",
+    title: "ThemeToggle",
+    description: "One-click toggle between light and dark. No configuration required.",
+  },
+  {
+    href: "/picker",
+    title: "ThemePicker",
+    description: "Dropdown listing all available themes, with menuPlacement options.",
   },
   {
     href: "/custom-themes",
     title: "Custom Themes",
-    description: "Supply a themes.json with multiple named themes.",
+    description: "Supply a themes config with multiple named themes.",
   },
   {
     href: "/advanced",
     title: "Advanced",
-    description: "Use currentTheme and setTheme to drive external components.",
+    description: "Use useTheme() to drive external components from theme state.",
   },
   {
     href: "/image-invert",

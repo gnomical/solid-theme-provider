@@ -16,6 +16,14 @@ body {
   background: var(--stp-background);
   color: var(--stp-foreground);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 nav {
@@ -61,6 +69,7 @@ nav .spacer {
 }
 
 main {
+  flex: 1;
   max-width: 860px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
