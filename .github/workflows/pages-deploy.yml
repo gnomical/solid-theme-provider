@@ -19,19 +19,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: "24"
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.0
 
       - name: Install root dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Install demo dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm run setup
         working-directory: demo
 
       - name: Build static demo
@@ -45,7 +47,7 @@ jobs:
         run: cp demo/.output/public/index.html demo/.output/public/404.html
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: demo/.output/public
 
@@ -58,4 +60,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
