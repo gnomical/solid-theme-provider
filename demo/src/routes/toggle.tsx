@@ -41,8 +41,8 @@ export default function App() {
 }`}
         />
         <p>
-          The <code>ThemeProvider</code> component should wrap your app. <code>ThemeToggle</code> can
-          be placed anywhere within it. By default, the provider will detect the user's system
+          The <code>ThemeProvider</code> component should wrap your app. <code>ThemeToggle</code>{" "}
+          can be placed anywhere within it. By default, the provider will detect the user's system
           preference and apply the appropriate theme.
         </p>
       </div>
@@ -58,8 +58,8 @@ export default function App() {
         />
         <p>
           On every theme switch, all variables defined in your theme's <code>vars</code> object are
-          injected into <code>:root</code>. The built-in themes define <code>--stp-background</code>,{" "}
-          <code>--stp-foreground</code>, and <code>--stp-button-radius</code> — but in practice
+          injected into <code>:root</code>. The built-in themes define <code>--stp-background</code>
+          , <code>--stp-foreground</code>, and <code>--stp-button-radius</code> — but in practice
           you'll define your own. Any key/value pair in <code>vars</code> becomes a CSS custom
           property your stylesheets can consume directly.
         </p>
