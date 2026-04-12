@@ -16,7 +16,7 @@
     "shiki": "^4.0.2",
     "solid-js": "^1.9.12",
     "solid-theme-provider": "file:..",
-    "vite": "^8.0.8"
+    "vite": "^7.3.2"
   },
   "engines": {
     "node": ">=24"
