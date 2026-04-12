@@ -35,7 +35,7 @@ export default function Home() {
       <Title>solid-theme-provider demo</Title>
       <h1>solid-theme-provider</h1>
       <h2>
-        Interactive demos for select features, view the README for more features and information.
+        Interactive demos for select features, view the <a href="https://www.npmjs.com/package/solid-theme-provider" target="_blank" rel="noopener noreferrer">README</a> for more features and information.
       </h2>
       <div class="card-grid">
         {pages.map(page => (
