@@ -33,7 +33,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install demo dependencies
-        run: pnpm install --ignore-workspace
+        run: pnpm run setup
         working-directory: demo
 
       - name: Build static demo

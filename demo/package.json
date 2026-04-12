@@ -2,7 +2,8 @@
   "name": "solid-theme-provider-demo",
   "type": "module",
   "scripts": {
-    "dev": "pnpm install --ignore-workspace && vite dev",
+    "setup": "pnpm install --ignore-workspace && pnpm approve-builds --all",
+    "dev": "vite dev",
     "build": "vite build",
     "start": "vite start",
     "preview": "vite preview",
