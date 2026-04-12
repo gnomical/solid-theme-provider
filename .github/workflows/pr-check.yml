@@ -36,6 +36,9 @@ jobs:
 
       - uses: pnpm/action-setup@v4
 
+      - name: Install root dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Install demo dependencies
         run: pnpm install --ignore-workspace
         working-directory: demo
