@@ -33,6 +33,9 @@ jobs:
       - name: Build static demo
         run: pnpm --filter solid-theme-provider-demo run build:static
 
+      - name: Add CNAME for custom domain
+        run: echo "stp.jacobkofron.com" > demo/.output/public/CNAME
+
       - name: Copy index.html to 404.html for SPA routing
         run: cp demo/.output/public/index.html demo/.output/public/404.html
 

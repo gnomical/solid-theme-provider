@@ -7,7 +7,6 @@ import { fileURLToPath } from "url"
 const __dirname = fileURLToPath(new URL(".", import.meta.url))
 
 export default defineConfig({
-  base: "/solid-theme-provider/",
   plugins: [
     solidStart({ ssr: false }),
     nitro({
