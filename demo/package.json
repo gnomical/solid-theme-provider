@@ -5,7 +5,8 @@
     "dev": "vite dev",
     "build": "vite build",
     "start": "vite start",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:static": "vite build --config vite.config.static.ts"
   },
   "dependencies": {
     "@solidjs/meta": "^0.29.4",
