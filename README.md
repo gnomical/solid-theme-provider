@@ -106,11 +106,11 @@ const themes: ThemesConfig = {
   themes: {
     ember_night: {
       config: { browserThemeColor: "#110000" },
-      vars: { background: "#110000", foreground: "#ddddcc", button_radius: "0.5em" },
+      vars: { background: "#110000", foreground: "#ddddcc", button-radius: "0.5em" },
     },
     warm_light: {
       config: { browserThemeColor: "#f1efe5" },
-      vars: { background: "#fffff5", foreground: "#111100", button_radius: "0.5em" },
+      vars: { background: "#fffff5", foreground: "#111100", button-radius: "0.5em" },
     },
   },
 };
