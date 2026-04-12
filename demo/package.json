@@ -15,7 +15,7 @@
     "@solidjs/vite-plugin-nitro-2": "^0.1.0",
     "shiki": "^4.0.2",
     "solid-js": "^1.9.12",
-    "solid-theme-provider": "workspace:*",
+    "solid-theme-provider": "file:..",
     "vite": "^7.3.2"
   },
   "engines": {

@@ -41,10 +41,15 @@ nav {
   backdrop-filter: blur(12px);
 
   .logo {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     font-family: "Bungee Shade", sans-serif;
     font-weight: 400;
     font-style: normal;
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
+    opacity: 1;
+    border: none;
   }
 }
 
@@ -59,8 +64,9 @@ nav a:hover {
   opacity: 1;
 }
 
-nav a[aria-current="page"] {
+nav a:not(.logo)[aria-current="page"] {
   opacity: 1;
+  padding-bottom: 2px;
   border-bottom: 3px solid currentColor;
 }
 
@@ -176,7 +182,6 @@ p {
 
 .note {
   font-size: 0.85rem;
-  opacity: 0.6;
   margin-top: 0.5rem;
 }
 
