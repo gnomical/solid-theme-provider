@@ -1,16 +1,22 @@
 import { onCleanup, onMount } from "solid-js"
 import { Title } from "@solidjs/meta"
 import { ThemePicker, useTheme } from "solid-theme-provider"
-import { CodeBlock } from "../components/CodeBlock"
+import { CodeBlock } from "../components/Code"
 import { customThemes } from "../data/custom-themes"
 
 export default function CustomThemes() {
   const ctx = useTheme()
 
   onMount(() => {
-    const previous = { systemThemes: ctx.systemThemes(), themes: ctx.themes() }
+    const previousConfig = { systemThemes: ctx.systemThemes(), themes: ctx.themes() }
+    const previousTheme = ctx.currentTheme()
+    const previousUseSystem = ctx.useSystem()
     ctx.setThemesConfig(customThemes)
-    onCleanup(() => ctx.setThemesConfig(previous))
+    onCleanup(() => {
+      ctx.setThemesConfig(previousConfig)
+      ctx.setTheme(previousTheme)
+      ctx.setUseSystem(previousUseSystem)
+    })
   })
 
   return (
@@ -27,14 +33,13 @@ export default function CustomThemes() {
         <div class="demo-box">
           <ThemePicker label="Theme" />
         </div>
-        <p class="note">
-          3 custom themes: Ember Night, Warm Light, and Trusty Turtle
-        </p>
+        <p class="note">3 custom themes: Ember Night, Warm Light, and Trusty Turtle</p>
       </div>
 
       <div class="demo-section">
         <h3>Code</h3>
-        <CodeBlock code={`import { ThemeProvider, ThemePicker } from "solid-theme-provider";
+        <CodeBlock
+          code={`import { ThemeProvider, ThemePicker } from "solid-theme-provider";
 import { myThemes } from "./themes";
 
 export default function App() {
@@ -45,7 +50,8 @@ export default function App() {
       </nav>
     </ThemeProvider>
   )
-}`} />
+}`}
+        />
       </div>
 
       <div class="demo-section">
@@ -59,7 +65,8 @@ export default function App() {
 
       <div class="demo-section">
         <h3>themes.tsx</h3>
-        <CodeBlock code={`import type { ThemesConfig } from "solid-theme-provider";
+        <CodeBlock
+          code={`import type { ThemesConfig } from "solid-theme-provider";
 
 export const myThemes: ThemesConfig = {
   systemThemes: {
@@ -87,15 +94,16 @@ export const myThemes: ThemesConfig = {
       vars: {
         background: "#115522",
         foreground: "#eeffee",
-        button_radius: "1.2em",
+        "button-radius": "1.2em",
       },
     },
   },
-};`} />
+};`}
+        />
         <p>
           The <code>icon</code> field accepts a function returning a JSX element, so it can be
-          rendered multiple times without DOM conflicts. Use a <code>.tsx</code> file to define
-          your themes when using icons.
+          rendered multiple times without DOM conflicts. Use a <code>.tsx</code> file to define your
+          themes when using icons.
         </p>
       </div>
     </main>

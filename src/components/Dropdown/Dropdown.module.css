@@ -3,14 +3,14 @@
   display: flex;
   flex-direction: column;
   gap: 0.25em;
-  background: var(--stp-background-alpha_tertiary);
+  background: var(--stp-background-alpha-tertiary);
   -webkit-backdrop-filter: blur(9px);
   backdrop-filter: blur(9px);
-  border-radius: var(--stp-button_radius);
+  border-radius: var(--stp-button-radius);
   padding: 0.25em;
   z-index: 2;
   box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--stp-foreground-alpha_quaternary);
+  border: 1px solid var(--stp-foreground-alpha-quaternary);
 
   &.ne,
   &.se {
@@ -37,18 +37,18 @@
   gap: 0.5em;
   white-space: nowrap;
   padding: 0.2em 0.5em 0.2em 0.25em;
-  border-radius: var(--stp-button_radius);
+  border-radius: var(--stp-button-radius);
   -webkit-user-select: none;
   user-select: none;
   border: 1px solid transparent;
 
   &.active {
     background: var(--stp-background);
-    border-color: var(--stp-foreground-alpha_tertiary);
+    border-color: var(--stp-foreground-alpha-tertiary);
   }
 
   &:hover:not(.active) {
-    background: var(--stp-foreground-alpha_quaternary);
+    background: var(--stp-foreground-alpha-quaternary);
   }
 }
 

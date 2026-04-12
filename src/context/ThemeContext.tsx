@@ -18,10 +18,10 @@ const defaultCalculateVariants = (name: string, value: string): ThemeVars => {
   const pattern = /^#[0-9A-F]{6}$/i
   if (value.match(pattern)) {
     return {
-      [name + "-alpha_primary"]: value + "f2", // 95%
-      [name + "-alpha_secondary"]: value + "99", // 60%
-      [name + "-alpha_tertiary"]: value + "4d", // 30%
-      [name + "-alpha_quaternary"]: value + "17", // 9%
+      [name + "-alpha-primary"]: value + "f2", // 95%
+      [name + "-alpha-secondary"]: value + "99", // 60%
+      [name + "-alpha-tertiary"]: value + "4d", // 30%
+      [name + "-alpha-quaternary"]: value + "17", // 9%
     }
   }
   return {}
@@ -64,20 +64,55 @@ export function ThemeProvider(props: ThemeProviderProps) {
   const [currentTheme, setTheme] = createSignal(resolveDefaultTheme())
   const [currentSystem, setCurrentSystem] = createSignal(resolveDefaultTheme())
 
-  // When the themes config changes, reset to the new config's appropriate default
-  // (skip on first run — initial signals handle that)
-  let configInitialized = false
-  createEffect(() => {
-    themesConfig() // subscribe
-    if (!configInitialized) {
-      configInitialized = true
-      return
-    }
-    const next = resolveDefaultTheme()
-    setTheme(next)
-    setCurrentSystem(next)
-    setUseSystem(props.default ? false : systemThemesCorrect())
+  let isMounted = false
+  onMount(() => {
+    isMounted = true
   })
+
+  const setThemesConfigWithIntent = (config: ThemesConfig) => {
+    // Capture intent before config changes
+    const st = systemThemes()
+    const prevTheme = currentTheme()
+    const wasUsingSystem = useSystem()
+    const wasOnDark = st ? prevTheme === st.dark : false
+    const wasOnSystemTheme = st ? prevTheme === st.dark || prevTheme === st.light : false
+    setThemesConfig(config)
+
+    // Resolve new theme based on intent
+    const newSt = config.systemThemes
+    const newSystemThemesCorrect =
+      !!newSt &&
+      newSt.hasOwnProperty("dark") &&
+      newSt.hasOwnProperty("light") &&
+      !!config.themes[newSt.dark] &&
+      !!config.themes[newSt.light]
+
+    // Resolve currentSystem independently of the user's active selection
+    const systemIsDark = isMounted
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches
+      : false
+    const newCurrentSystem = newSystemThemesCorrect
+      ? systemIsDark
+        ? newSt!.dark
+        : newSt!.light
+      : Object.keys(config.themes)[0]
+
+    let next: string
+    if (wasUsingSystem && newSystemThemesCorrect) {
+      next = newCurrentSystem
+    } else if (!wasUsingSystem && config.themes[prevTheme]) {
+      // Exact theme key exists in new config — preserve it
+      next = prevTheme
+    } else if (!wasUsingSystem && wasOnSystemTheme && newSystemThemesCorrect) {
+      // Previous theme was a system theme that no longer exists — map dark/light
+      next = wasOnDark ? newSt!.dark : newSt!.light
+    } else {
+      next = props.default || Object.keys(config.themes)[0]
+    }
+
+    setTheme(next)
+    setCurrentSystem(newCurrentSystem)
+  }
 
   onMount(() => {
     const systemThemeIsDark = window.matchMedia("(prefers-color-scheme: dark)")
@@ -221,7 +256,7 @@ export function ThemeProvider(props: ThemeProviderProps) {
     useSystem,
     setUseSystem,
     currentSystem,
-    setThemesConfig,
+    setThemesConfig: setThemesConfigWithIntent,
     prefix,
   }
 

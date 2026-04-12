@@ -1,0 +1,12 @@
+.code {
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+  border: 1px solid var(--stp-foreground-alpha-quaternary);
+  border-radius: var(--stp-button-radius);
+
+  pre {
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+}

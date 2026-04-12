@@ -1,7 +1,7 @@
 :root {
   --stp-background: #ffffff;
   --stp-foreground: #111111;
-  --stp-button_radius: 0.5em;
+  --stp-button-radius: 0.5em;
 }
 
 * {
@@ -16,6 +16,14 @@ body {
   background: var(--stp-background);
   color: var(--stp-foreground);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 nav {
@@ -26,11 +34,18 @@ nav {
   align-items: center;
   gap: 1rem;
   padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid var(--stp-foreground-alpha_quaternary);
+  border-bottom: 1px solid var(--stp-foreground-alpha-quaternary);
   flex-wrap: wrap;
-  background: var(--stp-background-alpha_quaternary);
+  background: var(--stp-background-alpha-quaternary);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
+
+  .logo {
+    font-size: 1.25rem;
+    font-family: "Bungee Shade", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
 }
 
 nav a {
@@ -54,6 +69,7 @@ nav .spacer {
 }
 
 main {
+  flex: 1;
   max-width: 860px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
@@ -69,7 +85,7 @@ h2 {
   font-size: 1.1rem;
   font-weight: 400;
   margin-bottom: 1rem;
-  color: var(--stp-foreground-alpha_secondary);
+  color: var(--stp-foreground-alpha-secondary);
 }
 
 p {
@@ -80,11 +96,11 @@ p {
   &.note {
     font-size: 0.85rem;
     margin-top: -0.75rem;
-    color: var(--stp-foreground-alpha_secondary);
+    color: var(--stp-foreground-alpha-secondary);
   }
 
   code {
-    background: var(--stp-foreground-alpha_quaternary);
+    background: var(--stp-foreground-alpha-quaternary);
     padding: 0.1rem 0.25rem;
     border-radius: 0.25rem;
   }
@@ -100,56 +116,30 @@ p {
   margin-bottom: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--stp-foreground-alpha_tertiary);
+  color: var(--stp-foreground-alpha-tertiary);
 }
 
 .demo-box {
   padding: 1.5rem;
-  border: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.09));
+  border: 1px solid var(--stp-foreground-alpha-quaternary, rgba(0, 0, 0, 0.09));
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
-  button {
+  .button {
     padding: 0.5rem 1rem;
-    border-radius: var(--stp-button_radius);
-    border: 1px solid var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.09));
+    border-radius: var(--stp-button-radius);
+    border: 1px solid var(--stp-foreground-alpha-quaternary, rgba(0, 0, 0, 0.09));
     background: transparent;
     color: var(--stp-foreground);
     cursor: pointer;
     transition: background 0.15s;
     &:hover {
-      background: var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.05));
+      background: var(--stp-foreground-alpha-quaternary, rgba(0, 0, 0, 0.05));
     }
   }
-}
-
-pre {
-  background: var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.05));
-  border-radius: 0.4rem;
-  padding: 1rem 1.25rem;
-  overflow-x: auto;
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
-
-code {
-  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
-}
-
-.shiki-wrapper pre {
-  border-radius: var(--stp-button_radius);
-  padding: 1rem 1.25rem;
-  overflow-x: auto;
-  font-size: 0.85rem;
-  line-height: 1.6;
-  border: 1px solid var(--stp-foreground-alpha_quaternary);
-}
-
-.shiki-wrapper code {
-  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
 }
 
 .card-grid {
@@ -161,7 +151,7 @@ code {
 
 .card {
   padding: 1.25rem;
-  border: 1px solid var(--stp-foreground-alpha_quaternary);
+  border: 1px solid var(--stp-foreground-alpha-quaternary);
   border-radius: 0.5rem;
   text-decoration: none;
   color: var(--stp-foreground);
@@ -169,7 +159,7 @@ code {
 }
 
 .card:hover {
-  background: var(--stp-foreground-alpha_quaternary);
+  background: var(--stp-foreground-alpha-quaternary);
 }
 
 .card h3 {
@@ -180,10 +170,9 @@ code {
 
 .card p {
   font-size: 0.85rem;
-  color: var(--stp-foreground-alpha_secondary);
+  color: var(--stp-foreground-alpha-secondary);
   margin: 0;
 }
-
 
 .note {
   font-size: 0.85rem;
@@ -191,9 +180,19 @@ code {
   margin-top: 0.5rem;
 }
 
+.placement-box {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  justify-content: space-between;
+  align-items: start;
+  min-height: 8rem;
+  align-content: space-between;
+}
+
 .current-theme-display {
   font-size: 1rem;
   padding: 0.5rem 1rem;
   border-radius: 0.4rem;
-  background: var(--stp-foreground-alpha_quaternary, rgba(0, 0, 0, 0.05));
+  background: var(--stp-foreground-alpha-quaternary, rgba(0, 0, 0, 0.05));
 }

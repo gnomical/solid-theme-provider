@@ -1,1 +1,0 @@
-- transition variable values on theme changes as an optional feature
