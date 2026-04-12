@@ -10,6 +10,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <Router
+        base={import.meta.env.BASE_URL}
         root={props => (
           <MetaProvider>
             <Title>solid-theme-provider demo</Title>
