@@ -7,7 +7,8 @@
     "build": "vite build",
     "start": "vite start",
     "preview": "vite preview",
-    "build:static": "vite build --config vite.config.static.ts"
+    "build:static": "vite build --config vite.config.static.ts",
+    "build:local": "cd .. && pnpm build && cd demo && pnpm run setup && pnpm run build:static"
   },
   "dependencies": {
     "@solidjs/meta": "^0.29.4",

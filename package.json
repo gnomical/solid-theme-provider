@@ -3,7 +3,7 @@
   "description": "Lightweight and customizable theme handler for Solid JS",
   "author": "Jacob Kofron",
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "homepage": "https://github.com/gnomical/solid-theme-provider#readme",
   "repository": {
     "type": "git",
@@ -19,11 +19,10 @@
   ],
   "type": "module",
   "packageManager": "pnpm@10.33.0",
-  "main": "dist/index.jsx",
-  "module": "dist/index.jsx",
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
+      "solid": "./dist/index.jsx",
       "default": "./dist/index.jsx"
     }
   },
@@ -33,19 +32,22 @@
     "types",
     "AGENTS.md"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "build": "vite build && tsc",
     "prepublishOnly": "npm run build",
     "prettier": "npx prettier --write ."
   },
   "devDependencies": {
+    "@types/node": "^25.6.0",
     "prettier": "^3.8.2",
     "solid-js": "^1.9.12",
     "tslib": "^2.8.1",
     "typescript": "^6.0.2",
-    "vite": "^8.0.8",
-    "vite-plugin-solid": "^2.11.12"
+    "vite": "^7.3.2",
+    "vite-plugin-lib-inject-css": "^2.2.2"
   },
   "peerDependencies": {
     "solid-js": "^1.9.0"
