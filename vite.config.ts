@@ -1,25 +1,26 @@
 import { fileURLToPath } from "node:url"
 import { defineConfig } from "vite"
-import solid from "vite-plugin-solid"
+import { libInjectCss } from "vite-plugin-lib-inject-css"
 
 export default defineConfig({
-  plugins: [solid()],
+  plugins: [libInjectCss()],
+  esbuild: {
+    jsx: "preserve",
+  },
   build: {
     lib: {
       entry: fileURLToPath(new URL("src/index.tsx", import.meta.url)),
       formats: ["es"],
-      fileName: "index",
     },
+    target: "esnext",
+    minify: false,
     rollupOptions: {
       external: ["solid-js", "solid-js/web", "solid-js/store"],
+      jsx: { mode: "preserve" },
       output: {
-        preserveModules: true,
-        preserveModulesRoot: "src",
-        entryFileNames: "[name].jsx",
         assetFileNames: "[name][extname]",
+        entryFileNames: "index.jsx",
       },
     },
-    cssCodeSplit: true,
-    minify: false,
   },
 })

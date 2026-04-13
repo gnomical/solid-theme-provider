@@ -10,6 +10,7 @@
     "moduleResolution": "node",
     "ignoreDeprecations": "6.0",
     "rootDir": "./src",
+    "types": ["node"],
     "strict": true,
     "outDir": "./types",
     "allowSyntheticDefaultImports": true
