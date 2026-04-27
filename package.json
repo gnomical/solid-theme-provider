@@ -38,7 +38,8 @@
   "scripts": {
     "build": "vite build && tsc",
     "prepublishOnly": "npm run build",
-    "prettier": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "format:check": "npx prettier --check ."
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
