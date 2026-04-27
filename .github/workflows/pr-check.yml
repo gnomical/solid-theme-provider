@@ -4,14 +4,20 @@ on:
   pull_request:
     branches:
       - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
 
 permissions:
   contents: read
 
 jobs:
-  build-library:
-    name: Build library
+  format:
+    name: Format check
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
     steps:
       - uses: actions/checkout@v6
 
@@ -20,8 +26,25 @@ jobs:
           node-version: "24"
 
       - uses: pnpm/action-setup@v6
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        run: pnpm format:check
+
+  build-library:
+    name: Build library
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
         with:
-          version: 10.33.0
+          node-version: "24"
+
+      - uses: pnpm/action-setup@v6
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -32,6 +55,7 @@ jobs:
   build-demo:
     name: Build demo
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
     steps:
       - uses: actions/checkout@v6
 
@@ -40,8 +64,6 @@ jobs:
           node-version: "24"
 
       - uses: pnpm/action-setup@v6
-        with:
-          version: 10.33.0
 
       - name: Install root dependencies
         run: pnpm install --frozen-lockfile

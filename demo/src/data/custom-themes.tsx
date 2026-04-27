@@ -32,6 +32,7 @@ export const customThemes: ThemesConfig = {
       config: {
         label: "Trusty Turtle",
         browserThemeColor: "#115522",
+        colorScheme: "light",
         icon: () => (
           <svg
             xmlns="http://www.w3.org/2000/svg"

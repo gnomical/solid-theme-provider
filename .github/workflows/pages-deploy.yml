@@ -26,8 +26,6 @@ jobs:
           node-version: "24"
 
       - uses: pnpm/action-setup@v6
-        with:
-          version: 10.33.0
 
       - name: Install root dependencies
         run: pnpm install --frozen-lockfile

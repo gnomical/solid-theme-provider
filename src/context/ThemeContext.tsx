@@ -230,6 +230,23 @@ export function ThemeProvider(props: ThemeProviderProps) {
       )
     }
 
+    // set color-scheme so native UI (scrollbars, form controls) match the active theme
+    const explicitColorScheme = t[theme].config?.colorScheme
+    if (explicitColorScheme) {
+      document.documentElement.style.setProperty("color-scheme", explicitColorScheme)
+    } else if (systemThemesCorrect()) {
+      const st = systemThemes()!
+      if (theme === st.dark) {
+        document.documentElement.style.setProperty("color-scheme", "dark")
+      } else if (theme === st.light) {
+        document.documentElement.style.setProperty("color-scheme", "light")
+      } else {
+        document.documentElement.style.removeProperty("color-scheme")
+      }
+    } else {
+      document.documentElement.style.removeProperty("color-scheme")
+    }
+
     // find the stp-inverter stylesheet and edit it
     if (systemThemesCorrect()) {
       const st = systemThemes()!
