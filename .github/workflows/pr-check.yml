@@ -17,6 +17,7 @@ jobs:
   format:
     name: Format check
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
     steps:
       - uses: actions/checkout@v6
 
@@ -35,6 +36,7 @@ jobs:
   build-library:
     name: Build library
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
     steps:
       - uses: actions/checkout@v6
 
@@ -53,6 +55,7 @@ jobs:
   build-demo:
     name: Build demo
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
     steps:
       - uses: actions/checkout@v6
 
