@@ -80,6 +80,7 @@ export const myThemes: ThemesConfig = {
       config: {
         label: "Trusty Turtle",
         browserThemeColor: "#115522",
+        colorScheme: "light",
         icon: () => (
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
             fill="none" stroke="currentColor" stroke-width="2"
@@ -104,6 +105,20 @@ export const myThemes: ThemesConfig = {
           The <code>icon</code> field accepts a function returning a JSX element, so it can be
           rendered multiple times without DOM conflicts. Use a <code>.tsx</code> file to define your
           themes when using icons.
+        </p>
+      </div>
+      <div class="demo-section">
+        <h3>Color Scheme</h3>
+        <p>
+          Use <code>colorScheme</code> in a theme's <code>config</code> to set{" "}
+          <code>color-scheme</code> on <code>&lt;html&gt;</code> when that theme is active. This
+          tells the browser whether to render native UI — scrollbars, form controls, and system
+          dialogs — in light or dark mode.
+        </p>
+        <p>
+          Themes mapped in <code>systemThemes.dark</code> and <code>systemThemes.light</code> have
+          this inferred automatically. Any other theme (like Trusty Turtle above) should declare it
+          explicitly.
         </p>
       </div>
     </main>

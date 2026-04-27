@@ -4,6 +4,7 @@ export type ThemeConfig = {
   label?: string
   icon?: () => JSX.Element
   browserThemeColor?: string
+  colorScheme?: "light" | "dark"
 }
 
 export type ThemeVars = {

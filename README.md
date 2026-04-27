@@ -133,6 +133,7 @@ Each theme can include an optional `config` object:
 | `label` | `string` | Display name in the picker (defaults to title-cased key) |
 | `icon` | `() => JSX.Element` | Icon shown in the picker |
 | `browserThemeColor` | `string` | Sets `<meta name="theme-color">` |
+| `colorScheme` | `"light" \| "dark"` | Sets `color-scheme` on `<html>` so native UI (scrollbars, form controls) match the theme. Inferred automatically for themes mapped in `systemThemes`. |
 
 ## Advanced Usage
 
