@@ -12,7 +12,7 @@ export default defineConfig({
     },
     target: "esnext",
     minify: false,
-    rollupOptions: {
+    rolldownOptions: {
       external: ["solid-js", "solid-js/web", "solid-js/store"],
       transform: { jsx: "preserve" },
       output: {
