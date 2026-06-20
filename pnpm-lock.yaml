@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@types/node':
-        specifier: ^25.6.0
-        version: 25.6.0
+        specifier: ^26.0.0
+        version: 26.0.0
       prettier:
         specifier: ^3.8.3
         version: 3.8.3
@@ -25,10 +25,10 @@ importers:
         version: 6.0.3
       vite:
         specifier: ^8.0.10
-        version: 8.0.10(@types/node@25.6.0)(esbuild@0.27.7)
+        version: 8.0.10(@types/node@26.0.0)(esbuild@0.27.7)
       vite-plugin-lib-inject-css:
         specifier: ^2.2.2
-        version: 2.2.2(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.7))
+        version: 2.2.2(vite@8.0.10(@types/node@26.0.0)(esbuild@0.27.7))
 
 packages:
 
@@ -372,8 +372,8 @@ packages:
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
 
-  '@types/node@25.6.0':
-    resolution: {integrity: sha512-+qIYRKdNYJwY3vRCZMdJbPLJAtGjQBudzZzdzwQYkEPQd+PJGixUL5QfvCLDaULoLv+RhT3LDkwEfKaAkgSmNQ==}
+  '@types/node@26.0.0':
+    resolution: {integrity: sha512-vf2YFi1iY9lHGwNJMs01biZFbKJkrZR1T6/MlzjhJLPdntOHLhTrDSnSVcdtvjihi4VQNlrFRIxLsDBlQpAipA==}
 
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
@@ -533,8 +533,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@7.19.2:
-    resolution: {integrity: sha512-qYVnV5OEm2AW8cJMCpdV20CDyaN3g0AjDlOGf1OW4iaDEx8MwdtChUp4zu4H0VP3nDRF/8RKWH+IPp9uW0YGZg==}
+  undici-types@8.3.0:
+    resolution: {integrity: sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ==}
 
   vite-plugin-lib-inject-css@2.2.2:
     resolution: {integrity: sha512-NF30p0GwtfSAmVlxo2NgPXM2rEdtgV7LFi4lkzajKD7P3Ru/ZAFmI533M0Z5qyMZpvNMxVGkewzpjD0HOWtbDQ==}
@@ -786,9 +786,9 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@types/node@25.6.0':
+  '@types/node@26.0.0':
     dependencies:
-      undici-types: 7.19.2
+      undici-types: 8.3.0
 
   csstype@3.2.3: {}
 
@@ -942,16 +942,16 @@ snapshots:
 
   typescript@6.0.3: {}
 
-  undici-types@7.19.2: {}
+  undici-types@8.3.0: {}
 
-  vite-plugin-lib-inject-css@2.2.2(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.7)):
+  vite-plugin-lib-inject-css@2.2.2(vite@8.0.10(@types/node@26.0.0)(esbuild@0.27.7)):
     dependencies:
       '@ast-grep/napi': 0.36.3
       magic-string: 0.30.21
       picocolors: 1.1.1
-      vite: 8.0.10(@types/node@25.6.0)(esbuild@0.27.7)
+      vite: 8.0.10(@types/node@26.0.0)(esbuild@0.27.7)
 
-  vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.7):
+  vite@8.0.10(@types/node@26.0.0)(esbuild@0.27.7):
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.4
@@ -959,6 +959,6 @@ snapshots:
       rolldown: 1.0.0-rc.17
       tinyglobby: 0.2.16
     optionalDependencies:
-      '@types/node': 25.6.0
+      '@types/node': 26.0.0
       esbuild: 0.27.7
       fsevents: 2.3.3
